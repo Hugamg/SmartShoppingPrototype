@@ -29,10 +29,14 @@ public class MainFrame extends javax.swing.JFrame {
         pageConnexion = new Connexion(this);
         pageAccueil = new Paged_accueil(this);
         pageListeRepas = new Liste_Repas();
+        bddRequest = new Requete_bdd();
         
         initComponents();
         
-        bddRequest.Connexion();
+        if(bddRequest.Connexion())
+            System.out.print("Connexion OK");
+        else
+            System.out.print("Connexion NON EFFECTUEE");
         
         this.setContentPane(pageConnexion);
     }
