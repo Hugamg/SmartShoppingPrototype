@@ -1,3 +1,11 @@
+package main;
+
+
+import page.Liste_Repas;
+import page.Paged_accueil;
+import page.Connexion;
+import bdd.Requete_bdd;
+
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -13,6 +21,7 @@ public class MainFrame extends javax.swing.JFrame {
     private Connexion pageConnexion;
     private Paged_accueil pageAccueil;
     private Liste_Repas pageListeRepas;
+    private Requete_bdd bddRequest;
     /**
      * Creates new form MainFrame
      */
@@ -22,6 +31,8 @@ public class MainFrame extends javax.swing.JFrame {
         pageListeRepas = new Liste_Repas();
         
         initComponents();
+        
+        bddRequest.Connexion();
         
         this.setContentPane(pageConnexion);
     }
