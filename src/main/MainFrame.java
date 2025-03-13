@@ -18,27 +18,15 @@ import bdd.Requete_bdd;
  */
 public class MainFrame extends javax.swing.JFrame {
 
-    private Connexion pageConnexion;
-    private Paged_accueil pageAccueil;
-    private Liste_Repas pageListeRepas;
-    private Requete_bdd bddRequest;
+    static private Connexion pageConnexion;
+    static private Paged_accueil pageAccueil;
+    static private Liste_Repas pageListeRepas;
+    static private Requete_bdd bddRequest;
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
-        pageConnexion = new Connexion(this);
-        pageAccueil = new Paged_accueil(this);
-        pageListeRepas = new Liste_Repas();
-        bddRequest = new Requete_bdd();
-        
         initComponents();
-        
-        if(bddRequest.Connexion())
-            System.out.print("Connexion OK");
-        else
-            System.out.print("Connexion NON EFFECTUEE");
-        
-        this.setContentPane(pageConnexion);
     }
     
     public void SwithPanel(String panelName){
@@ -48,6 +36,9 @@ public class MainFrame extends javax.swing.JFrame {
             case "pageListeRepas" : this.setContentPane(pageListeRepas); break;
         }
     }
+    
+    public Requete_bdd getBDD() { return this.bddRequest; }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -104,7 +95,20 @@ public class MainFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainFrame().setVisible(true);
+                MainFrame newMainFrame = new MainFrame();
+                
+                pageConnexion = new Connexion(newMainFrame);
+                pageAccueil = new Paged_accueil(newMainFrame);
+                pageListeRepas = new Liste_Repas(newMainFrame);
+                
+                newMainFrame.setContentPane(pageConnexion);
+                newMainFrame.setVisible(true);
+                
+                bddRequest = new Requete_bdd();
+                if(bddRequest.Connexion())
+                    System.out.print("Connexion OK\n");
+                else
+                    System.out.print("Connexion NON EFFECTUEE\n");
             }
         });
     }

@@ -75,7 +75,7 @@ public class Requete_bdd extends BDD{
         
         //Méthode de listage de tous les repas
         public ArrayList<ArrayList<Object>> listerRepas() {
-            String requete = "SELECT id_Repas, date, nom, type, recette FROM Repas";
+            String requete = "SELECT id, date_repas, nom, type FROM repas";
             return executeQuery(requete);
         }
 
