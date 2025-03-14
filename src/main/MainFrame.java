@@ -1,11 +1,13 @@
 package main;
 
 
+
 import page.Liste_Repas;
 import page.Paged_accueil;
 import page.Connexion;
 import page.Ajout_Modification_Repas;
 import bdd.Requete_bdd;
+import bdd.BDD;
 
 
 /*
@@ -19,6 +21,7 @@ import bdd.Requete_bdd;
  */
 public class MainFrame extends javax.swing.JFrame {
 
+    private BDD maBDD;
     static private Connexion pageConnexion;
     static private Paged_accueil pageAccueil;
     static private Liste_Repas pageListeRepas;
@@ -29,6 +32,8 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
+        
+        maBDD = new BDD();
     }
     
     public void SwithPanel(String panelName){
