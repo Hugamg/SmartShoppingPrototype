@@ -1,3 +1,8 @@
+package page; 
+
+import main.MainFrame;
+
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
@@ -11,11 +16,10 @@
  */
 public class Ajout_Modification_Repas extends javax.swing.JPanel {
     private MainFrame mainJFrame;
-
-    /** Creates new form Liste_Repas */
+    /** Creates new form Ajout_Modification_Repas */
     public Ajout_Modification_Repas(MainFrame newJFrame) {
         mainJFrame = newJFrame;
-      
+        initComponents();
         initComponents();
     }
 

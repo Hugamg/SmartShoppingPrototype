@@ -1,3 +1,8 @@
+package page;
+
+import main.MainFrame;
+import java.util.ArrayList;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
@@ -10,6 +15,7 @@
  * @author amagl
  */
 public class Liste_Repas extends javax.swing.JPanel {
+    
     private MainFrame mainJFrame;
 
     /** Creates new form Liste_Repas */
@@ -207,10 +213,14 @@ public class Liste_Repas extends javax.swing.JPanel {
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         // TODO add your handling code here:
+    System.out.print("BOX2 ACTION PERFORMED\n");
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
         // TODO add your handling code here:
+          
+    System.out.print("BOX3 ACTION PERFORMED\n");
+
     }//GEN-LAST:event_jComboBox3ActionPerformed
 
     private void BoutonCompte_ListeRepasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonCompte_ListeRepasActionPerformed
@@ -234,6 +244,26 @@ public class Liste_Repas extends javax.swing.JPanel {
            mainJFrame.SwithPanel("pageAjoutModifciationRepas");
     }//GEN-LAST:event_BoutonAjoutsModif_ListeRepasActionPerformed
 
+    private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {                                   
+        // TODO add your handling code here:
+        System.out.print("ANCESTOR ADDED\n");
+        
+        ArrayList<ArrayList<Object>> listeRepas;
+        listeRepas = mainJFrame.getBDD().listerRepas();
+        //System.out.print("Nombre de repas: "+listeRepas.size());
+        
+         for (ArrayList<Object> ligne : listeRepas) {
+            // Convertir la ligne en un tableau d'objets pour l'ajouter au modèle
+            Object[] rowData = ligne.toArray();
+
+            // Afficher les données dans la console (optionnel)
+            for (Object element : ligne) {
+                System.out.print(element + " , ");
+            }
+            System.out.println("");
+        }
+        
+    }                                  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BoutonAccueil_ListeRepas;

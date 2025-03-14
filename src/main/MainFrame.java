@@ -1,3 +1,12 @@
+package main;
+
+
+import page.Liste_Repas;
+import page.Paged_accueil;
+import page.Connexion;
+import page.Ajout_Modification_Repas;
+import bdd.Requete_bdd;
+
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -10,23 +19,16 @@
  */
 public class MainFrame extends javax.swing.JFrame {
 
-    private Connexion pageConnexion;
-    private Paged_accueil pageAccueil;
-    private Liste_Repas pageListeRepas;
-    private Ajout_Modification_Repas pageAjoutModifciationRepas;
-    
+    static private Connexion pageConnexion;
+    static private Paged_accueil pageAccueil;
+    static private Liste_Repas pageListeRepas;
+    static private Requete_bdd bddRequest;
+    static private Ajout_Modification_Repas pageAjoutModificationRepas;
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
-        pageConnexion = new Connexion(this);
-        pageAccueil = new Paged_accueil(this);
-        pageListeRepas = new Liste_Repas(this);
-        pageAjoutModifciationRepas = new Ajout_Modification_Repas(this);
-        
         initComponents();
-        
-        this.setContentPane(pageConnexion);
     }
     
     public void SwithPanel(String panelName){
@@ -34,10 +36,12 @@ public class MainFrame extends javax.swing.JFrame {
             case "pageConnexion" : this.setContentPane(pageConnexion);break;
             case "pageAccueil" : this.setContentPane(pageAccueil); break;
             case "pageListeRepas" : this.setContentPane(pageListeRepas); break;
-            /*case "pageListeRecette" : this.setsetContentPane(pageListeRepas); break;*/
-            case "pageAjoutModifciationRepas" : this.setContentPane(pageAjoutModifciationRepas); break;
+            case "pageAjoutModifciationRepas" : this.setContentPane(pageAjoutModificationRepas); break;
         }
     }
+    
+    public Requete_bdd getBDD() { return this.bddRequest; }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,7 +58,7 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1048, Short.MAX_VALUE)
+            .addGap(0, 863, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -94,7 +98,21 @@ public class MainFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainFrame().setVisible(true);
+                MainFrame newMainFrame = new MainFrame();
+                
+                pageConnexion = new Connexion(newMainFrame);
+                pageAccueil = new Paged_accueil(newMainFrame);
+                pageListeRepas = new Liste_Repas(newMainFrame);
+                pageAjoutModificationRepas = new Ajout_Modification_Repas(newMainFrame);
+                
+                newMainFrame.setContentPane(pageConnexion);
+                newMainFrame.setVisible(true);
+                
+                bddRequest = new Requete_bdd();
+                if(bddRequest.Connexion())
+                    System.out.print("Connexion OK\n");
+                else
+                    System.out.print("Connexion NON EFFECTUEE\n");
             }
         });
     }
