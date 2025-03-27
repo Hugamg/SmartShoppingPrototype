@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <EmptySpace min="0" pref="1150" max="32767" attributes="0"/>
+          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <EmptySpace min="0" pref="638" max="32767" attributes="0"/>
+          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JPanel" name="jPanel1">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="BoutonAccueil_MesRecettes" min="-2" pref="139" max="-2" attributes="0"/>
+                      <Component id="BoutonMesRecettes_ListeRepas" alignment="0" min="-2" pref="139" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="327" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabel5" min="-2" pref="220" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="jLabel2" min="-2" pref="220" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="371" max="-2" attributes="0"/>
+                          <Component id="BoutonCompte_Mes_Recettes" min="-2" pref="81" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Component id="BoutonAjoutsModif_ListeRepas" min="-2" pref="204" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="317" max="-2" attributes="0"/>
+                  <Component id="indicationsrecette_Mes_Recettes" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="145" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="Indicationitempsdepréparation_Mes_Recettes" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="indicationstempsdepréparation_Mes_Recettes" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
+              </Group>
+              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="-2" pref="795" max="-2" attributes="0"/>
+                              <Component id="Indicationrecette_Mes_Recettes" min="-2" pref="109" max="-2" attributes="0"/>
+                              <EmptySpace min="221" pref="221" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jScrollPane1" alignment="0" min="-2" pref="642" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="201" max="-2" attributes="0"/>
+                                      <Component id="Indicationdesrecettes_Mes_Recettes" min="-2" pref="220" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace pref="69" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jScrollPane3" alignment="0" min="-2" pref="189" max="-2" attributes="0"/>
+                                  <Component id="Indicationingrédient_Mes_Recettes" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="Indicationustensile_Mes_Recettes" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane4" alignment="0" min="-2" pref="189" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel2" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                              <Component id="BoutonCompte_Mes_Recettes" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabel5" min="-2" pref="39" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+                                  <Component id="indicationsrecette_Mes_Recettes" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
+                                  <Component id="BoutonAjoutsModif_ListeRepas" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="BoutonAccueil_MesRecettes" min="-2" pref="47" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="BoutonMesRecettes_ListeRepas" min="-2" pref="47" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace pref="377" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="Indicationitempsdepréparation_Mes_Recettes" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="indicationstempsdepréparation_Mes_Recettes" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+              </Group>
+              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="142" max="-2" attributes="0"/>
+                      <Component id="Indicationrecette_Mes_Recettes" min="-2" pref="23" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="Indicationustensile_Mes_Recettes" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                                  <Component id="Indicationingrédient_Mes_Recettes" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jScrollPane3" pref="307" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane4" pref="307" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace pref="103" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="Indicationdesrecettes_Mes_Recettes" min="-2" pref="23" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jScrollPane1" min="-2" pref="361" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="jLabel2">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Copperplate Gothic Bold" size="18" style="0"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Smart Shopping"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel5">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Copperplate Gothic Bold" size="14" style="0"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Mes Recettes"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="BoutonCompte_Mes_Recettes">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Compte"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BoutonCompte_Mes_RecettesActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="BoutonMesRecettes_ListeRepas">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Liste Repas"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BoutonMesRecettes_ListeRepasActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="BoutonAccueil_MesRecettes">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Accueil"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BoutonAccueil_MesRecettesActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="BoutonAjoutsModif_ListeRepas">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Ajout/Modification Repas"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BoutonAjoutsModif_ListeRepasActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="Indicationdesrecettes_Mes_Recettes">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Copperplate Gothic Bold" size="12" style="0"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Recettes"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
+          </Properties>
+        </Component>
+        <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JList" name="Listerecette_Mes_Recettes">
+              <Properties>
+                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                  <StringArray count="5">
+                    <StringItem index="0" value="Item 1"/>
+                    <StringItem index="1" value="Item 2"/>
+                    <StringItem index="2" value="Item 3"/>
+                    <StringItem index="3" value="Item 4"/>
+                    <StringItem index="4" value="Item 5"/>
+                  </StringArray>
+                </Property>
+                <Property name="selectionMode" type="int" value="0"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JLabel" name="Indicationrecette_Mes_Recettes">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Copperplate Gothic Bold" size="12" style="0"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Recette :"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="Indicationustensile_Mes_Recettes">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Copperplate Gothic Light" size="10" style="0"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Ustensiles :"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="Indicationingr&#xe9;dient_Mes_Recettes">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Copperplate Gothic Light" size="10" style="0"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Ingr&#xe9;dients :"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
+          </Properties>
+        </Component>
+        <Container class="javax.swing.JScrollPane" name="jScrollPane3">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JList" name="Listeingr&#xe9;dient_Mes_Recettes">
+              <Properties>
+                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                  <StringArray count="5">
+                    <StringItem index="0" value="Item 1"/>
+                    <StringItem index="1" value="Item 2"/>
+                    <StringItem index="2" value="Item 3"/>
+                    <StringItem index="3" value="Item 4"/>
+                    <StringItem index="4" value="Item 5"/>
+                  </StringArray>
+                </Property>
+                <Property name="selectionMode" type="int" value="0"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JScrollPane" name="jScrollPane4">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JList" name="Listeustensile_Mes_Recettes">
+              <Properties>
+                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                  <StringArray count="5">
+                    <StringItem index="0" value="Item 1"/>
+                    <StringItem index="1" value="Item 2"/>
+                    <StringItem index="2" value="Item 3"/>
+                    <StringItem index="3" value="Item 4"/>
+                    <StringItem index="4" value="Item 5"/>
+                  </StringArray>
+                </Property>
+                <Property name="selectionMode" type="int" value="0"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JFormattedTextField" name="indicationsrecette_Mes_Recettes">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Namethisrecipe"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="Indicationitempsdepr&#xe9;paration_Mes_Recettes">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Copperplate Gothic Light" size="10" style="0"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Temps de pr&#xe9;paration :"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="indicationstempsdepr&#xe9;paration_Mes_Recettes">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="preparation time"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="indicationstempsdepr&#xe9;paration_Mes_RecettesActionPerformed"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>

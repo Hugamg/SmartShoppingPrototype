@@ -4,6 +4,7 @@ import java.sql.*; // Inclue toute les importations SQL (PreparedStatement, Conn
 import java.util.ArrayList;
 
 
+
 public class BDD {
 
     protected Connection connection = null; 
@@ -11,6 +12,9 @@ public class BDD {
     private Statement statement = null;
     private ResultSet resultSet = null;
     private final PreparedStatement insertSet= null;
+    private String username;
+    private String password;
+    String url = "jdbc:mysql://127.0.0.1/smartshoppingprototype";
 
 
     // Méthode de connexion à la base de donnée
@@ -21,13 +25,8 @@ public class BDD {
             //Chargement du driver JDBC
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
 
-            String url = "jdbc:mysql://127.0.0.1/smartshoppingprototype";
-            String username = "smartshopping_user";
-            String password = "@123+aze$";
-
-
             // Vérification des identifiants
-            if (url==null|| username==null || password==null){
+            if (url== null|| username==null || password==null){
                 System.err.println("Les informations de connexion à la base de données sont manquantes. Vérifiez vos variables d'environnement.");
                 // System.err.println est principalement utilisé pour affichés les erreurs dans une console. Peut-être affiché en rouge 
                 return false;
@@ -48,7 +47,7 @@ public class BDD {
     }
     
 
-    // Méthode de fermeture de la connexion apès chaque utilisation
+    // Méthode de fermeture de la connexion après chaque utilisation
     public void closeConnection() {
         try { 
             if (connection != null) { //Si la connexion est null
@@ -104,6 +103,11 @@ public class BDD {
             e.printStackTrace();
             return null;
         }
+    }
+    
+    public void setIdentifiants(String username,String password){
+        this.username= username;
+        this.password= password;
     }
 
 }

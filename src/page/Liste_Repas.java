@@ -42,11 +42,12 @@ public class Liste_Repas extends javax.swing.JPanel {
         jComboBox3 = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        ListedesRepas_ListeRepas = new javax.swing.JTable();
         BoutonCompte_ListeRepas = new javax.swing.JButton();
         BoutonMesRecettes_ListeRecettes = new javax.swing.JButton();
         BoutonAccueil_ListeRepas = new javax.swing.JButton();
         BoutonAjoutsModif_ListeRepas = new javax.swing.JButton();
+        BoutonSuprrimer_ListeRepas = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 10)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -82,7 +83,7 @@ public class Liste_Repas extends javax.swing.JPanel {
         jLabel5.setText("Liste de repas");
         jLabel5.setToolTipText("");
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        ListedesRepas_ListeRepas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null}
             },
@@ -90,10 +91,19 @@ public class Liste_Repas extends javax.swing.JPanel {
                 "Checkbox", "Nom", "Personnes", "Type", "Recettes"
             }
         ));
-        jTable3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jTable3.setEnabled(false);
-        jScrollPane3.setViewportView(jTable3);
-        jTable3.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        ListedesRepas_ListeRepas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        ListedesRepas_ListeRepas.setEnabled(false);
+        ListedesRepas_ListeRepas.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                ListedesRepas_ListeRepasAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jScrollPane3.setViewportView(ListedesRepas_ListeRepas);
+        ListedesRepas_ListeRepas.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         BoutonCompte_ListeRepas.setText("Compte");
         BoutonCompte_ListeRepas.addActionListener(new java.awt.event.ActionListener() {
@@ -123,6 +133,13 @@ public class Liste_Repas extends javax.swing.JPanel {
             }
         });
 
+        BoutonSuprrimer_ListeRepas.setText("Supression Repas");
+        BoutonSuprrimer_ListeRepas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BoutonSuprrimer_ListeRepasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -141,25 +158,26 @@ public class Liste_Repas extends javax.swing.JPanel {
                         .addGap(371, 371, 371)
                         .addComponent(BoutonCompte_ListeRepas, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(395, 395, 395)
-                                .addComponent(BoutonAjoutsModif_ListeRepas, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(269, 269, 269)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(269, 269, 269)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(389, 389, 389)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(389, 389, 389)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(153, 153, 153)
+                .addComponent(BoutonAjoutsModif_ListeRepas, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BoutonSuprrimer_ListeRepas, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(266, 266, 266))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,7 +203,9 @@ public class Liste_Repas extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(BoutonAjoutsModif_ListeRepas)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BoutonAjoutsModif_ListeRepas)
+                    .addComponent(BoutonSuprrimer_ListeRepas))
                 .addGap(23, 23, 23))
         );
 
@@ -244,7 +264,11 @@ public class Liste_Repas extends javax.swing.JPanel {
            mainJFrame.SwithPanel("pageAjoutModifciationRepas");
     }//GEN-LAST:event_BoutonAjoutsModif_ListeRepasActionPerformed
 
-    private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {                                   
+    private void BoutonSuprrimer_ListeRepasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonSuprrimer_ListeRepasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BoutonSuprrimer_ListeRepasActionPerformed
+
+    private void ListedesRepas_ListeRepasAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_ListedesRepas_ListeRepasAncestorAdded
         // TODO add your handling code here:
         System.out.print("ANCESTOR ADDED\n");
         
@@ -262,14 +286,16 @@ public class Liste_Repas extends javax.swing.JPanel {
             }
             System.out.println("");
         }
-        
-    }                                  
+    }//GEN-LAST:event_ListedesRepas_ListeRepasAncestorAdded
+                               
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BoutonAccueil_ListeRepas;
     private javax.swing.JButton BoutonAjoutsModif_ListeRepas;
     private javax.swing.JButton BoutonCompte_ListeRepas;
     private javax.swing.JButton BoutonMesRecettes_ListeRecettes;
+    private javax.swing.JButton BoutonSuprrimer_ListeRepas;
+    private javax.swing.JTable ListedesRepas_ListeRepas;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
@@ -278,7 +304,6 @@ public class Liste_Repas extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable3;
     // End of variables declaration//GEN-END:variables
 
 }

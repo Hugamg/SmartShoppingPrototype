@@ -62,31 +62,30 @@
                           <Component id="BoutonCompte_ListeRepas" min="-2" pref="81" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="395" max="-2" attributes="0"/>
-                                  <Component id="BoutonAjoutsModif_ListeRepas" min="-2" pref="204" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="269" max="-2" attributes="0"/>
-                                  <Component id="jLabel1" min="-2" pref="123" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jComboBox2" min="-2" pref="166" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel4" min="-2" pref="28" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jComboBox3" min="-2" pref="166" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                          <EmptySpace min="-2" pref="269" max="-2" attributes="0"/>
+                          <Component id="jLabel1" min="-2" pref="123" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jComboBox2" min="-2" pref="166" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabel4" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jComboBox3" min="-2" pref="166" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="389" max="-2" attributes="0"/>
+                          <Component id="jLabel5" min="-2" pref="220" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="389" max="-2" attributes="0"/>
-                  <Component id="jLabel5" min="-2" pref="220" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="153" max="-2" attributes="0"/>
+                  <Component id="BoutonAjoutsModif_ListeRepas" min="-2" pref="204" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
+                  <Component id="BoutonSuprrimer_ListeRepas" min="-2" pref="204" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="266" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -118,7 +117,10 @@
                       <Component id="jScrollPane3" pref="407" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="BoutonAjoutsModif_ListeRepas" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="BoutonAjoutsModif_ListeRepas" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="BoutonSuprrimer_ListeRepas" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -208,7 +210,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable3">
+            <Component class="javax.swing.JTable" name="ListedesRepas_ListeRepas">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="5" rowCount="1">
@@ -256,6 +258,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="ListedesRepas_ListeRepasAncestorAdded"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -289,6 +294,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BoutonAjoutsModif_ListeRepasActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="BoutonSuprrimer_ListeRepas">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Supression Repas"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BoutonSuprrimer_ListeRepasActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

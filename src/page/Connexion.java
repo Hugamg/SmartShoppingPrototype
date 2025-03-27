@@ -1,6 +1,7 @@
 package page;
 
 import main.MainFrame;
+import bdd.BDD;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -12,12 +13,14 @@ import main.MainFrame;
  */
 public class Connexion extends javax.swing.JPanel {
     private MainFrame mainJFrame;
+    private BDD bdd;
 
     /**
      * Creates new form Connexion
      */
     public Connexion(MainFrame newJFrame) {
         mainJFrame = newJFrame;
+        bdd=new BDD();
         initComponents();
     }
 
@@ -32,26 +35,26 @@ public class Connexion extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        textField1 = new java.awt.TextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        Identifiant_field = new java.awt.TextField();
+        Password_field = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        Button_Reset = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        Button_Connexion = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Page de connexion");
         jLabel1.setToolTipText("");
 
-        textField1.setText("identifiant");
-        textField1.addActionListener(new java.awt.event.ActionListener() {
+        Identifiant_field.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textField1ActionPerformed(evt);
+                Identifiant_fieldActionPerformed(evt);
             }
         });
 
-        jPasswordField1.setText("jPasswordField1");
+        Password_field.setText("jPasswordField1");
 
         jLabel2.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -63,12 +66,12 @@ public class Connexion extends javax.swing.JPanel {
         jLabel3.setText("Identifiant :");
         jLabel3.setToolTipText("");
 
-        jButton1.setBackground(new java.awt.Color(204, 204, 204));
-        jButton1.setFont(new java.awt.Font("Franklin Gothic Medium Cond", 0, 14)); // NOI18N
-        jButton1.setText("Connexion");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Button_Reset.setBackground(new java.awt.Color(204, 204, 204));
+        Button_Reset.setFont(new java.awt.Font("Franklin Gothic Medium Cond", 0, 14)); // NOI18N
+        Button_Reset.setText("Reset");
+        Button_Reset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                Button_ResetActionPerformed(evt);
             }
         });
 
@@ -77,31 +80,42 @@ public class Connexion extends javax.swing.JPanel {
         jLabel4.setText("Mot de passe oublié ?");
         jLabel4.setToolTipText("");
 
+        Button_Connexion.setBackground(new java.awt.Color(204, 204, 204));
+        Button_Connexion.setFont(new java.awt.Font("Franklin Gothic Medium Cond", 0, 14)); // NOI18N
+        Button_Connexion.setText("Connexion");
+        Button_Connexion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_ConnexionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(207, 207, 207)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(252, 252, 252)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(207, 207, 207)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(96, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(216, 216, 216))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(Identifiant_field, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Password_field, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(216, 216, 216))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(Button_Connexion, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(86, 86, 86)
+                        .addComponent(Button_Reset, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(159, 159, 159))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,14 +126,16 @@ public class Connexion extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Identifiant_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                    .addComponent(Password_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Button_Reset, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Button_Connexion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(54, Short.MAX_VALUE))
         );
@@ -139,23 +155,45 @@ public class Connexion extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void textField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textField1ActionPerformed
+    private void Identifiant_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Identifiant_fieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textField1ActionPerformed
+    }//GEN-LAST:event_Identifiant_fieldActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void Button_ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ResetActionPerformed
         // TODO add your handling code here:
-        mainJFrame.SwithPanel("pageAccueil");
-    }//GEN-LAST:event_jButton1ActionPerformed
+        Identifiant_field.setText("");
+        Password_field.setText("");
+        
+    }//GEN-LAST:event_Button_ResetActionPerformed
+
+    private void Button_ConnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ConnexionActionPerformed
+        // TODO add your handling code here:
+        String identifiant =Identifiant_field.getText();
+        String password =new String(Password_field.getPassword());
+
+        // On fait appel à l'instance créer dans le MainFrame pour utiliser la méthode setIdentifiants présent dans la classe BDD
+        bdd.setIdentifiants(identifiant, password);
+        
+        if (bdd.Connexion()) {
+        mainJFrame.SwithPanel("pageListeRecette");
+    } else {
+        javax.swing.JOptionPane.showMessageDialog(this, 
+            "Identifiant ou mot de passe incorrect", 
+            "Erreur de connexion", 
+            javax.swing.JOptionPane.ERROR_MESSAGE);
+    }
+        
+    }//GEN-LAST:event_Button_ConnexionActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton Button_Connexion;
+    private javax.swing.JButton Button_Reset;
+    private java.awt.TextField Identifiant_field;
+    private javax.swing.JPasswordField Password_field;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private java.awt.TextField textField1;
     // End of variables declaration//GEN-END:variables
 }

@@ -36,33 +36,35 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="207" max="-2" attributes="0"/>
-                          <Component id="jLabel1" min="-2" pref="220" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="252" max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" pref="127" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
+                  <EmptySpace min="-2" pref="207" max="-2" attributes="0"/>
+                  <Component id="jLabel1" min="-2" pref="220" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace pref="96" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jLabel3" min="-2" pref="85" max="-2" attributes="0"/>
-                      <Component id="jLabel2" min="-2" pref="85" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel4" min="-2" pref="212" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="textField1" min="-2" pref="220" max="-2" attributes="0"/>
-                          <Component id="jPasswordField1" min="-2" pref="220" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jLabel3" min="-2" pref="85" max="-2" attributes="0"/>
+                              <Component id="jLabel2" min="-2" pref="85" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel4" min="-2" pref="212" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="Identifiant_field" min="-2" pref="220" max="-2" attributes="0"/>
+                                  <Component id="Password_field" min="-2" pref="220" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="-2" pref="216" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="Button_Connexion" min="-2" pref="127" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
+                          <Component id="Button_Reset" min="-2" pref="127" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="159" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="216" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -75,17 +77,20 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel3" min="-2" pref="39" max="-2" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="textField1" min="-2" max="-2" attributes="0"/>
+                          <Component id="Identifiant_field" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel2" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
-                      <Component id="jPasswordField1" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel2" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="Password_field" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jButton1" min="-2" pref="40" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="Button_Reset" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="Button_Connexion" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jLabel4" min="-2" pref="39" max="-2" attributes="0"/>
                   <EmptySpace pref="54" max="32767" attributes="0"/>
               </Group>
@@ -103,15 +108,12 @@
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
         </Component>
-        <Component class="java.awt.TextField" name="textField1">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="identifiant"/>
-          </Properties>
+        <Component class="java.awt.TextField" name="Identifiant_field">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textField1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Identifiant_fieldActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JPasswordField" name="jPasswordField1">
+        <Component class="javax.swing.JPasswordField" name="Password_field">
           <Properties>
             <Property name="text" type="java.lang.String" value="jPasswordField1"/>
           </Properties>
@@ -136,7 +138,7 @@
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="Button_Reset">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
@@ -144,10 +146,10 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Franklin Gothic Medium Cond" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Connexion"/>
+            <Property name="text" type="java.lang.String" value="Reset"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_ResetActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
@@ -159,6 +161,20 @@
             <Property name="text" type="java.lang.String" value="Mot de passe oubli&#xe9; ?"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="Button_Connexion">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="cc" green="cc" red="cc" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Franklin Gothic Medium Cond" size="14" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Connexion"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_ConnexionActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

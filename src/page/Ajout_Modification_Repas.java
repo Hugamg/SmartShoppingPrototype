@@ -123,7 +123,7 @@ public class Ajout_Modification_Repas extends javax.swing.JPanel {
 
         jLabel7.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 12)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Recette");
+        jLabel7.setText("Recettes");
         jLabel7.setToolTipText("");
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {

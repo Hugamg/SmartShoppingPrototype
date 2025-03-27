@@ -3,9 +3,11 @@ package main;
 
 
 import page.Liste_Repas;
+import page.Liste_Recette;
 import page.Paged_accueil;
 import page.Connexion;
 import page.Ajout_Modification_Repas;
+import page.Ajout_Modification_Recette;
 import bdd.Requete_bdd;
 import bdd.BDD;
 
@@ -25,8 +27,10 @@ public class MainFrame extends javax.swing.JFrame {
     static private Connexion pageConnexion;
     static private Paged_accueil pageAccueil;
     static private Liste_Repas pageListeRepas;
+    static private Liste_Recette pageListeRecette;
     static private Requete_bdd bddRequest;
     static private Ajout_Modification_Repas pageAjoutModificationRepas;
+    static private Ajout_Modification_Recette pageAjoutModificationRecette;
     /**
      * Creates new form MainFrame
      */
@@ -41,7 +45,9 @@ public class MainFrame extends javax.swing.JFrame {
             case "pageConnexion" : this.setContentPane(pageConnexion);break;
             case "pageAccueil" : this.setContentPane(pageAccueil); break;
             case "pageListeRepas" : this.setContentPane(pageListeRepas); break;
+            case "pageListeRecette" : this.setContentPane(pageListeRecette); break;
             case "pageAjoutModifciationRepas" : this.setContentPane(pageAjoutModificationRepas); break;
+            case "pageAjoutModifciationRecette" : this.setContentPane(pageAjoutModificationRecette); break;
         }
     }
     
@@ -108,7 +114,9 @@ public class MainFrame extends javax.swing.JFrame {
                 pageConnexion = new Connexion(newMainFrame);
                 pageAccueil = new Paged_accueil(newMainFrame);
                 pageListeRepas = new Liste_Repas(newMainFrame);
+                pageListeRecette = new Liste_Recette(newMainFrame);
                 pageAjoutModificationRepas = new Ajout_Modification_Repas(newMainFrame);
+                pageAjoutModificationRecette = new Ajout_Modification_Recette(newMainFrame);
                 
                 newMainFrame.setContentPane(pageConnexion);
                 newMainFrame.setVisible(true);

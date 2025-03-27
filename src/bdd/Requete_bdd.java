@@ -34,9 +34,15 @@ public class Requete_bdd extends BDD{
     // Requête Recettes
 
         // Méthode d'affichages de toutes les recettes  
-        public ArrayList<ArrayList<Object>> listerRecettes() {
-            String requete = "SELECT nom FROM Recette";
+        public ArrayList<ArrayList<Object>> listerRecette() {
+            String requete = "SELECT nom, id FROM recette";
             return executeQuery(requete);
+        }
+        
+        // Méthode de supression de recette
+        public boolean suppressionRecette(int recetteId) {
+            String requete = "DELETE FROM recette WHERE id = ?";
+            return executeUpdate(requete, recetteId);
         }
         
 
