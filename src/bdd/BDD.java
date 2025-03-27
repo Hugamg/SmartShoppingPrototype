@@ -14,8 +14,8 @@ public class BDD {
     private final PreparedStatement insertSet= null;
     private String username;
     private String password;
-    String url = "jdbc:mysql://127.0.0.1/smartshoppingprototype";
 
+ 
 
     // Méthode de connexion à la base de donnée
     public boolean Connexion() {
@@ -24,6 +24,10 @@ public class BDD {
               // le catch présent dans les blocs try permet d'intercepter les exceptions qui peuvent être levées 
             //Chargement du driver JDBC
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+            
+            String url = "jdbc:mysql://127.0.0.1/smartshoppingprototype";
+            String username ="hugo";
+            String password ="123";
 
             // Vérification des identifiants
             if (url== null|| username==null || password==null){
