@@ -70,15 +70,18 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        Accueil = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
         Menu_AjoutRepas = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMenu1.setText("File");
+        Accueil.setText("Menu");
 
         jMenuItem1.setText("Accueil");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -86,27 +89,34 @@ public class MainFrame extends javax.swing.JFrame {
                 jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        Accueil.add(jMenuItem1);
 
-        jMenuItem2.setText("Liste Repas");
-        jMenuItem2.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-                jMenuItem2AncestorMoved(evt);
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
-        jMenu1.add(jMenuItem2);
+        Menu_AjoutRepas.setText("Liste_Repas");
+
+        jMenuItem4.setText("Page de Liste des Repas");
+        Menu_AjoutRepas.add(jMenuItem4);
+
+        jMenuItem5.setText("Page d'Ajout de repas");
+        Menu_AjoutRepas.add(jMenuItem5);
+
+        Accueil.add(Menu_AjoutRepas);
 
         jMenuItem3.setText("Liste Recette");
-        jMenu1.add(jMenuItem3);
+        Accueil.add(jMenuItem3);
 
-        Menu_AjoutRepas.setText("Ajouter un repas");
-        jMenu1.add(Menu_AjoutRepas);
+        jMenu1.setText("Compte");
 
-        jMenuBar1.add(jMenu1);
+        jMenuItem6.setText("Modification_mot de passe");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem6);
+
+        Accueil.add(jMenu1);
+
+        jMenuBar1.add(Accueil);
 
         setJMenuBar(jMenuBar1);
 
@@ -128,9 +138,9 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenuItem2AncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jMenuItem2AncestorMoved
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2AncestorMoved
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,11 +196,14 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu Accueil;
     private javax.swing.JMenu Menu_AjoutRepas;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     // End of variables declaration//GEN-END:variables
 }
