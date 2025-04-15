@@ -23,7 +23,7 @@ import bdd.BDD;
  * @author r.topolovac
  */
 public class MainFrame extends javax.swing.JFrame {
-
+    private MainFrame mainJFrame;
     private BDD maBDD;
     static private Connexion pageConnexion;
     static private Nouveau_mot_de_passe pageNouveaumot_de_passe;
@@ -71,48 +71,63 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenuBar1 = new javax.swing.JMenuBar();
         Accueil = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        Menu_Accueil = new javax.swing.JMenuItem();
         Menu_AjoutRepas = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        Page_Liste_Repas = new javax.swing.JMenuItem();
+        Page_Ajout_Repas = new javax.swing.JMenuItem();
+        Page_Liste_Recette = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        Page_Modif_mdp = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         Accueil.setText("Menu");
 
-        jMenuItem1.setText("Accueil");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        Menu_Accueil.setText("Accueil");
+        Menu_Accueil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                Menu_AccueilActionPerformed(evt);
             }
         });
-        Accueil.add(jMenuItem1);
+        Accueil.add(Menu_Accueil);
 
         Menu_AjoutRepas.setText("Liste_Repas");
 
-        jMenuItem4.setText("Page de Liste des Repas");
-        Menu_AjoutRepas.add(jMenuItem4);
+        Page_Liste_Repas.setText("Page de Liste des Repas");
+        Page_Liste_Repas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Page_Liste_RepasActionPerformed(evt);
+            }
+        });
+        Menu_AjoutRepas.add(Page_Liste_Repas);
 
-        jMenuItem5.setText("Page d'Ajout de repas");
-        Menu_AjoutRepas.add(jMenuItem5);
+        Page_Ajout_Repas.setText("Page d'Ajout de repas");
+        Page_Ajout_Repas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Page_Ajout_RepasActionPerformed(evt);
+            }
+        });
+        Menu_AjoutRepas.add(Page_Ajout_Repas);
 
         Accueil.add(Menu_AjoutRepas);
 
-        jMenuItem3.setText("Liste Recette");
-        Accueil.add(jMenuItem3);
+        Page_Liste_Recette.setText("Liste Recette");
+        Page_Liste_Recette.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Page_Liste_RecetteActionPerformed(evt);
+            }
+        });
+        Accueil.add(Page_Liste_Recette);
 
         jMenu1.setText("Compte");
 
-        jMenuItem6.setText("Modification_mot de passe");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        Page_Modif_mdp.setText("Modification_mot de passe");
+        Page_Modif_mdp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                Page_Modif_mdpActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem6);
+        jMenu1.add(Page_Modif_mdp);
 
         Accueil.add(jMenu1);
 
@@ -124,23 +139,55 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 863, Short.MAX_VALUE)
+            .addGap(0, 1115, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 550, Short.MAX_VALUE)
+            .addGap(0, 627, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void Menu_AccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Menu_AccueilActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+        SwithPanel("paged_Accueil");
+        // Mettre à jour l'interface utilisateur
+        this.revalidate();
+        this.repaint();
+    }//GEN-LAST:event_Menu_AccueilActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    private void Page_Modif_mdpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Page_Modif_mdpActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+        SwithPanel("pageNouveaumot_de_passe");
+        // Mettre à jour l'interface utilisateur
+        this.revalidate();
+        this.repaint();
+    }//GEN-LAST:event_Page_Modif_mdpActionPerformed
+
+    private void Page_Liste_RepasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Page_Liste_RepasActionPerformed
+        // TODO add your handling code here:
+        SwithPanel("pageListeRepas");
+        // Mettre à jour l'interface utilisateur
+        this.revalidate();
+        this.repaint();
+    }//GEN-LAST:event_Page_Liste_RepasActionPerformed
+
+    private void Page_Ajout_RepasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Page_Ajout_RepasActionPerformed
+        // TODO add your handling code here:
+        SwithPanel("pageAjout_Repas");
+        // Mettre à jour l'interface utilisateur
+        this.revalidate();
+        this.repaint();
+    }//GEN-LAST:event_Page_Ajout_RepasActionPerformed
+
+    private void Page_Liste_RecetteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Page_Liste_RecetteActionPerformed
+        // TODO add your handling code here:
+        SwithPanel("pageListeRecette");
+        // Mettre à jour l'interface utilisateur
+        this.revalidate();
+        this.repaint();
+    }//GEN-LAST:event_Page_Liste_RecetteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -197,13 +244,13 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Accueil;
+    private javax.swing.JMenuItem Menu_Accueil;
     private javax.swing.JMenu Menu_AjoutRepas;
+    private javax.swing.JMenuItem Page_Ajout_Repas;
+    private javax.swing.JMenuItem Page_Liste_Recette;
+    private javax.swing.JMenuItem Page_Liste_Repas;
+    private javax.swing.JMenuItem Page_Modif_mdp;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     // End of variables declaration//GEN-END:variables
 }

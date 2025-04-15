@@ -1,7 +1,9 @@
 package page;
 
+import bdd.BDD;
 import main.MainFrame;
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -17,10 +19,12 @@ import java.util.ArrayList;
 public class Liste_Repas extends javax.swing.JPanel {
     
     private MainFrame mainJFrame;
+    private BDD bdd;
 
     /** Creates new form Liste_Repas */
     public Liste_Repas(MainFrame newJFrame) {
         mainJFrame = newJFrame;
+        bdd=new BDD();
       
         initComponents();
     }
@@ -224,6 +228,31 @@ public class Liste_Repas extends javax.swing.JPanel {
 
     private void BoutonSupprimer_ListeRepasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonSupprimer_ListeRepasActionPerformed
         // TODO add your handling code here:
+        //définir en premier le modèle de la table 
+        /*DefaultTableModel model = (DefaultTableModel) ListedesRepas_ListeRepas.getModel();
+        //supprimer les données existantes
+
+        // Vérifier si une ligne est sélectionnée
+        int selectedRow = ListedesRepas_ListeRepas.getSelectedRow();
+        if (selectedRow != -1){//si une ligne est sélectionner 
+
+            int repasId = (int)model.getValueAt(selectedRow, 1);
+            // Appeler la méthode suppressionRecette dans la BDD pour supprimer la recette
+            boolean success = mainJFrame.getBDD().supprimerRepas(repasId);
+
+            if(success){
+                //Ont supprime la ligne sélectionnée
+                model.removeRow(selectedRow);
+                JOptionPane.showMessageDialog(this, "Ligne supprimée avec succès !");
+                }else {
+            if(model.getRowCount()==0){
+                JOptionPane.showMessageDialog(this, "La table est vide");
+            }else{
+                //si la table n'est pas vide et qu'une ligne ou plusieurs lignes n'est pas sélectionner 
+                JOptionPane.showMessageDialog(this, "Veuillez sélectionner une ligne pour");
+                }
+            }
+        }*/
     }//GEN-LAST:event_BoutonSupprimer_ListeRepasActionPerformed
 
     private void ListedesRepas_ListeRepasAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_ListedesRepas_ListeRepasAncestorAdded

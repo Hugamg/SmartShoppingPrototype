@@ -7,11 +7,14 @@ public class Requete_bdd extends BDD{
 
     // Requête utilisateur
     
+    
+        //Méthode
+    
         // Méthode d'insertion d'utilisateur
-        public boolean insertionUtilisateur(String nom, String prenom, String email, String password) {
-            String requete = "INSERT INTO Utilisateur (nom, prenom, email, password) VALUES (?, ?, ?, ?)"; 
+        public boolean insertionUtilisateur(String identifiant, String nom, String prenom, String mdp) {
+            String requete = "INSERT INTO utilisateur (identifiant, nom, prenom, mdp) VALUES (?, ?, ?, ?)"; 
             // Les valeurs "?" corresponde aux valeurs qui seront insérer dans les colonnes indiqués
-            return executeUpdate(requete, nom, prenom, email, password);
+            return executeUpdate(requete);
         }
         
         // Méthode de supression d'utilisateur

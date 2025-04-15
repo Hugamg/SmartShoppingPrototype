@@ -1,17 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package page;
 
-import main.MainFrame;
+import javax.swing.*;
 import java.util.ArrayList;
+
+import main.MainFrame;
 import bdd.Requete_bdd;
 import bdd.BDD;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JTable;
 import javax.swing.ListSelectionModel; // Import nécessaire pour utiliser ListSelectionModel
+
 
 
 /**
@@ -20,11 +17,14 @@ import javax.swing.ListSelectionModel; // Import nécessaire pour utiliser ListS
  */
 public class Liste_Recette extends javax.swing.JPanel {
     private MainFrame mainJFrame;
+    private BDD bdd;
+    private JList<String> ListedesRecette_ListeRecette;
     
 
     /** Creates new form Liste_Recette */
     public Liste_Recette(MainFrame newJFrame) {
         mainJFrame = newJFrame;
+        bdd=new BDD();
       
         initComponents();
     
@@ -94,6 +94,20 @@ public class Liste_Recette extends javax.swing.JPanel {
             public String getElementAt(int i) { return strings[i]; }
         });
         Liste_recette.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        Liste_recette.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                Liste_recetteAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        Liste_recette.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Liste_recetteMouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(Liste_recette);
 
         Table_Info_Recette.setModel(new javax.swing.table.DefaultTableModel(
@@ -166,8 +180,8 @@ public class Liste_Recette extends javax.swing.JPanel {
                                     .addComponent(Field_LaRecette, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 836, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(0, 40, Short.MAX_VALUE))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 639, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(0, 237, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(144, 144, 144)
                 .addComponent(Bouton_Ajout_Recette)
@@ -252,13 +266,8 @@ public class Liste_Recette extends javax.swing.JPanel {
 
     private void BoutonAjoutsModif_ListeRepasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonAjoutsModif_ListeRepasActionPerformed
         // TODO add your handling code here:
-        mainJFrame.SwithPanel("pageAjoutModifciationRepas");
+        /**/
     }//GEN-LAST:event_BoutonAjoutsModif_ListeRepasActionPerformed
-
-    private void Bouton_Ajout_RecetteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bouton_Ajout_RecetteActionPerformed
-        // TODO add your handling code here:
-        mainJFrame.SwithPanel("pageAjoutModifciationRepas");
-    }//GEN-LAST:event_Bouton_Ajout_RecetteActionPerformed
 
     private void Bouton_Modif_RecetteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bouton_Modif_RecetteActionPerformed
         // TODO add your handling code here:
@@ -267,6 +276,43 @@ public class Liste_Recette extends javax.swing.JPanel {
     private void Bouton_Supprimer_RecetteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bouton_Supprimer_RecetteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Bouton_Supprimer_RecetteActionPerformed
+
+    private void Bouton_Ajout_RecetteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bouton_Ajout_RecetteActionPerformed
+        // TODO add your handling code here:
+        mainJFrame.SwithPanel("pageAjoutModifciationRepas");
+    }//GEN-LAST:event_Bouton_Ajout_RecetteActionPerformed
+
+    private void Liste_recetteAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Liste_recetteAncestorAdded
+        // TODO add your handling code here:
+        // Définir un nouveau modèle avec deux colonnes : "Nom" et "ID"
+        // Créer un nouveau modèle de liste
+        DefaultListModel<String> model = new DefaultListModel<>();
+        Liste_recette.setModel(model);
+
+        // Récupérer les nouvelles données depuis la BDD
+        ArrayList<ArrayList<Object>> listeRecette = mainJFrame.getBDD().listerRecette();
+
+        // Ajouter les nouvelles lignes au modèle
+        for (ArrayList<Object> ligne : listeRecette) {
+            String recetteInfo = ligne.get(0) + " "; // Exemple : "Nom de la recette (ID: 123)"
+            model.addElement(recetteInfo);
+        }
+
+        // Mettre à jour l'interface utilisateur
+        this.revalidate();
+        this.repaint();
+  
+    }//GEN-LAST:event_Liste_recetteAncestorAdded
+
+    private void Liste_recetteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Liste_recetteMouseClicked
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        int selectedRow = ListedesRecette_ListeRecette.getAnchorSelectionIndex(); // Récupère l'index de la ligne sélectionnée
+        if (selectedRow != -1) { // Vérifie qu'une ligne est bien sélectionnée
+        DefaultListModel model = (DefaultListModel) ListedesRecette_ListeRecette.getModel();
+        Object value = model.get(selectedRow); // Exemple : récupérer la valeur de la première colonne
+        System.out.println("Valeur sélectionnée : " + value);
+    }//GEN-LAST:event_Liste_recetteMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
