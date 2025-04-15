@@ -8,7 +8,7 @@ import page.Paged_accueil;
 import page.Liste_Repas;
 import page.Ajout_Repas;
 import page.Modification_Repas;
-import page.Liste_Recette;
+import page.Liste_Recettes;
 import bdd.Requete_bdd;
 import bdd.BDD;
 
@@ -32,7 +32,7 @@ public class MainFrame extends javax.swing.JFrame {
     static private Liste_Repas pageListeRepas;
     static private Ajout_Repas pageAjout_Repas;
     static private Modification_Repas pageModification_Repas;
-    static private Liste_Recette pageListeRecette;
+    static private Liste_Recettes pageListeRecettes;
     static private Requete_bdd bddRequest;
     
     /**
@@ -53,7 +53,7 @@ public class MainFrame extends javax.swing.JFrame {
             case "pageListeRepas" : this.setContentPane(pageListeRepas); break;
             case "pageAjout_Repas" : this.setContentPane(pageAjout_Repas); break;
             case "pageModification_Repas" : this.setContentPane(pageModification_Repas); break;
-            case "pageListeRecette" : this.setContentPane(pageListeRecette); break;
+            case "pageListeRecettes" : this.setContentPane(pageListeRecettes); break;
         }
     }
     
@@ -183,7 +183,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void Page_Liste_RecetteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Page_Liste_RecetteActionPerformed
         // TODO add your handling code here:
-        SwithPanel("pageListeRecette");
+        SwithPanel("pageListeRecettes");
         // Mettre à jour l'interface utilisateur
         this.revalidate();
         this.repaint();
@@ -228,7 +228,7 @@ public class MainFrame extends javax.swing.JFrame {
                 pageListeRepas = new Liste_Repas(newMainFrame);
                 pageAjout_Repas = new Ajout_Repas(newMainFrame);
                 pageModification_Repas = new Modification_Repas(newMainFrame);
-                pageListeRecette = new Liste_Recette(newMainFrame);
+                pageListeRecettes = new Liste_Recettes(newMainFrame);
                 
                 newMainFrame.setContentPane(pageConnexion);
                 newMainFrame.setVisible(true);
