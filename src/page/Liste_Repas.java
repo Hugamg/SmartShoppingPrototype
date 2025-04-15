@@ -175,10 +175,11 @@ public class Liste_Repas extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BoutonAjoutsModif_ListeRepas)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(BoutonSupprimer_ListeRepas)
-                    .addComponent(BoutonModif_ListeRepas))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(BoutonAjoutsModif_ListeRepas)
+                        .addComponent(BoutonModif_ListeRepas)))
                 .addGap(23, 23, 23))
         );
 

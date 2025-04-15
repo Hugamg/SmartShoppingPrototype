@@ -2,12 +2,13 @@ package main;
 
 
 import page.Connexion;
-import.page.Nouveau_mot_de_passe;
-import page.Liste_Repas;
-import page.Liste_Recette;
+import page.Nouveau_mot_de_passe;
+import page.Creation_de_compte;
 import page.Paged_accueil;
-import page.Connexion;
+import page.Liste_Repas;
 import page.Ajout_Repas;
+import page.Modification_Repas;
+import page.Liste_Recette;
 import bdd.Requete_bdd;
 import bdd.BDD;
 
@@ -25,11 +26,15 @@ public class MainFrame extends javax.swing.JFrame {
 
     private BDD maBDD;
     static private Connexion pageConnexion;
+    static private Nouveau_mot_de_passe pageNouveaumot_de_passe;
+    static private Creation_de_compte pageCreation_de_compte;
     static private Paged_accueil paged_Accueil;
     static private Liste_Repas pageListeRepas;
+    static private Ajout_Repas pageAjout_Repas;
+    static private Modification_Repas pageModification_Repas;
     static private Liste_Recette pageListeRecette;
     static private Requete_bdd bddRequest;
-    static private Ajout_Repas pageAjoutModificationRepas;
+    
     /**
      * Creates new form MainFrame
      */
@@ -42,11 +47,13 @@ public class MainFrame extends javax.swing.JFrame {
     public void SwithPanel(String panelName){
         switch (panelName){
             case "pageConnexion" : this.setContentPane(pageConnexion);break;
+            case "pageNouveaumot_de_passe" : this.setContentPane(pageNouveaumot_de_passe);break;
+            case "pageCreation_de_compte" : this.setContentPane(pageCreation_de_compte);break;
             case "paged_Accueil" : this.setContentPane(paged_Accueil); break;
             case "pageListeRepas" : this.setContentPane(pageListeRepas); break;
+            case "pageAjout_Repas" : this.setContentPane(pageAjout_Repas); break;
+            case "pageModification_Repas" : this.setContentPane(pageModification_Repas); break;
             case "pageListeRecette" : this.setContentPane(pageListeRecette); break;
-            case "pageAjoutModifciationRepas" : this.setContentPane(pageAjoutModificationRepas); break;
-            case "pageAjoutModifciationRecette" : this.setContentPane(pageAjoutModificationRecette); break;
         }
     }
     
@@ -158,11 +165,13 @@ public class MainFrame extends javax.swing.JFrame {
                 MainFrame newMainFrame = new MainFrame();
                 
                 pageConnexion = new Connexion(newMainFrame);
+                pageNouveaumot_de_passe = new Nouveau_mot_de_passe(newMainFrame);
+                pageCreation_de_compte = new Creation_de_compte(newMainFrame);               
                 paged_Accueil = new Paged_accueil(newMainFrame);
                 pageListeRepas = new Liste_Repas(newMainFrame);
+                pageAjout_Repas = new Ajout_Repas(newMainFrame);
+                pageModification_Repas = new Modification_Repas(newMainFrame);
                 pageListeRecette = new Liste_Recette(newMainFrame);
-                pageAjoutModificationRepas = new Ajout_Repas(newMainFrame);
-                pageAjoutModificationRecette = new Ajout_Modification_Recette(newMainFrame);
                 
                 newMainFrame.setContentPane(pageConnexion);
                 newMainFrame.setVisible(true);
