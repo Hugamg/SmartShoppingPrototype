@@ -1,13 +1,13 @@
 package main;
 
 
-
+import page.Connexion;
+import.page.Nouveau_mot_de_passe;
 import page.Liste_Repas;
 import page.Liste_Recette;
 import page.Paged_accueil;
 import page.Connexion;
-import page.Ajout_Modification_Repas;
-import page.Ajout_Modification_Recette;
+import page.Ajout_Repas;
 import bdd.Requete_bdd;
 import bdd.BDD;
 
@@ -25,12 +25,11 @@ public class MainFrame extends javax.swing.JFrame {
 
     private BDD maBDD;
     static private Connexion pageConnexion;
-    static private Paged_accueil pageAccueil;
+    static private Paged_accueil paged_Accueil;
     static private Liste_Repas pageListeRepas;
     static private Liste_Recette pageListeRecette;
     static private Requete_bdd bddRequest;
-    static private Ajout_Modification_Repas pageAjoutModificationRepas;
-    static private Ajout_Modification_Recette pageAjoutModificationRecette;
+    static private Ajout_Repas pageAjoutModificationRepas;
     /**
      * Creates new form MainFrame
      */
@@ -43,7 +42,7 @@ public class MainFrame extends javax.swing.JFrame {
     public void SwithPanel(String panelName){
         switch (panelName){
             case "pageConnexion" : this.setContentPane(pageConnexion);break;
-            case "pageAccueil" : this.setContentPane(pageAccueil); break;
+            case "paged_Accueil" : this.setContentPane(paged_Accueil); break;
             case "pageListeRepas" : this.setContentPane(pageListeRepas); break;
             case "pageListeRecette" : this.setContentPane(pageListeRecette); break;
             case "pageAjoutModifciationRepas" : this.setContentPane(pageAjoutModificationRepas); break;
@@ -63,7 +62,46 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        Menu_AjoutRepas = new javax.swing.JMenu();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jMenu1.setText("File");
+
+        jMenuItem1.setText("Accueil");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Liste Repas");
+        jMenuItem2.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+                jMenuItem2AncestorMoved(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuItem3.setText("Liste Recette");
+        jMenu1.add(jMenuItem3);
+
+        Menu_AjoutRepas.setText("Ajouter un repas");
+        jMenu1.add(Menu_AjoutRepas);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -73,11 +111,19 @@ public class MainFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 573, Short.MAX_VALUE)
+            .addGap(0, 550, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2AncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jMenuItem2AncestorMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2AncestorMoved
 
     /**
      * @param args the command line arguments
@@ -112,10 +158,10 @@ public class MainFrame extends javax.swing.JFrame {
                 MainFrame newMainFrame = new MainFrame();
                 
                 pageConnexion = new Connexion(newMainFrame);
-                pageAccueil = new Paged_accueil(newMainFrame);
+                paged_Accueil = new Paged_accueil(newMainFrame);
                 pageListeRepas = new Liste_Repas(newMainFrame);
                 pageListeRecette = new Liste_Recette(newMainFrame);
-                pageAjoutModificationRepas = new Ajout_Modification_Repas(newMainFrame);
+                pageAjoutModificationRepas = new Ajout_Repas(newMainFrame);
                 pageAjoutModificationRecette = new Ajout_Modification_Recette(newMainFrame);
                 
                 newMainFrame.setContentPane(pageConnexion);
@@ -131,5 +177,11 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu Menu_AjoutRepas;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     // End of variables declaration//GEN-END:variables
 }

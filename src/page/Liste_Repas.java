@@ -37,17 +37,15 @@ public class Liste_Repas extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        Filtre_Date1 = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        Filtre_Date2 = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         ListedesRepas_ListeRepas = new javax.swing.JTable();
-        BoutonCompte_ListeRepas = new javax.swing.JButton();
-        BoutonMesRecettes_ListeRecettes = new javax.swing.JButton();
-        BoutonAccueil_ListeRepas = new javax.swing.JButton();
         BoutonAjoutsModif_ListeRepas = new javax.swing.JButton();
-        BoutonSuprrimer_ListeRepas = new javax.swing.JButton();
+        BoutonSupprimer_ListeRepas = new javax.swing.JButton();
+        BoutonModif_ListeRepas = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 10)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -59,10 +57,10 @@ public class Liste_Repas extends javax.swing.JPanel {
         jLabel2.setText("Smart Shopping");
         jLabel2.setToolTipText("");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        Filtre_Date1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Filtre_Date1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                Filtre_Date1ActionPerformed(evt);
             }
         });
 
@@ -71,10 +69,10 @@ public class Liste_Repas extends javax.swing.JPanel {
         jLabel4.setText("à");
         jLabel4.setToolTipText("");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+        Filtre_Date2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Filtre_Date2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox3ActionPerformed(evt);
+                Filtre_Date2ActionPerformed(evt);
             }
         });
 
@@ -85,12 +83,13 @@ public class Liste_Repas extends javax.swing.JPanel {
 
         ListedesRepas_ListeRepas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+                {null, null, null, null}
             },
             new String [] {
-                "Checkbox", "Nom", "Personnes", "Type", "Recettes"
+                "Date", "Type", "Personnes", "Recettes"
             }
         ));
+        ListedesRepas_ListeRepas.setColumnSelectionAllowed(true);
         ListedesRepas_ListeRepas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         ListedesRepas_ListeRepas.setEnabled(false);
         ListedesRepas_ListeRepas.addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -105,38 +104,24 @@ public class Liste_Repas extends javax.swing.JPanel {
         jScrollPane3.setViewportView(ListedesRepas_ListeRepas);
         ListedesRepas_ListeRepas.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
-        BoutonCompte_ListeRepas.setText("Compte");
-        BoutonCompte_ListeRepas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BoutonCompte_ListeRepasActionPerformed(evt);
-            }
-        });
-
-        BoutonMesRecettes_ListeRecettes.setText("Mes Recettes");
-        BoutonMesRecettes_ListeRecettes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BoutonMesRecettes_ListeRecettesActionPerformed(evt);
-            }
-        });
-
-        BoutonAccueil_ListeRepas.setText("Accueil");
-        BoutonAccueil_ListeRepas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BoutonAccueil_ListeRepasActionPerformed(evt);
-            }
-        });
-
-        BoutonAjoutsModif_ListeRepas.setText("Ajout/Modification Repas");
+        BoutonAjoutsModif_ListeRepas.setText("Ajouter un Repas");
         BoutonAjoutsModif_ListeRepas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BoutonAjoutsModif_ListeRepasActionPerformed(evt);
             }
         });
 
-        BoutonSuprrimer_ListeRepas.setText("Supression Repas");
-        BoutonSuprrimer_ListeRepas.addActionListener(new java.awt.event.ActionListener() {
+        BoutonSupprimer_ListeRepas.setText("Supprimer un Repas");
+        BoutonSupprimer_ListeRepas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BoutonSuprrimer_ListeRepasActionPerformed(evt);
+                BoutonSupprimer_ListeRepasActionPerformed(evt);
+            }
+        });
+
+        BoutonModif_ListeRepas.setText("Modifier un Repas");
+        BoutonModif_ListeRepas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BoutonModif_ListeRepasActionPerformed(evt);
             }
         });
 
@@ -145,67 +130,55 @@ public class Liste_Repas extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BoutonMesRecettes_ListeRecettes, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BoutonAccueil_ListeRepas, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(472, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(371, 371, 371)
-                        .addComponent(BoutonCompte_ListeRepas, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(269, 269, 269)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(389, 389, 389)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(153, 153, 153)
                 .addComponent(BoutonAjoutsModif_ListeRepas, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BoutonSuprrimer_ListeRepas, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(266, 266, 266))
+                .addComponent(BoutonModif_ListeRepas, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(125, 125, 125)
+                .addComponent(BoutonSupprimer_ListeRepas, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(134, 134, 134))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(295, 295, 295)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Filtre_Date1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Filtre_Date2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(464, 464, 464)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(15, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(464, 464, 464))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BoutonCompte_ListeRepas, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Filtre_Date1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Filtre_Date2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(BoutonAccueil_ListeRepas, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BoutonMesRecettes_ListeRecettes, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BoutonAjoutsModif_ListeRepas)
-                    .addComponent(BoutonSuprrimer_ListeRepas))
+                    .addComponent(BoutonSupprimer_ListeRepas)
+                    .addComponent(BoutonModif_ListeRepas))
                 .addGap(23, 23, 23))
         );
 
@@ -231,42 +204,26 @@ public class Liste_Repas extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+    private void Filtre_Date1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Filtre_Date1ActionPerformed
         // TODO add your handling code here:
     System.out.print("BOX2 ACTION PERFORMED\n");
-    }//GEN-LAST:event_jComboBox2ActionPerformed
+    }//GEN-LAST:event_Filtre_Date1ActionPerformed
 
-    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+    private void Filtre_Date2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Filtre_Date2ActionPerformed
         // TODO add your handling code here:
           
     System.out.print("BOX3 ACTION PERFORMED\n");
 
-    }//GEN-LAST:event_jComboBox3ActionPerformed
-
-    private void BoutonCompte_ListeRepasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonCompte_ListeRepasActionPerformed
-        // TODO add your handling code here:
-        mainJFrame.SwithPanel("pageConnexion");
-    }//GEN-LAST:event_BoutonCompte_ListeRepasActionPerformed
-
-    private void BoutonMesRecettes_ListeRecettesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonMesRecettes_ListeRecettesActionPerformed
-        // TODO add your handling code here:
-        mainJFrame.SwithPanel("pageListeRepas");
-    }//GEN-LAST:event_BoutonMesRecettes_ListeRecettesActionPerformed
-
-    private void BoutonAccueil_ListeRepasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonAccueil_ListeRepasActionPerformed
-        // TODO add your handling code here:
-        mainJFrame.SwithPanel("pageAccueil");
-        
-    }//GEN-LAST:event_BoutonAccueil_ListeRepasActionPerformed
+    }//GEN-LAST:event_Filtre_Date2ActionPerformed
 
     private void BoutonAjoutsModif_ListeRepasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonAjoutsModif_ListeRepasActionPerformed
         // TODO add your handling code here:
            mainJFrame.SwithPanel("pageAjoutModifciationRepas");
     }//GEN-LAST:event_BoutonAjoutsModif_ListeRepasActionPerformed
 
-    private void BoutonSuprrimer_ListeRepasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonSuprrimer_ListeRepasActionPerformed
+    private void BoutonSupprimer_ListeRepasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonSupprimer_ListeRepasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_BoutonSuprrimer_ListeRepasActionPerformed
+    }//GEN-LAST:event_BoutonSupprimer_ListeRepasActionPerformed
 
     private void ListedesRepas_ListeRepasAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_ListedesRepas_ListeRepasAncestorAdded
         // TODO add your handling code here:
@@ -287,17 +244,19 @@ public class Liste_Repas extends javax.swing.JPanel {
             System.out.println("");
         }
     }//GEN-LAST:event_ListedesRepas_ListeRepasAncestorAdded
+
+    private void BoutonModif_ListeRepasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonModif_ListeRepasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BoutonModif_ListeRepasActionPerformed
                                
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BoutonAccueil_ListeRepas;
     private javax.swing.JButton BoutonAjoutsModif_ListeRepas;
-    private javax.swing.JButton BoutonCompte_ListeRepas;
-    private javax.swing.JButton BoutonMesRecettes_ListeRecettes;
-    private javax.swing.JButton BoutonSuprrimer_ListeRepas;
+    private javax.swing.JButton BoutonModif_ListeRepas;
+    private javax.swing.JButton BoutonSupprimer_ListeRepas;
+    private javax.swing.JComboBox<String> Filtre_Date1;
+    private javax.swing.JComboBox<String> Filtre_Date2;
     private javax.swing.JTable ListedesRepas_ListeRepas;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;

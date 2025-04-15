@@ -39,16 +39,34 @@ public class Liste_Recette extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        BoutonAjoutsModif_ListeRepas = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        BoutonCompte_ListeRecette = new javax.swing.JButton();
-        BoutonMesRecettes_ListeRepas = new javax.swing.JButton();
-        BoutonAccueil_ListeRecettes = new javax.swing.JButton();
-        BoutonAjoutsModif_ListeRecette = new javax.swing.JButton();
-        BoutonSupprimer_ListeRecette = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        ListedesRecette_ListeRecette = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        Liste_recette = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        Table_Info_Recette = new javax.swing.JTable();
+        jLabel12 = new javax.swing.JLabel();
+        Field_LaRecette = new javax.swing.JFormattedTextField();
+        Bouton_Ajout_Recette = new javax.swing.JButton();
+        Bouton_Modif_Recette = new javax.swing.JButton();
+        Bouton_Supprimer_Recette = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+
+        BoutonAjoutsModif_ListeRepas.setText("Ajouter un Repas");
+        BoutonAjoutsModif_ListeRepas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BoutonAjoutsModif_ListeRepasActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 14)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Liste de repas");
+        jLabel5.setToolTipText("");
 
         jPanel1.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
@@ -65,133 +83,151 @@ public class Liste_Recette extends javax.swing.JPanel {
         jLabel2.setText("Smart Shopping");
         jLabel2.setToolTipText("");
 
-        jLabel5.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 14)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Liste de recette");
-        jLabel5.setToolTipText("");
+        jLabel7.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 12)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Ingrédient pour la recette :");
+        jLabel7.setToolTipText("");
 
-        BoutonCompte_ListeRecette.setText("Compte");
-        BoutonCompte_ListeRecette.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BoutonCompte_ListeRecetteActionPerformed(evt);
-            }
+        Liste_recette.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
         });
+        Liste_recette.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane4.setViewportView(Liste_recette);
 
-        BoutonMesRecettes_ListeRepas.setText("Mes Repas");
-        BoutonMesRecettes_ListeRepas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BoutonMesRecettes_ListeRepasActionPerformed(evt);
-            }
-        });
-
-        BoutonAccueil_ListeRecettes.setText("Accueil");
-        BoutonAccueil_ListeRecettes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BoutonAccueil_ListeRecettesActionPerformed(evt);
-            }
-        });
-
-        BoutonAjoutsModif_ListeRecette.setText("Ajout/Modification Recette");
-        BoutonAjoutsModif_ListeRecette.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BoutonAjoutsModif_ListeRecetteActionPerformed(evt);
-            }
-        });
-
-        BoutonSupprimer_ListeRecette.setText("Supprimer Recette");
-        BoutonSupprimer_ListeRecette.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BoutonSupprimer_ListeRecetteActionPerformed(evt);
-            }
-        });
-
-        ListedesRecette_ListeRecette.setModel(new javax.swing.table.DefaultTableModel(
+        Table_Info_Recette.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Nom Recette"
+                "Nom Recette", "Ingrédient (1 personnes)"
             }
         ));
-        ListedesRecette_ListeRecette.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        ListedesRecette_ListeRecette.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        ListedesRecette_ListeRecette.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        ListedesRecette_ListeRecette.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                ListedesRecette_ListeRecetteAncestorAdded(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
-        ListedesRecette_ListeRecette.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ListedesRecette_ListeRecetteMouseClicked(evt);
+        jScrollPane2.setViewportView(Table_Info_Recette);
+
+        jLabel12.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 12)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText(" Recettes :");
+        jLabel12.setToolTipText("");
+
+        Bouton_Ajout_Recette.setText("Ajouter une Recette");
+        Bouton_Ajout_Recette.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Bouton_Ajout_RecetteActionPerformed(evt);
             }
         });
-        jScrollPane3.setViewportView(ListedesRecette_ListeRecette);
+
+        Bouton_Modif_Recette.setText("Modifier une Recette");
+        Bouton_Modif_Recette.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Bouton_Modif_RecetteActionPerformed(evt);
+            }
+        });
+
+        Bouton_Supprimer_Recette.setText("Supprimer une Recette");
+        Bouton_Supprimer_Recette.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Bouton_Supprimer_RecetteActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 14)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Liste de recettes");
+        jLabel6.setToolTipText("");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(472, 472, 472)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(91, 91, 91)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Field_LaRecette, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 836, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(0, 40, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(144, 144, 144)
+                .addComponent(Bouton_Ajout_Recette)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Bouton_Modif_Recette)
+                .addGap(227, 227, 227)
+                .addComponent(Bouton_Supprimer_Recette)
+                .addGap(152, 152, 152))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                        .addComponent(Field_LaRecette, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Bouton_Ajout_Recette, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Bouton_Modif_Recette, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Bouton_Supprimer_Recette, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jScrollPane3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BoutonMesRecettes_ListeRepas, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BoutonAccueil_ListeRecettes, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(472, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(371, 371, 371)
-                        .addComponent(BoutonCompte_ListeRecette, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(389, 389, 389)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(153, 153, 153)
-                                .addComponent(BoutonAjoutsModif_ListeRecette, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(281, 281, 281)
-                                .addComponent(BoutonSupprimer_ListeRecette, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+            .addGap(0, 1193, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BoutonCompte_ListeRecette, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(70, 70, 70)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(BoutonAccueil_ListeRecettes, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BoutonMesRecettes_ListeRepas, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 307, Short.MAX_VALUE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BoutonAjoutsModif_ListeRecette)
-                    .addComponent(BoutonSupprimer_ListeRecette))
-                .addGap(23, 23, 23))
+            .addGap(0, 687, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1150, Short.MAX_VALUE)
+            .addGap(0, 1193, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -200,7 +236,7 @@ public class Liste_Recette extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 630, Short.MAX_VALUE)
+            .addGap(0, 687, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -209,115 +245,46 @@ public class Liste_Recette extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BoutonCompte_ListeRecetteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonCompte_ListeRecetteActionPerformed
-        // TODO add your handling code here:
-        mainJFrame.SwithPanel("pageConnexion");
-    }//GEN-LAST:event_BoutonCompte_ListeRecetteActionPerformed
-
-    private void BoutonMesRecettes_ListeRepasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonMesRecettes_ListeRepasActionPerformed
-        // TODO add your handling code here:
-        mainJFrame.SwithPanel("pageListeRepas");
-    }//GEN-LAST:event_BoutonMesRecettes_ListeRepasActionPerformed
-
-    private void BoutonAccueil_ListeRecettesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonAccueil_ListeRecettesActionPerformed
-        // TODO add your handling code here:
-        //mainJFrame.SwithPanel("pageAccueil");
-
-    }//GEN-LAST:event_BoutonAccueil_ListeRecettesActionPerformed
-
-    private void BoutonAjoutsModif_ListeRecetteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonAjoutsModif_ListeRecetteActionPerformed
-        // TODO add your handling code here:
-        mainJFrame.SwithPanel("pageAjoutModifciationRepas");
-    }//GEN-LAST:event_BoutonAjoutsModif_ListeRecetteActionPerformed
-
-    private void BoutonSupprimer_ListeRecetteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonSupprimer_ListeRecetteActionPerformed
-        // TODO add your handling code here:
-       //définir en premier le modèle de la table 
-       DefaultTableModel model = (DefaultTableModel) ListedesRecette_ListeRecette.getModel();
-        //supprimer les données existantes
-        
-        // Vérifier si une ligne est sélectionnée
-        int selectedRow = ListedesRecette_ListeRecette.getSelectedRow();
-        if (selectedRow != -1){//si une ligne est sélectionner 
-
-            int recetteId = (int)model.getValueAt(selectedRow, 1);
-            // Appeler la méthode suppressionRecette dans la BDD pour supprimer la recette
-            boolean success = mainJFrame.getBDD().suppressionRecette(recetteId);
-            
-            if(success){
-                //Ont supprime la ligne sélectionnée
-                model.removeRow(selectedRow);
-                JOptionPane.showMessageDialog(this, "Ligne supprimée avec succès !");
-                }else {
-            if(model.getRowCount()==0){
-                JOptionPane.showMessageDialog(this, "La table est vide");
-            }else{
-                //si la table n'est pas vide et qu'une ligne ou plusieurs lignes n'est pas sélectionner 
-                JOptionPane.showMessageDialog(this, "Veuillez sélectionner une ligne pour");
-                }
-            }
-        }
-    }//GEN-LAST:event_BoutonSupprimer_ListeRecetteActionPerformed
-
     private void jPanel1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jPanel1AncestorAdded
         // TODO add your handling code here:
     
     }//GEN-LAST:event_jPanel1AncestorAdded
 
-    private void ListedesRecette_ListeRecetteAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_ListedesRecette_ListeRecetteAncestorAdded
+    private void BoutonAjoutsModif_ListeRepasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonAjoutsModif_ListeRepasActionPerformed
         // TODO add your handling code here:
-        System.out.print("ANCESTOR ADDED\n");
-        
-        // Définir un nouveau modèle avec deux colonnes : "Nom" et "ID"
-        DefaultTableModel model = new DefaultTableModel(new Object[]{"Nom", "ID"}, 0);
-        ListedesRecette_ListeRecette.setModel(model);
-        
-        // Vider les anciennes données
-        model.setRowCount(0);
-        
-        // Récupérer les nouvelles données depuis la BDD
-        ArrayList<ArrayList<Object>> listeRecette = mainJFrame.getBDD().listerRecette();
-        
-        // Ajouter les nouvelles lignes au modèle
-        for (ArrayList<Object> ligne : listeRecette) {
-            Object[] rowData = new Object[] {
-                ligne.get(0), // Exemple : nom de la recette
-                ligne.get(1), // Exemple : nom de la recette
-            };
-            model.addRow(rowData);
-        }
-        
-        // Masquer la colonne contenant l'ID
-        ListedesRecette_ListeRecette.getColumnModel().getColumn(1).setMinWidth(0);
-        ListedesRecette_ListeRecette.getColumnModel().getColumn(1).setMaxWidth(0);
-        ListedesRecette_ListeRecette.getColumnModel().getColumn(1).setWidth(0);
-        
-        this.revalidate(); 
-        this.repaint(); 
+        mainJFrame.SwithPanel("pageAjoutModifciationRepas");
+    }//GEN-LAST:event_BoutonAjoutsModif_ListeRepasActionPerformed
 
-    }//GEN-LAST:event_ListedesRecette_ListeRecetteAncestorAdded
-
-    private void ListedesRecette_ListeRecetteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListedesRecette_ListeRecetteMouseClicked
+    private void Bouton_Ajout_RecetteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bouton_Ajout_RecetteActionPerformed
         // TODO add your handling code here:
-        int selectedRow = ListedesRecette_ListeRecette.getSelectedRow(); // Récupère l'index de la ligne sélectionnée
-        if (selectedRow != -1) { // Vérifie qu'une ligne est bien sélectionnée
-        DefaultTableModel model = (DefaultTableModel) ListedesRecette_ListeRecette.getModel();
-        Object value = model.getValueAt(selectedRow, 0); // Exemple : récupérer la valeur de la première colonne
-        System.out.println("Valeur sélectionnée : " + value);
-        }
-    }//GEN-LAST:event_ListedesRecette_ListeRecetteMouseClicked
+        mainJFrame.SwithPanel("pageAjoutModifciationRepas");
+    }//GEN-LAST:event_Bouton_Ajout_RecetteActionPerformed
+
+    private void Bouton_Modif_RecetteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bouton_Modif_RecetteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Bouton_Modif_RecetteActionPerformed
+
+    private void Bouton_Supprimer_RecetteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bouton_Supprimer_RecetteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Bouton_Supprimer_RecetteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BoutonAccueil_ListeRecettes;
-    private javax.swing.JButton BoutonAjoutsModif_ListeRecette;
-    private javax.swing.JButton BoutonCompte_ListeRecette;
-    private javax.swing.JButton BoutonMesRecettes_ListeRepas;
-    private javax.swing.JButton BoutonSupprimer_ListeRecette;
-    private javax.swing.JTable ListedesRecette_ListeRecette;
+    private javax.swing.JButton BoutonAjoutsModif_ListeRepas;
+    private javax.swing.JButton Bouton_Ajout_Recette;
+    private javax.swing.JButton Bouton_Modif_Recette;
+    private javax.swing.JButton Bouton_Supprimer_Recette;
+    private javax.swing.JFormattedTextField Field_LaRecette;
+    private javax.swing.JList<String> Liste_recette;
+    private javax.swing.JTable Table_Info_Recette;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane4;
     // End of variables declaration//GEN-END:variables
 }
