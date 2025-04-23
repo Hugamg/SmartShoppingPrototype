@@ -1,39 +1,31 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package page;
 
+import bdd.BDD;
+import main.MainFrame;
 import javax.swing.*;
 import java.util.ArrayList;
-
-
-import bdd.BDD;
-import bdd.Requete_bdd;
-import javax.swing.JList;
-import main.MainFrame;
-import javax.swing.JOptionPane;
-import javax.swing.ListSelectionModel; // Import nécessaire pour utiliser ListSelectionModel
-
-
+import java.util.HashMap;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author amagl
  */
-public class Liste_Recettes extends javax.swing.JFrame {
-    private MainFrame mainJFrame;
+public class Liste_Recette extends javax.swing.JPanel {
+     private MainFrame mainJFrame;
     private BDD bdd;
-    private JList<String> ListedesRecette_ListeRecette;
+    private HashMap<Integer, Integer> indextoID = new HashMap<>();
     /**
-     * Creates new form Liste_Recet
+     * Creates new form Liste_Recett
      */
-    public Liste_Recettes(MainFrame newJFrame) {
+    public Liste_Recette(MainFrame newJFrame) {
         mainJFrame = newJFrame;
         bdd=new BDD();
-      
         initComponents();
-    
     }
 
     /**
@@ -45,6 +37,7 @@ public class Liste_Recettes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -57,8 +50,6 @@ public class Liste_Recettes extends javax.swing.JFrame {
         Ajouter_Recette = new javax.swing.JButton();
         Modifier_Recette = new javax.swing.JButton();
         Supprimer_Recette = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel2.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -82,13 +73,10 @@ public class Liste_Recettes extends javax.swing.JFrame {
 
         Tableau_Recette.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
-                "Nom Recette", "Ingrédient (1 personnes)"
+                "Nom Ingrédient", "Quantité (1 personnes)", "Calorie"
             }
         ));
         jScrollPane1.setViewportView(Tableau_Recette);
@@ -125,115 +113,197 @@ public class Liste_Recettes extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(438, 438, 438)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(472, 472, 472)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addContainerGap()
                                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(20, 20, 20)
                                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(86, 86, 86))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(Ajouter_Recette)
                                 .addGap(72, 72, 72)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Field_LaRecette, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Field_LaRecette, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 763, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(Modifier_Recette)
                                 .addGap(227, 227, 227)
                                 .addComponent(Supprimer_Recette)
                                 .addGap(83, 83, 83)))))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(65, 65, 65)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Field_LaRecette, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
                 .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Ajouter_Recette, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Modifier_Recette, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Supprimer_Recette, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
-        pack();
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1116, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 650, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void Liste_RecetteAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Liste_RecetteAncestorAdded
         // TODO add your handling code here:
+
         // Définir un nouveau modèle avec deux colonnes : "Nom" et "ID"
-        // Créer un nouveau modèle de liste
-        DefaultListModel<String> model = new DefaultListModel<>();
-        Liste_Recette.setModel(model);
-
+        
+        DefaultListModel<String> model = new DefaultListModel<>(); // Créer un nouveau modèle de liste
+        model.setSize(0); // On vide le tableau avant d’ajouter les nouvelles lignes. Ici on indique que le modèle ne possède aucune ligne (0)
+        Liste_Recette.setModel(model); // On approprie le modèle de liste précédemment créer au modèle que l'on possède 
+        
+        
         // Récupérer les nouvelles données depuis la BDD
-        ArrayList<ArrayList<Object>> listeRecette = mainJFrame.getBDD().listerRecette();
-
+        ArrayList<ArrayList<Object>> listeRecette = mainJFrame.getBDD().listerRecette(); // On créer une liste qui comportera une liste de plusieurs liste d'object 
+        /* - 1er ArrayList : Définition de la liste 
+        - <ArrayList<Object>> : On insère les différentes sous liste de Lister recette du genre ([Pain au chocolat, 3]
+        - On appelle la liste "listeRecette"
+        - On lui donne les information de la requête listerRecette
+        */ 
+        
+        int index= 0; 
+        
         // Ajouter les nouvelles lignes au modèle
-        for (ArrayList<Object> ligne : listeRecette) {
-            String recetteInfo = ligne.get(0) + " "; // Exemple : "Nom de la recette (ID: 123)"
-            model.addElement(recetteInfo);
+        for (ArrayList<Object> ligne : listeRecette) { // ici on va reboubler sur chaque ligne qui va être renvoyé par notre liste de liste d'objet
+            String nom = ligne.get(0).toString(); //On insère les données de la première colonne (ici des nom) pour chaque ligne
+            int id = Integer.parseInt(ligne.get(1).toString()); //On insère les données de la deuxième colonne (ici des id) pour chaque ligne que l'ont retourne sous format de string
+            
+            model.addElement(nom); // On ajoute à la liste seulement la colonne nom de notre ArrayList
+            indextoID.put(index, id); 
+            index++;
         }
 
         // Mettre à jour l'interface utilisateur
         this.revalidate();
         this.repaint();
-
+        
     }//GEN-LAST:event_Liste_RecetteAncestorAdded
 
     private void Liste_RecetteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Liste_RecetteMouseClicked
         // TODO add your handling code here:
-        /*int selectedRow = ListedesRecette_ListeRecette.getAnchorSelectionIndex(); // Récupère l'index de la ligne sélectionnée
-        if (selectedRow != -1) { // Vérifie qu'une ligne est bien sélectionnée
-        DefaultListModel model = (DefaultListModel) ListedesRecette_ListeRecette.getModel();
-        Object value = model.get(selectedRow); // Exemple : récupérer la valeur de la première colonne
-        System.out.println("Valeur sélectionnée : " + value);}*/
+        DefaultTableModel table = new DefaultTableModel(
+        new Object[]{"Nom Ingrédient", "Quantité (1 personnes)", "Calorie"}, 0);
+        table.setRowCount(0); // On vide le tableau avant d’ajouter les nouvelles lignes
 
+        Tableau_Recette.setModel(table);
+
+        DefaultListModel model = (DefaultListModel) Liste_Recette.getModel();
+        
+        int selectedRow = Liste_Recette.getSelectedIndex(); // Récupère l'index de la ligne sélectionnée
+        if (selectedRow != -1 && indextoID.containsKey(selectedRow)) { // Vérifie qu'une ligne est bien sélectionnée
+
+            // Récupérer l'ID de la recette à partir de la HashMap
+            int recetteId = indextoID.get(selectedRow);
+
+            // Affiche le nom de la recette dans le champ
+            Field_LaRecette.setText(model.getElementAt(selectedRow).toString());
+            
+            
+
+            // Récupère les ingrédients de la recette depuis la base de données
+            ArrayList<ArrayList<Object>> listeIngredients = mainJFrame.getBDD().listerIngredientRecette(recetteId);
+
+            // Affiche les lignes dans le tableau
+            for (ArrayList<Object> ligne : listeIngredients) {
+                Object[] rowData = ligne.toArray();
+                table.addRow(rowData); // Ajoute la ligne au tableau
+
+                // Affichage console (optionnel pour debug)
+                for (Object element : ligne) {
+                    System.out.print(element + " , ");
+                }
+                System.out.println();
+            }
+        }
+            
+            // Mettre à jour l'interface utilisateur
+        this.revalidate();
+        this.repaint();
     }//GEN-LAST:event_Liste_RecetteMouseClicked
 
     private void Supprimer_RecetteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Supprimer_RecetteActionPerformed
         // TODO add your handling code here:
-        /*int selectedRow = ListedesRecette_ListeRecette.getAnchorSelectionIndex(); // Récupère l'index de la ligne sélectionnée
+        int selectedRow = Liste_Recette.getAnchorSelectionIndex(); // Récupère l'index de la ligne sélectionnée
         if (selectedRow != -1) { // Vérifie qu'une ligne est bien sélectionnée
-            DefaultListModel model = (DefaultListModel) ListedesRecette_ListeRecette.getModel();
-            Object value = model.get(selectedRow); // Exemple : récupérer la valeur de la première colonne
-            System.out.println("Valeur sélectionnée : " + value);
-        }*/
+             
+            
+            DefaultListModel model = (DefaultListModel) Liste_Recette.getModel();
+            
+            int recetteId= (int)model.getElementAt(selectedRow);
+            boolean success = mainJFrame.getBDD().suppressionRecette(recetteId);
+            
+            if(success){
+                //Ont supprime la ligne sélectionnée
+                model.removeElementAt(selectedRow);
+                JOptionPane.showMessageDialog(this, "Ligne supprimée avec succès !");
+                }else {
+            if(model.getSize()==0){
+                JOptionPane.showMessageDialog(this, "La table est vide");
+            }else{
+                //si la table n'est pas vide et qu'une ligne ou plusieurs lignes n'est pas sélectionner 
+                JOptionPane.showMessageDialog(this, "Veuillez sélectionner une ligne pour");
+                }
+            }
+        }
     }//GEN-LAST:event_Supprimer_RecetteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton Ajouter_Recette;
@@ -246,6 +316,7 @@ public class Liste_Recettes extends javax.swing.JFrame {
     public javax.swing.JLabel jLabel2;
     public javax.swing.JLabel jLabel6;
     public javax.swing.JLabel jLabel7;
+    public javax.swing.JPanel jPanel1;
     public javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables

@@ -4,11 +4,17 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class Requete_bdd extends BDD{
-
+    private BDD bdd = new BDD();
     // Requête utilisateur
     
+    public Requete_bdd() {
+    bdd.Connexion();
+    }
     
-        //Méthode
+    public Requete_bdd(BDD bdd) {
+        this.bdd = bdd;
+    }
+        //Méthode Utilisateur
     
         // Méthode d'insertion d'utilisateur
         public boolean insertionUtilisateur(String identifiant, String nom, String prenom, String mdp) {
@@ -48,19 +54,38 @@ public class Requete_bdd extends BDD{
             return executeUpdate(requete, recetteId);
         }
         
-
-
+    //Requête Type_
+        // Méthode de listage de tout les type de repas 
+        public ArrayList<ArrayList<Object>> lister_Type_Repas() {
+            String requete = "SELECT id, nom FROM type_repas";
+            return executeQuery(requete);
+        }
 
 
     // Requête Ingrédient
 
         // Méthode d'affichage de tous les ingrédients d'une recette
         public ArrayList<ArrayList<Object>> listerIngredientRecette(int recetteId) {
-            String requete = "SELECT i.id_Ingredient, i.nom, i.quantite FROM Ingredient AS i " +
-                             "INNER JOIN Composer AS c ON i.id_Ingredient = c.id_Ingredient " +
-                             "WHERE c.id_Recette = ?";
+            String requete = "SELECT r.nom, i.nom, rc.quantite " +
+                     "FROM recette_ingredient AS rc " +
+                     "INNER JOIN recette AS r ON rc.id_recette = r.id " +
+                     "INNER JOIN ingredient AS i ON rc.id_ingredient = i.id " +
+                     "INNER JOIN calorie AS c ON i.id_calorie = c.id " +
+                     "WHERE rc.id_recette = ?";
             return executeQuery(requete, recetteId);
         }
+        
+        // Méthode d'affichages de toutes les recettes  
+        public ArrayList<ArrayList<Object>> listerToutIngredientRecette() {
+            String requete = "SELECT r.nom AS nom_recette, GROUP_CONCAT(i.nom SEPARATOR ', ') AS ingredients " +
+                 "FROM recette AS r " +
+                 "INNER JOIN recette_ingredient AS rc ON rc.id_recette = r.id " +
+                 "INNER JOIN ingredient AS i ON rc.id_ingredient = i.id " +
+                 "GROUP BY r.id, r.nom";
+
+            return executeQuery(requete);
+        }
+        
 
         // Méthode d'affichage de tous les ingrédients d'un repas
         public ArrayList<ArrayList<Object>> listeIngredientRepas(int repasid){
@@ -119,7 +144,16 @@ public class Requete_bdd extends BDD{
                             "INNER JOIN Recette WHERE id_Recette = ?"; 
             return executeUpdate(requete);
         }
-
+        
+    // Requête Repas_recettes
+        
+        // Méthode d'ajout d'un repas 
+        public boolean associerRepas(Date date, String nom, String type, int personne) {
+            String requete = "INSERT INTO repas_recette(id_repas, id_recette) VALUES (?, ?)" 
+                    ;
+            
+            return executeUpdate(requete, date, nom, type, personne);
+        }
 }
 
 

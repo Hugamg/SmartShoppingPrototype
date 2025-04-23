@@ -1,20 +1,28 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ */
 package page;
 
+import bdd.*;
+import com.mysql.cj.xdevapi.Statement;
 import main.MainFrame;
-import bdd.BDD;
+
 /**
  *
  * @author amagl
  */
-public class Creation_de_compte extends javax.swing.JFrame {
+public class Creation_de_compte extends javax.swing.JPanel {
     private MainFrame mainJFrame;
     private BDD bdd;
+    private Requete_bdd requete;
     /**
-     * Creates new form Creation_de_compte
+     * Creates new form Creation_compt
      */
     public Creation_de_compte(MainFrame newJFrame) {
         mainJFrame = newJFrame;
         bdd=new BDD();
+        requete= new Requete_bdd(bdd);
         initComponents();
     }
 
@@ -29,7 +37,7 @@ public class Creation_de_compte extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        New_mdp_field = new javax.swing.JPasswordField();
+        Confirm_mdp_field = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         Button_Créercompte = new javax.swing.JButton();
@@ -40,15 +48,14 @@ public class Creation_de_compte extends javax.swing.JFrame {
         Prenom_field = new java.awt.TextField();
         Mail_field = new java.awt.TextField();
         jLabel6 = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        Button_Reset = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Création de compte");
         jLabel1.setToolTipText("");
 
-        New_mdp_field.setText("jPasswordField1");
+        Confirm_mdp_field.setText("jPasswordField1");
 
         jLabel2.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -86,6 +93,15 @@ public class Creation_de_compte extends javax.swing.JFrame {
         jLabel6.setText("Identifiant :");
         jLabel6.setToolTipText("");
 
+        Button_Reset.setBackground(new java.awt.Color(204, 204, 204));
+        Button_Reset.setFont(new java.awt.Font("Franklin Gothic Medium Cond", 0, 14)); // NOI18N
+        Button_Reset.setText("Reset");
+        Button_Reset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_ResetActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -93,14 +109,18 @@ public class Creation_de_compte extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(427, 427, 427)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(New_mdp_field, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Confirm_mdp_field, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(130, 130, 130)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(130, 130, 130)
+                        .addComponent(Button_Reset, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(68, 68, 68)
+                        .addComponent(Button_Créercompte, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(jLabel5))
@@ -113,14 +133,11 @@ public class Creation_de_compte extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(Nom_field, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(313, 313, 313)
-                                .addComponent(jLabel3)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Mdp_field, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Prenom_field, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(466, 466, 466)
-                        .addComponent(Button_Créercompte, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel3)))))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Mdp_field, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Prenom_field, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(208, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -156,14 +173,16 @@ public class Creation_de_compte extends javax.swing.JFrame {
                 .addGap(67, 67, 67)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(New_mdp_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(90, 90, 90)
-                .addComponent(Button_Créercompte, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58))
+                .addComponent(Confirm_mdp_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(77, 77, 77)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Button_Créercompte, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Button_Reset, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(71, 71, 71))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -175,27 +194,61 @@ public class Creation_de_compte extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void Button_CréercompteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_CréercompteActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code he
+        String identifiant1 ="hugo";
+        String password ="123";
+        
+        bdd.setIdentifiants(identifiant1, password);
+        
+        
+        String nom = Nom_field.getText();
+        String prenom = Prenom_field.getText();
+        String identifiant = Mail_field.getText();
+        String mdp = new String(Mdp_field.getPassword());
+        
+        
+        
+            if (bdd.Connexion()){
+                System.out.println("Connexion effectué");
+                requete = new Requete_bdd(bdd);
+                boolean success= requete.insertionUtilisateur(identifiant, nom, prenom, mdp);
+                if (success) {
+                      javax.swing.JOptionPane.showMessageDialog(null, "Compte créé avec succès !");
+                      mainJFrame.SwithPanel("pageConnexion");
+                      bdd.closeConnection();
+                }
+            } else {
+                    javax.swing.JOptionPane.showMessageDialog(null, "Erreur lors de la création du compte");
+                }
     }//GEN-LAST:event_Button_CréercompteActionPerformed
 
+    private void Button_ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ResetActionPerformed
+        // TODO add your handling code here:
+        Nom_field.setText("");
+        Prenom_field.setText("");
+        Mail_field.setText("");
+        Mdp_field.setText("");
+        Confirm_mdp_field.setText("");
+    }//GEN-LAST:event_Button_ResetActionPerformed
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Button_Créercompte;
-    private java.awt.TextField Mail_field;
-    private javax.swing.JPasswordField Mdp_field;
-    private javax.swing.JPasswordField New_mdp_field;
-    private java.awt.TextField Nom_field;
-    private java.awt.TextField Prenom_field;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
+    public javax.swing.JButton Button_Créercompte;
+    public javax.swing.JButton Button_Reset;
+    public javax.swing.JPasswordField Confirm_mdp_field;
+    public java.awt.TextField Mail_field;
+    public javax.swing.JPasswordField Mdp_field;
+    public java.awt.TextField Nom_field;
+    public java.awt.TextField Prenom_field;
+    public javax.swing.JLabel jLabel1;
+    public javax.swing.JLabel jLabel2;
+    public javax.swing.JLabel jLabel3;
+    public javax.swing.JLabel jLabel4;
+    public javax.swing.JLabel jLabel5;
+    public javax.swing.JLabel jLabel6;
+    public javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

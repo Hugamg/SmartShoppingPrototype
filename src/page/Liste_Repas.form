@@ -47,7 +47,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="153" max="-2" attributes="0"/>
-                  <Component id="BoutonAjoutsModif_ListeRepas" min="-2" pref="204" max="-2" attributes="0"/>
+                  <Component id="BoutonAjout_ListeRepas" min="-2" pref="204" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="BoutonModif_ListeRepas" min="-2" pref="204" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
@@ -103,7 +103,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="BoutonSupprimer_ListeRepas" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="BoutonAjoutsModif_ListeRepas" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="BoutonAjout_ListeRepas" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="BoutonModif_ListeRepas" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -245,12 +245,12 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="BoutonAjoutsModif_ListeRepas">
+        <Component class="javax.swing.JButton" name="BoutonAjout_ListeRepas">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ajouter un Repas"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BoutonAjoutsModif_ListeRepasActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BoutonAjout_ListeRepasActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="BoutonSupprimer_ListeRepas">

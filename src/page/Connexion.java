@@ -196,6 +196,10 @@ public class Connexion extends javax.swing.JPanel {
 
     private void Button_CréercompteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_CréercompteActionPerformed
         // TODO add your handling code here:
+        mainJFrame.SwithPanel("pageCreation_de_compte");
+        
+        this.revalidate();
+        this.repaint();
     }//GEN-LAST:event_Button_CréercompteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

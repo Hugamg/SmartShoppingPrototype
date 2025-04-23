@@ -1,6 +1,18 @@
 package page; 
 
+import java.util.ArrayList;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.event.TableModelListener;
+import javax.swing.event.TableModelEvent;
 import main.MainFrame;
+import bdd.BDD;
+import bdd.Requete_bdd;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /*
@@ -16,14 +28,23 @@ import main.MainFrame;
  */
 public class Ajout_Repas extends javax.swing.JPanel {
     private MainFrame mainJFrame;
+    private BDD bdd;
+    private DefaultListModel<String> selectedRecettesModel = new DefaultListModel<>();
+    // En haut de ta classe JFrame/panel
+    private Map<String,Integer> typeRepasMap = new HashMap<>();
+
     /** Creates new form Ajout_Modification_Repas */
+
+
+
     public Ajout_Repas(MainFrame newJFrame) {
         mainJFrame = newJFrame;
+        bdd=new BDD();
         initComponents();
-        initComponents();
+        
+        Liste_recette_ajoute.setModel(selectedRecettesModel);
+           
     }
-
-
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -44,7 +65,7 @@ public class Ajout_Repas extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        Liste_recette_ajoutés = new javax.swing.JList<>();
+        Liste_recette_ajoute = new javax.swing.JList<>();
         Enregister_button = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         Table_Recette = new javax.swing.JTable();
@@ -61,11 +82,6 @@ public class Ajout_Repas extends javax.swing.JPanel {
         jLabel1.setToolTipText("");
 
         Date_field.setText("Entrée une date");
-        Date_field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Date_fieldActionPerformed(evt);
-            }
-        });
 
         jLabel4.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 12)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -77,7 +93,15 @@ public class Ajout_Repas extends javax.swing.JPanel {
         jLabel5.setText("Type :");
         jLabel5.setToolTipText("");
 
-        Type_combobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Petit-Déjeuner", "Collation", "Déjéuner", "Diner" }));
+        Type_combobox.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                Type_comboboxAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
         Type_combobox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Type_comboboxActionPerformed(evt);
@@ -101,13 +125,13 @@ public class Ajout_Repas extends javax.swing.JPanel {
         jLabel7.setText(" Recettes Ajoutés :");
         jLabel7.setToolTipText("");
 
-        Liste_recette_ajoutés.setModel(new javax.swing.AbstractListModel<String>() {
+        Liste_recette_ajoute.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        Liste_recette_ajoutés.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane4.setViewportView(Liste_recette_ajoutés);
+        Liste_recette_ajoute.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane4.setViewportView(Liste_recette_ajoute);
 
         Enregister_button.setBackground(new java.awt.Color(204, 204, 204));
         Enregister_button.setText("Enregistrer");
@@ -125,18 +149,42 @@ public class Ajout_Repas extends javax.swing.JPanel {
                 {null, null, null}
             },
             new String [] {
-                "Checkbox", "Nom Recette", "Ingrédient (1 personnes)"
+                "Sélectionner", "Nom Recette", "Ingrédient (1 personnes)"
             }
         ) {
             Class[] types = new Class [] {
                 java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class
             };
+            boolean[] canEdit = new boolean [] {
+                true, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        Table_Recette.setColumnSelectionAllowed(true);
+        Table_Recette.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        Table_Recette.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        Table_Recette.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                Table_RecetteAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
         });
         jScrollPane2.setViewportView(Table_Recette);
+        Table_Recette.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        if (Table_Recette.getColumnModel().getColumnCount() > 0) {
+            Table_Recette.getColumnModel().getColumn(1).setResizable(false);
+            Table_Recette.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         jLabel12.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 12)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -173,7 +221,7 @@ public class Ajout_Repas extends javax.swing.JPanel {
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(Personne_field, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
                                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(24, 24, 24))
                     .addGroup(layout.createSequentialGroup()
@@ -196,7 +244,6 @@ public class Ajout_Repas extends javax.swing.JPanel {
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -224,6 +271,41 @@ public class Ajout_Repas extends javax.swing.JPanel {
 
     private void Enregister_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Enregister_buttonActionPerformed
         // TODO add your handling code here:
+        
+        // Etape 2 : On récupère le jtextfield de la date et on vérifie si une date est bien rentré. Si ce n'est pas le cas on retourne que le champ est mal remplie. Ainsi on n'effectue pas l'insertion dans la bdd
+        String date  = Date_field.getText().trim();
+        if (date.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Veuillez saisir une date.", "Champ manquant", JOptionPane.WARNING_MESSAGE);
+        return;
+        }
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Création d'un parseur pour le format année/mois/jour
+        sdf.setLenient(false);// désactive le ùode lenient qui force le parseur à rejeter les dates impossibles
+
+        try {
+            Date parsedDate = sdf.parse(date); 
+            System.out.println("Date valide : " + parsedDate);
+            // → Ici tu continues avec l'insertion dans la BDD
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null, "Format de date invalide. Utilisez yyyy-MM-dd.", "Erreur de format", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        System.out.println(date);
+             
+        // Etape 3 ; On récupère l'éléments sélectionner dans jboxcombo
+        String type_repas= Type_combobox.getPrototypeDisplayValue().toString();
+        System.out.println(type_repas);
+        
+        // Etape 4 : Je récupère l'élément du jtextfield du nombre de personne et je vérifie si c'est bien un entier. Si cen'est pas le cas je retourne une erreur
+        String personne = Personne_field.getText().trim();
+        if (personne.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Veuillez saisir le nombre de personne.", "Champ manquant", JOptionPane.WARNING_MESSAGE);
+        return;
+        
+        // Etape 5 : Je récupère les différentes recette sélectionner dans la jtable ou bine je récupère les recettes de jlist.
+        
+        // Etape 6 : J'envoie tous ces éléments à la requête afin de l'éxecuter, cependant si un élément et manquant on renvoie un message d'erreur à l'utilisateuravec le champs manquants
+        
     }//GEN-LAST:event_Enregister_buttonActionPerformed
 
     private void Personne_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Personne_fieldActionPerformed
@@ -234,15 +316,94 @@ public class Ajout_Repas extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_Type_comboboxActionPerformed
 
-    private void Date_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Date_fieldActionPerformed
+    private void Table_RecetteAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Table_RecetteAncestorAdded
+       // TODO add your handling code here:                                          
+        DefaultTableModel table = new DefaultTableModel(
+            new Object[]{"Sélectionner", "Recette", "Ingrédients (1 personne)"}, 0
+        ) {
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                // La première colonne contient des checkboxes (Boolean)
+                if (columnIndex == 0) return Boolean.class;
+                return String.class;
+            }
+        };
+
+        // On vide le tableau avant d’ajouter les nouvelles lignes
+        table.setRowCount(0);
+
+        // Récupération de la liste des recettes
+        ArrayList<ArrayList<Object>> liste_recette = mainJFrame.getBDD().listerToutIngredientRecette();
+
+        for (ArrayList<Object> ligne : liste_recette) {
+            // On récupère les données de chaque ligne
+            Object nom = ligne.get(0);
+            Object ingredient = ligne.get(1);
+
+            // Création d'une ligne avec une checkbox initialisée à false
+            Object[] rowData = new Object[]{false, nom, ingredient};
+
+            // Ajout de la ligne au modèle
+            table.addRow(rowData);
+
+        }
+
+        // On applique le modèle à la JTable
+        // On applique le modèle à la JTable
+        Table_Recette.setModel(table);
+
+        // Listener pour détecter les changements sur les checkboxes
+        table.addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                int row = e.getFirstRow();
+                int column = e.getColumn();
+
+                // Vérifie si c'est bien la colonne des cases à cocher
+                if (column == 0 && row >= 0) {
+                    Boolean isSelected = (Boolean) Table_Recette.getValueAt(row, 0);
+                    String nomRecette = (String) Table_Recette.getValueAt(row, 1);
+
+                    if (isSelected) {
+                        if (!selectedRecettesModel.contains(nomRecette)) {
+                            selectedRecettesModel.addElement(nomRecette);
+                        }
+                    } else {
+                        selectedRecettesModel.removeElement(nomRecette);
+                    }
+                }
+            }
+        });
+
+
+    }//GEN-LAST:event_Table_RecetteAncestorAdded
+
+    private void Type_comboboxAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Type_comboboxAncestorAdded
         // TODO add your handling code here:
-    }//GEN-LAST:event_Date_fieldActionPerformed
+        Type_combobox.removeAllItems();
+        typeRepasMap.clear();
+        
+        Requete_bdd sql = new Requete_bdd();
+        
+        ArrayList<ArrayList<Object>> listeTypeRecette = mainJFrame.getBDD().lister_Type_Repas();
+        
+
+        // Ajouter les nouvelles lignes au modèle
+        for (ArrayList<Object> ligne : listeTypeRecette) {
+            int id   = ((Number)ligne.get(0)).intValue();
+            String nom = ligne.get(0).toString();
+
+              Type_combobox.addItem(nom);
+              typeRepasMap.put(nom, id);
+        }
+    }//GEN-LAST:event_Type_comboboxAncestorAdded
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Date_field;
     private javax.swing.JButton Enregister_button;
-    private javax.swing.JList<String> Liste_recette_ajoutés;
+    private javax.swing.JList<String> Liste_recette_ajoute;
     private javax.swing.JTextField Personne_field;
     private javax.swing.JTable Table_Recette;
     private javax.swing.JComboBox<String> Type_combobox;

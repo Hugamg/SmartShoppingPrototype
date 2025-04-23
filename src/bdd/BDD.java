@@ -21,7 +21,8 @@ public class BDD {
     public boolean Connexion() {
         
         try { // le try effectue un test pour un bloc de code dans le but de détecter les exceptions
-              // le catch présent dans les blocs try permet d'intercepter les exceptions qui peuvent être levées 
+              // le catch présent dans les blocs try permet d'intercepter les exceptions qui peuvent être levées*
+              
             //Chargement du driver JDBC
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
             
@@ -37,7 +38,8 @@ public class BDD {
             }
 
             connection = DriverManager.getConnection(url,username,password); //Connexion à la base 
-            return true;
+            return true; 
+            
             } catch (ClassNotFoundException e) {//s'éxécute si le driver n'est pas trouver notamment dans ce cas JDBC
                 System.err.println("Driver JDBC non trouvé : " + e.getMessage());
                 return false;
@@ -50,6 +52,10 @@ public class BDD {
             }
     }
     
+    // Retourne la connexion à utiliser dans Requete_bdd
+    public Connection getConnection() {
+        return connection; // Retourne la connexion active
+    }
 
     // Méthode de fermeture de la connexion après chaque utilisation
     public void closeConnection() {
@@ -94,20 +100,34 @@ public class BDD {
         }
     }
 
-    // Méthode qui permet d'effectuer des requêtes SELECT dans la base de données
-    public ArrayList<ArrayList<Object>> executeQuery(String query, Object... params) {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            for (int i = 0; i < params.length; i++) {
-                preparedStatement.setObject(i + 1, params[i]);
-            }
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                return getResultTableau(resultSet);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
+   public ArrayList<ArrayList<Object>> executeQuery(String query, Object... params) {
+    ArrayList<ArrayList<Object>> result = new ArrayList<>();
+
+    try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        for (int i = 0; i < params.length; i++) {
+            preparedStatement.setObject(i + 1, params[i]);
         }
+
+        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int columnCount = metaData.getColumnCount();
+
+            while (resultSet.next()) {
+                ArrayList<Object> row = new ArrayList<>();
+                for (int i = 1; i <= columnCount; i++) {
+                    row.add(resultSet.getObject(i));
+                }
+                result.add(row);
+            }
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+
+    return result;
+}
+
     
     public void setIdentifiants(String username,String password){
         this.username= username;

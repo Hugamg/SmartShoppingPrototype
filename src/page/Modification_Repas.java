@@ -1,17 +1,21 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ */
 package page;
 
-import main.MainFrame;
 import bdd.BDD;
+import main.MainFrame;
 
 /**
  *
  * @author amagl
  */
-public class Modification_Repas extends javax.swing.JFrame {
+public class Modification_Repas extends javax.swing.JPanel {
     private MainFrame mainJFrame;
     private BDD bdd;
     /**
-     * Creates new form Modification_Repas
+     * Creates new form Modification_Repa
      */
     public Modification_Repas(MainFrame newJFrame) {
         mainJFrame = newJFrame;
@@ -44,8 +48,6 @@ public class Modification_Repas extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         Table_Recette = new javax.swing.JTable();
         jLabel12 = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel2.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -215,8 +217,8 @@ public class Modification_Repas extends javax.swing.JFrame {
                     .addContainerGap(378, Short.MAX_VALUE)))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1150, Short.MAX_VALUE)
@@ -228,15 +230,13 @@ public class Modification_Repas extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 641, Short.MAX_VALUE)
+            .addGap(0, 650, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void Date_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Date_fieldActionPerformed
@@ -257,21 +257,21 @@ public class Modification_Repas extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Date_field;
-    private javax.swing.JButton Enregister_button;
-    private javax.swing.JList<String> Liste_recette_ajoutés;
-    private javax.swing.JTextField Personne_field;
-    private javax.swing.JTable Table_Recette;
-    private javax.swing.JComboBox<String> Type_combobox;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane4;
+    public javax.swing.JTextField Date_field;
+    public javax.swing.JButton Enregister_button;
+    public javax.swing.JList<String> Liste_recette_ajoutés;
+    public javax.swing.JTextField Personne_field;
+    public javax.swing.JTable Table_Recette;
+    public javax.swing.JComboBox<String> Type_combobox;
+    public javax.swing.JLabel jLabel1;
+    public javax.swing.JLabel jLabel12;
+    public javax.swing.JLabel jLabel2;
+    public javax.swing.JLabel jLabel4;
+    public javax.swing.JLabel jLabel5;
+    public javax.swing.JLabel jLabel6;
+    public javax.swing.JLabel jLabel7;
+    public javax.swing.JPanel jPanel1;
+    public javax.swing.JScrollPane jScrollPane2;
+    public javax.swing.JScrollPane jScrollPane4;
     // End of variables declaration//GEN-END:variables
 }
