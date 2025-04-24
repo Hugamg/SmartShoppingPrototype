@@ -6,6 +6,7 @@ package page;
 
 import bdd.BDD;
 import main.MainFrame;
+import controller.Recette_Controller;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,16 +17,17 @@ import javax.swing.table.DefaultTableModel;
  * @author amagl
  */
 public class Liste_Recette extends javax.swing.JPanel {
-     private MainFrame mainJFrame;
-    private BDD bdd;
-    private HashMap<Integer, Integer> indextoID = new HashMap<>();
+    private MainFrame mainJFrame;
+    private Recette_Controller liste;
     /**
      * Creates new form Liste_Recett
      */
     public Liste_Recette(MainFrame newJFrame) {
         mainJFrame = newJFrame;
-        bdd=new BDD();
+        liste = new Recette_Controller(mainJFrame.getBDD());
+        System.out.println(mainJFrame.getBDD());
         initComponents();
+        
     }
 
     /**
@@ -202,34 +204,8 @@ public class Liste_Recette extends javax.swing.JPanel {
 
     private void Liste_RecetteAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Liste_RecetteAncestorAdded
         // TODO add your handling code here:
-
-        // Définir un nouveau modèle avec deux colonnes : "Nom" et "ID"
-        
-        DefaultListModel<String> model = new DefaultListModel<>(); // Créer un nouveau modèle de liste
-        model.setSize(0); // On vide le tableau avant d’ajouter les nouvelles lignes. Ici on indique que le modèle ne possède aucune ligne (0)
-        Liste_Recette.setModel(model); // On approprie le modèle de liste précédemment créer au modèle que l'on possède 
-        
-        
-        // Récupérer les nouvelles données depuis la BDD
-        ArrayList<ArrayList<Object>> listeRecette = mainJFrame.getBDD().listerRecette(); // On créer une liste qui comportera une liste de plusieurs liste d'object 
-        /* - 1er ArrayList : Définition de la liste 
-        - <ArrayList<Object>> : On insère les différentes sous liste de Lister recette du genre ([Pain au chocolat, 3]
-        - On appelle la liste "listeRecette"
-        - On lui donne les information de la requête listerRecette
-        */ 
-        
-        int index= 0; 
-        
-        // Ajouter les nouvelles lignes au modèle
-        for (ArrayList<Object> ligne : listeRecette) { // ici on va reboubler sur chaque ligne qui va être renvoyé par notre liste de liste d'objet
-            String nom = ligne.get(0).toString(); //On insère les données de la première colonne (ici des nom) pour chaque ligne
-            int id = Integer.parseInt(ligne.get(1).toString()); //On insère les données de la deuxième colonne (ici des id) pour chaque ligne que l'ont retourne sous format de string
-            
-            model.addElement(nom); // On ajoute à la liste seulement la colonne nom de notre ArrayList
-            indextoID.put(index, id); 
-            index++;
-        }
-
+        Liste_Recette.removeAll();
+        Liste_Recette.setModel(liste.Lister_recette_liste());
         // Mettre à jour l'interface utilisateur
         this.revalidate();
         this.repaint();
@@ -244,7 +220,11 @@ public class Liste_Recette extends javax.swing.JPanel {
 
         Tableau_Recette.setModel(table);
 
-        DefaultListModel model = (DefaultListModel) Liste_Recette.getModel();
+        Liste_Recette.getModel();
+        
+        HashMap<String, String> indextoID = liste.Lister_recette_liste();
+        
+        indextoID.put(id); 
         
         int selectedRow = Liste_Recette.getSelectedIndex(); // Récupère l'index de la ligne sélectionnée
         if (selectedRow != -1 && indextoID.containsKey(selectedRow)) { // Vérifie qu'une ligne est bien sélectionnée
@@ -275,7 +255,7 @@ public class Liste_Recette extends javax.swing.JPanel {
             
             // Mettre à jour l'interface utilisateur
         this.revalidate();
-        this.repaint();
+        this.repaint();*/
     }//GEN-LAST:event_Liste_RecetteMouseClicked
 
     private void Supprimer_RecetteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Supprimer_RecetteActionPerformed

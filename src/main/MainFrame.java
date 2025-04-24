@@ -24,7 +24,6 @@ import bdd.BDD;
  */
 public class MainFrame extends javax.swing.JFrame {
     private MainFrame mainJFrame;
-    private BDD maBDD;
     static private Connexion pageConnexion;
     static private Nouveau_mot_de_passe pageNouveaumot_de_passe;
     static private Creation_de_compte pageCreation_de_compte;
@@ -41,7 +40,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         
-        maBDD = new BDD();
+        
     }
     
     public void SwithPanel(String panelName){
@@ -221,6 +220,12 @@ public class MainFrame extends javax.swing.JFrame {
             public void run() {
                 MainFrame newMainFrame = new MainFrame();
                 
+                bddRequest = new Requete_bdd();
+                if(bddRequest.Connexion())
+                    System.out.print("Connexion OK\n");
+                else
+                    System.out.print("Connexion NON EFFECTUEE\n");
+                
                 pageConnexion = new Connexion(newMainFrame);
                 pageNouveaumot_de_passe = new Nouveau_mot_de_passe(newMainFrame);
                 pageCreation_de_compte = new Creation_de_compte(newMainFrame);               
@@ -233,11 +238,7 @@ public class MainFrame extends javax.swing.JFrame {
                 newMainFrame.setContentPane(pageConnexion);
                 newMainFrame.setVisible(true);
                 
-                bddRequest = new Requete_bdd();
-                if(bddRequest.Connexion())
-                    System.out.print("Connexion OK\n");
-                else
-                    System.out.print("Connexion NON EFFECTUEE\n");
+                
             }
         });
     }

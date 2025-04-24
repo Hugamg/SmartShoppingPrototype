@@ -28,8 +28,7 @@ import java.util.Map;
  */
 public class Ajout_Repas extends javax.swing.JPanel {
     private MainFrame mainJFrame;
-    private BDD bdd;
-    private DefaultListModel<String> selectedRecettesModel = new DefaultListModel<>();
+   private DefaultListModel<String> selectedRecettesModel = new DefaultListModel<>();
     // En haut de ta classe JFrame/panel
     private Map<String,Integer> typeRepasMap = new HashMap<>();
 
@@ -39,7 +38,6 @@ public class Ajout_Repas extends javax.swing.JPanel {
 
     public Ajout_Repas(MainFrame newJFrame) {
         mainJFrame = newJFrame;
-        bdd=new BDD();
         initComponents();
         
         Liste_recette_ajoute.setModel(selectedRecettesModel);
@@ -305,11 +303,12 @@ public class Ajout_Repas extends javax.swing.JPanel {
         // Etape 5 : Je récupère les différentes recette sélectionner dans la jtable ou bine je récupère les recettes de jlist.
         
         // Etape 6 : J'envoie tous ces éléments à la requête afin de l'éxecuter, cependant si un élément et manquant on renvoie un message d'erreur à l'utilisateuravec le champs manquants
-        
+        }
     }//GEN-LAST:event_Enregister_buttonActionPerformed
 
     private void Personne_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Personne_fieldActionPerformed
         // TODO add your handling code here:
+        Personne_field.setText("");
     }//GEN-LAST:event_Personne_fieldActionPerformed
 
     private void Type_comboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Type_comboboxActionPerformed
@@ -380,7 +379,7 @@ public class Ajout_Repas extends javax.swing.JPanel {
 
     private void Type_comboboxAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Type_comboboxAncestorAdded
         // TODO add your handling code here:
-        Type_combobox.removeAllItems();
+        /*Type_combobox.removeAllItems();
         typeRepasMap.clear();
         
         Requete_bdd sql = new Requete_bdd();
@@ -390,12 +389,12 @@ public class Ajout_Repas extends javax.swing.JPanel {
 
         // Ajouter les nouvelles lignes au modèle
         for (ArrayList<Object> ligne : listeTypeRecette) {
-            int id   = ((Number)ligne.get(0)).intValue();
+            int id = ligne.get(0).int();
             String nom = ligne.get(0).toString();
 
               Type_combobox.addItem(nom);
               typeRepasMap.put(nom, id);
-        }
+        }*/
     }//GEN-LAST:event_Type_comboboxAncestorAdded
 
 
