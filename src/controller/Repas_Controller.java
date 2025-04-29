@@ -32,46 +32,39 @@ public class Repas_Controller {
         ArrayList<ArrayList<Object>> liste_recette = requete.listerToutIngredientRecette();
         // Noms des colonnes du tableau
         String[] model = {"Sélectionner", "Recette", "Ingrédients(1 personne)"};
-        
+       
         // Créer une liste d'objets RecetteRepasItem
         ArrayList<Repas_Recette_Item> items = new ArrayList<>();
-   
-        for (int i= 0 ; i < liste_recette.size(); i++){
-            
-            ArrayList<Object> recette = liste_recette.get(i);
-        // Créer un objet RecetteRepasItem pour chaque ligne
-        int id = (Integer) recette.get(0);  // ID de la recette
-        String nom = (String) recette.get(1);  // Nom de la recette
-        String ingredient = (String) recette.get(2);  // Ingrédient
         
-        // Créer un nouvel objet RecetteRepasItem
-        Repas_Recette_Item item = new Repas_Recette_Item(id, nom, ingredient);
-        items.add(item);
+        for (ArrayList<Object> ligne : liste_recette) {
+            try {
+                int id = Integer.parseInt(ligne.get(0).toString());
+                String nom = ligne.get(1).toString();
+                String ingredients = ligne.get(2).toString();
+
+                Repas_Recette_Item item = new Repas_Recette_Item(id, nom, ingredients);
+                items.add(item);
+            } catch (NumberFormatException e) {
+                System.err.println("Erreur ID recette non numérique : " + ligne.get(0));
+            }
         }
         
-        // Tableau de données pour les ingrédients
-        Object[][] data = new Object[items.size()][3];  // 3 colonnes : Sélectionner, Recette, Ingrédient
-
-        // Remplissage du tableau avec les données
+        // Création du tableau de données pour JTable
+        Object[][] data = new Object[items.size()][3];
         for (int i = 0; i < items.size(); i++) {
             Repas_Recette_Item item = items.get(i);
-
-            // Initialisation de la case à cocher (false par défaut)
-            data[i][0] = item.isSelected();  // La première colonne est la case à cocher
-            data[i][1] = item.getRecetteNom();  // Nom de la recette
-            data[i][2] = item.getIngredient();  // Ingrédient associé
+            data[i][0] = item.isSelected();         // Checkbox
+            data[i][1] = item.getRecetteNom();      // Nom recette
+            data[i][2] = item.getIngredient();     // Ingrédients groupés
         }
-        
-        // Retourne le modèle de table avec les données et les noms de colonnes
+
+        // Création du modèle de tableau avec la checkbox
         return new DefaultTableModel(data, model) {
-            // Permet de rendre la première colonne éditable (case à cocher)
             @Override
             public Class<?> getColumnClass(int columnIndex) {
-                if (columnIndex == 0) {
-                    return Boolean.class;  // La première colonne est une case à cocher
-                }
-                return super.getColumnClass(columnIndex);
+                return (columnIndex == 0) ? Boolean.class : String.class;
             }
         };
+          
     }
 }

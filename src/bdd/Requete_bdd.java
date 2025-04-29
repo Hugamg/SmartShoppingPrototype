@@ -77,7 +77,7 @@ public class Requete_bdd extends BDD{
         
         // Méthode d'affichages de toutes les recettes  
         public ArrayList<ArrayList<Object>> listerToutIngredientRecette() {
-            String requete = "SELECT r.nom AS nom_recette, GROUP_CONCAT(i.nom SEPARATOR ', ') AS ingredients " +
+            String requete = "SELECT r.id AS recette_id, r.nom AS nom_recette, GROUP_CONCAT(i.nom SEPARATOR ', ') AS ingredients " +
                  "FROM recette AS r " +
                  "INNER JOIN recette_ingredient AS rc ON rc.id_recette = r.id " +
                  "INNER JOIN ingredient AS i ON rc.id_ingredient = i.id " +
