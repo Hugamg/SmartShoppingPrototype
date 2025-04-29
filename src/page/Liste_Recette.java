@@ -4,12 +4,12 @@
  */
 package page;
 
-import bdd.BDD;
 import main.MainFrame;
+import bdd.BDD;
 import controller.Recette_Controller;
+import entity.Recette_Item;
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,15 +19,20 @@ import javax.swing.table.DefaultTableModel;
 public class Liste_Recette extends javax.swing.JPanel {
     private MainFrame mainJFrame;
     private Recette_Controller liste;
+    
+    // Déclarer le modèle de la liste de recettes
+    private DefaultListModel<Recette_Item> recetteList;
     /**
      * Creates new form Liste_Recett
      */
     public Liste_Recette(MainFrame newJFrame) {
         mainJFrame = newJFrame;
         liste = new Recette_Controller(mainJFrame.getBDD());
-        System.out.println(mainJFrame.getBDD());
+
         initComponents();
         
+        recetteList =liste.Lister_recette_liste();
+
     }
 
     /**
@@ -83,10 +88,12 @@ public class Liste_Recette extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(Tableau_Recette);
 
-        Liste_Recette.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        Liste_Recette.setModel(new javax.swing.AbstractListModel<Recette_Item>() {
+            @Override
+
+            public int getSize() { return recetteList.size(); }
+
+            public Recette_Item getElementAt(int i) { return recetteList.get(i); }
         });
         Liste_Recette.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
@@ -205,7 +212,7 @@ public class Liste_Recette extends javax.swing.JPanel {
     private void Liste_RecetteAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Liste_RecetteAncestorAdded
         // TODO add your handling code here:
         Liste_Recette.removeAll();
-        Liste_Recette.setModel(liste.Lister_recette_liste());
+        Liste_Recette.setModel(recetteList);
         // Mettre à jour l'interface utilisateur
         this.revalidate();
         this.repaint();
@@ -213,54 +220,29 @@ public class Liste_Recette extends javax.swing.JPanel {
     }//GEN-LAST:event_Liste_RecetteAncestorAdded
 
     private void Liste_RecetteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Liste_RecetteMouseClicked
-        // TODO add your handling code here:
-        DefaultTableModel table = new DefaultTableModel(
-        new Object[]{"Nom Ingrédient", "Quantité (1 personnes)", "Calorie"}, 0);
-        table.setRowCount(0); // On vide le tableau avant d’ajouter les nouvelles lignes
-
-        Tableau_Recette.setModel(table);
-
-        Liste_Recette.getModel();
+                                           
+        // Récupérer l'index de la recette sélectionnée
+        int index = Liste_Recette.getSelectedIndex();
         
-        HashMap<String, String> indextoID = liste.Lister_recette_liste();
-        
-        indextoID.put(id); 
-        
-        int selectedRow = Liste_Recette.getSelectedIndex(); // Récupère l'index de la ligne sélectionnée
-        if (selectedRow != -1 && indextoID.containsKey(selectedRow)) { // Vérifie qu'une ligne est bien sélectionnée
+        // Utiliser le contrôleur pour obtenir le Recette_Item correspondant à l'index
+        Recette_Item selectedRecette = liste.getRecetteItemFromList(liste.Lister_recette_liste(),index);
+    
+        if (selectedRecette != null) {
+            // Mettre à jour l'affichage (par exemple, afficher le nom de la recette dans un champ de texte)
+            Field_LaRecette.setText(selectedRecette.getNom());
 
-            // Récupérer l'ID de la recette à partir de la HashMap
-            int recetteId = indextoID.get(selectedRow);
+            // Récupérer le modèle des ingrédients à partir du contrôleur
+            DefaultTableModel ingredients = liste.ListerIngredientsRecette(selectedRecette.getId());
 
-            // Affiche le nom de la recette dans le champ
-            Field_LaRecette.setText(model.getElementAt(selectedRow).toString());
-            
-            
 
-            // Récupère les ingrédients de la recette depuis la base de données
-            ArrayList<ArrayList<Object>> listeIngredients = mainJFrame.getBDD().listerIngredientRecette(recetteId);
-
-            // Affiche les lignes dans le tableau
-            for (ArrayList<Object> ligne : listeIngredients) {
-                Object[] rowData = ligne.toArray();
-                table.addRow(rowData); // Ajoute la ligne au tableau
-
-                // Affichage console (optionnel pour debug)
-                for (Object element : ligne) {
-                    System.out.print(element + " , ");
-                }
-                System.out.println();
-            }
+            // Afficher les ingrédients (par exemple dans une JTextArea ou un autre composant)
+            Tableau_Recette.setModel(ingredients);
         }
-            
-            // Mettre à jour l'interface utilisateur
-        this.revalidate();
-        this.repaint();*/
     }//GEN-LAST:event_Liste_RecetteMouseClicked
 
     private void Supprimer_RecetteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Supprimer_RecetteActionPerformed
         // TODO add your handling code here:
-        int selectedRow = Liste_Recette.getAnchorSelectionIndex(); // Récupère l'index de la ligne sélectionnée
+    /*int selectedRow = Liste_Recette.getAnchorSelectionIndex(); // Récupère l'index de la ligne sélectionnée
         if (selectedRow != -1) { // Vérifie qu'une ligne est bien sélectionnée
              
             
@@ -281,14 +263,14 @@ public class Liste_Recette extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Veuillez sélectionner une ligne pour");
                 }
             }
-        }
+        }*/
     }//GEN-LAST:event_Supprimer_RecetteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton Ajouter_Recette;
     public javax.swing.JFormattedTextField Field_LaRecette;
-    public javax.swing.JList<String> Liste_Recette;
+    public javax.swing.JList<Recette_Item> Liste_Recette;
     public javax.swing.JButton Modifier_Recette;
     public javax.swing.JButton Supprimer_Recette;
     public javax.swing.JTable Tableau_Recette;

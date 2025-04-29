@@ -1,18 +1,20 @@
 package page; 
 
+
+import main.MainFrame;
+import bdd.BDD;
+import entity.Recette_Item;
+import controller.Recette_Controller;
+import entity.Repas_Recette_Item;
+import controller.Repas_Controller;
+
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.event.TableModelListener;
-import javax.swing.event.TableModelEvent;
-import main.MainFrame;
-import bdd.BDD;
-import bdd.Requete_bdd;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+
 
 
 /*
@@ -28,19 +30,20 @@ import java.util.Map;
  */
 public class Ajout_Repas extends javax.swing.JPanel {
     private MainFrame mainJFrame;
-   private DefaultListModel<String> selectedRecettesModel = new DefaultListModel<>();
-    // En haut de ta classe JFrame/panel
-    private Map<String,Integer> typeRepasMap = new HashMap<>();
-
-    /** Creates new form Ajout_Modification_Repas */
-
-
+    private Recette_Controller liste;
+    private Repas_Controller table;
+    private DefaultListModel<Recette_Item> recette_ajout_List;
+    private DefaultTableModel recette_table;
+    
 
     public Ajout_Repas(MainFrame newJFrame) {
         mainJFrame = newJFrame;
+        liste = new Recette_Controller(mainJFrame.getBDD());
+        table = new Repas_Controller(mainJFrame.getBDD());
         initComponents();
         
-        Liste_recette_ajoute.setModel(selectedRecettesModel);
+        recette_ajout_List =liste.Lister_recette_liste();
+        recette_table=table.ListerRecetteRepas();
            
     }
 
@@ -123,11 +126,6 @@ public class Ajout_Repas extends javax.swing.JPanel {
         jLabel7.setText(" Recettes Ajoutés :");
         jLabel7.setToolTipText("");
 
-        Liste_recette_ajoute.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         Liste_recette_ajoute.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane4.setViewportView(Liste_recette_ajoute);
 
@@ -316,65 +314,12 @@ public class Ajout_Repas extends javax.swing.JPanel {
     }//GEN-LAST:event_Type_comboboxActionPerformed
 
     private void Table_RecetteAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Table_RecetteAncestorAdded
-       // TODO add your handling code here:                                          
-        DefaultTableModel table = new DefaultTableModel(
-            new Object[]{"Sélectionner", "Recette", "Ingrédients (1 personne)"}, 0
-        ) {
-            @Override
-            public Class<?> getColumnClass(int columnIndex) {
-                // La première colonne contient des checkboxes (Boolean)
-                if (columnIndex == 0) return Boolean.class;
-                return String.class;
-            }
-        };
-
-        // On vide le tableau avant d’ajouter les nouvelles lignes
-        table.setRowCount(0);
-
-        // Récupération de la liste des recettes
-        ArrayList<ArrayList<Object>> liste_recette = mainJFrame.getBDD().listerToutIngredientRecette();
-
-        for (ArrayList<Object> ligne : liste_recette) {
-            // On récupère les données de chaque ligne
-            Object nom = ligne.get(0);
-            Object ingredient = ligne.get(1);
-
-            // Création d'une ligne avec une checkbox initialisée à false
-            Object[] rowData = new Object[]{false, nom, ingredient};
-
-            // Ajout de la ligne au modèle
-            table.addRow(rowData);
-
-        }
-
-        // On applique le modèle à la JTable
-        // On applique le modèle à la JTable
-        Table_Recette.setModel(table);
-
-        // Listener pour détecter les changements sur les checkboxes
-        table.addTableModelListener(new TableModelListener() {
-            @Override
-            public void tableChanged(TableModelEvent e) {
-                int row = e.getFirstRow();
-                int column = e.getColumn();
-
-                // Vérifie si c'est bien la colonne des cases à cocher
-                if (column == 0 && row >= 0) {
-                    Boolean isSelected = (Boolean) Table_Recette.getValueAt(row, 0);
-                    String nomRecette = (String) Table_Recette.getValueAt(row, 1);
-
-                    if (isSelected) {
-                        if (!selectedRecettesModel.contains(nomRecette)) {
-                            selectedRecettesModel.addElement(nomRecette);
-                        }
-                    } else {
-                        selectedRecettesModel.removeElement(nomRecette);
-                    }
-                }
-            }
-        });
-
-
+        
+        Table_Recette.removeAll();
+        Table_Recette.setModel(recette_table);
+        // Mettre à jour l'interface utilisateur
+        this.revalidate();
+        this.repaint();
     }//GEN-LAST:event_Table_RecetteAncestorAdded
 
     private void Type_comboboxAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Type_comboboxAncestorAdded
@@ -402,7 +347,7 @@ public class Ajout_Repas extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Date_field;
     private javax.swing.JButton Enregister_button;
-    private javax.swing.JList<String> Liste_recette_ajoute;
+    private javax.swing.JList<entity.Recette_Item> Liste_recette_ajoute;
     private javax.swing.JTextField Personne_field;
     private javax.swing.JTable Table_Recette;
     private javax.swing.JComboBox<String> Type_combobox;

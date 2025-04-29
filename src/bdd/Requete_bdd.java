@@ -66,7 +66,7 @@ public class Requete_bdd extends BDD{
 
         // Méthode d'affichage de tous les ingrédients d'une recette
         public ArrayList<ArrayList<Object>> listerIngredientRecette(int recetteId) {
-            String requete = "SELECT r.nom, i.nom, rc.quantite " +
+            String requete = "SELECT i.nom, rc.quantite, c.nom " +
                      "FROM recette_ingredient AS rc " +
                      "INNER JOIN recette AS r ON rc.id_recette = r.id " +
                      "INNER JOIN ingredient AS i ON rc.id_ingredient = i.id " +
