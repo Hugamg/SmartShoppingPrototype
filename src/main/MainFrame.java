@@ -23,7 +23,6 @@ import bdd.BDD;
  * @author r.topolovac
  */
 public class MainFrame extends javax.swing.JFrame {
-    private MainFrame mainJFrame;
     static private Connexion pageConnexion;
     static private Nouveau_mot_de_passe pageNouveaumot_de_passe;
     static private Creation_de_compte pageCreation_de_compte;
@@ -33,28 +32,60 @@ public class MainFrame extends javax.swing.JFrame {
     static private Modification_Repas pageModification_Repas;
     static private Liste_Recette pageListeRecette;
     static private Requete_bdd bddRequest;
+    private boolean isUserConnected = false;  // Variable pour vérifier si l'utilisateur est connecté
+
     
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
         initComponents();
+          
+    }
+
+    public boolean isUserConnected() {
+    return isUserConnected;
+    }
+
+    public void setUserConnected(boolean isConnected) {
+        this.isUserConnected = isConnected;
+    }
+
+    public void SwithPanel(String panelName){
+        if (!isUserConnected){
+            if (panelName.equals("pageCreation_de_compte") || panelName.equals("pageConnexion")) {
+                switch (panelName) {
+                case "pageConnexion" -> this.setContentPane(pageConnexion);
+                case "pageCreation_de_compte" -> this.setContentPane(pageCreation_de_compte);
+                }
+            }else{
+                // Autoriser l'accès à la page de création de compte et à la page de connexion
+                // Si l'utilisateur n'est pas connecté et essaie d'accéder à une autre page,
+                // afficher un message pour lui dire que l'accès est impossible.
+                javax.swing.JOptionPane.showMessageDialog(this,
+                    "Vous devez être connecté pour accéder à cette page.",
+                    "Accès refusé",
+                    javax.swing.JOptionPane.ERROR_MESSAGE);
+                return;  // Ne pas changer de page si l'utilisateur n'est pas connecté
+                }
+        }else{
+            switch (panelName){
+                case "pageConnexion" -> this.setContentPane(pageConnexion);
+                case "pageNouveaumot_de_passe" -> this.setContentPane(pageNouveaumot_de_passe);
+                case "paged_Accueil" -> this.setContentPane(paged_Accueil);
+                case "pageListeRepas" -> this.setContentPane(pageListeRepas);
+                case "pageAjout_Repas" -> this.setContentPane(pageAjout_Repas);
+                case "pageModification_Repas" -> this.setContentPane(pageModification_Repas);
+                case "pageListeRecette" -> this.setContentPane(pageListeRecette);
+            }
+        }
         
-        
+        // Mettre à jour l'interface utilisateur
+        this.revalidate();
+        this.repaint();
     }
     
-    public void SwithPanel(String panelName){
-        switch (panelName){
-            case "pageConnexion" : this.setContentPane(pageConnexion);break;
-            case "pageNouveaumot_de_passe" : this.setContentPane(pageNouveaumot_de_passe);break;
-            case "pageCreation_de_compte" : this.setContentPane(pageCreation_de_compte);break;
-            case "paged_Accueil" : this.setContentPane(paged_Accueil); break;
-            case "pageListeRepas" : this.setContentPane(pageListeRepas); break;
-            case "pageAjout_Repas" : this.setContentPane(pageAjout_Repas); break;
-            case "pageModification_Repas" : this.setContentPane(pageModification_Repas); break;
-            case "pageListeRecette" : this.setContentPane(pageListeRecette); break;
-        }
-    }
+    
     
     public Requete_bdd getBDD() { return this.bddRequest; }
     
@@ -228,7 +259,7 @@ public class MainFrame extends javax.swing.JFrame {
                 
                 pageConnexion = new Connexion(newMainFrame);
                 pageNouveaumot_de_passe = new Nouveau_mot_de_passe(newMainFrame);
-                pageCreation_de_compte = new Creation_de_compte(newMainFrame);               
+                pageCreation_de_compte = new Creation_de_compte(newMainFrame, bddRequest);               
                 paged_Accueil = new Paged_accueil(newMainFrame);
                 pageListeRepas = new Liste_Repas(newMainFrame);
                 pageAjout_Repas = new Ajout_Repas(newMainFrame);

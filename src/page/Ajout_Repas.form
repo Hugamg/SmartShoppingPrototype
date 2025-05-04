@@ -132,8 +132,11 @@
     </Component>
     <Component class="javax.swing.JTextField" name="Date_field">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Entr&#xe9;e une date"/>
+        <Property name="text" type="java.lang.String" value="yyyy-MM-dd"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Date_fieldActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
@@ -163,19 +166,21 @@
       </Properties>
       <Events>
         <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="Type_comboboxAncestorAdded"/>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Type_comboboxActionPerformed"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Type_Repas_Item&gt;"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="Personne_field">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Entr&#xe9;e un nom de repas"/>
+        <Property name="text" type="java.lang.String" value="0"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Personne_fieldActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
@@ -211,8 +216,11 @@
             </Property>
             <Property name="selectionMode" type="int" value="0"/>
           </Properties>
+          <Events>
+            <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="Liste_recette_ajouteAncestorAdded"/>
+          </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;entity.Recette_Item&gt;"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
       </SubComponents>

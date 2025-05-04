@@ -3,17 +3,20 @@ package page;
 
 import main.MainFrame;
 import bdd.BDD;
+import bdd.Requete_bdd;
 import entity.Recette_Item;
 import controller.Recette_Controller;
-import entity.Repas_Recette_Item;
 import controller.Repas_Controller;
+import entity.Repas_Recette_Item;
+import entity.Type_Repas_Item;
 
-import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 
@@ -30,21 +33,23 @@ import java.util.Date;
  */
 public class Ajout_Repas extends javax.swing.JPanel {
     private MainFrame mainJFrame;
-    private Recette_Controller liste;
     private Repas_Controller table;
-    private DefaultListModel<Recette_Item> recette_ajout_List;
     private DefaultTableModel recette_table;
+    private DefaultComboBoxModel<Type_Repas_Item> repas_type;
+    private DefaultListModel<String> recette_list = new DefaultListModel();
+    private Requete_bdd requete; 
+
     
 
     public Ajout_Repas(MainFrame newJFrame) {
         mainJFrame = newJFrame;
-        liste = new Recette_Controller(mainJFrame.getBDD());
         table = new Repas_Controller(mainJFrame.getBDD());
         initComponents();
         
-        recette_ajout_List =liste.Lister_recette_liste();
-        recette_table=table.ListerRecetteRepas();
-           
+        repas_type = table.ListerTypeRepas();
+        recette_table = table.ListerRecetteRepas();
+
+         
     }
 
     /** This method is called from within the constructor to
@@ -82,7 +87,12 @@ public class Ajout_Repas extends javax.swing.JPanel {
         jLabel1.setText("Date :");
         jLabel1.setToolTipText("");
 
-        Date_field.setText("Entrée une date");
+        Date_field.setText("yyyy-MM-dd");
+        Date_field.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Date_fieldActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 12)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -103,13 +113,8 @@ public class Ajout_Repas extends javax.swing.JPanel {
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
-        Type_combobox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Type_comboboxActionPerformed(evt);
-            }
-        });
 
-        Personne_field.setText("Entrée un nom de repas");
+        Personne_field.setText("0");
         Personne_field.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Personne_fieldActionPerformed(evt);
@@ -127,6 +132,15 @@ public class Ajout_Repas extends javax.swing.JPanel {
         jLabel7.setToolTipText("");
 
         Liste_recette_ajoute.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        Liste_recette_ajoute.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                Liste_recette_ajouteAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
         jScrollPane4.setViewportView(Liste_recette_ajoute);
 
         Enregister_button.setBackground(new java.awt.Color(204, 204, 204));
@@ -267,90 +281,113 @@ public class Ajout_Repas extends javax.swing.JPanel {
 
     private void Enregister_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Enregister_buttonActionPerformed
         // TODO add your handling code here:
-        
         // Etape 2 : On récupère le jtextfield de la date et on vérifie si une date est bien rentré. Si ce n'est pas le cas on retourne que le champ est mal remplie. Ainsi on n'effectue pas l'insertion dans la bdd
         String date  = Date_field.getText().trim();
-        if (date.isEmpty()) {
+        if (date.isEmpty()){ //si date est vide 
         JOptionPane.showMessageDialog(null, "Veuillez saisir une date.", "Champ manquant", JOptionPane.WARNING_MESSAGE);
         return;
         }
         
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Création d'un parseur pour le format année/mois/jour
         sdf.setLenient(false);// désactive le ùode lenient qui force le parseur à rejeter les dates impossibles
-
+        Date parsedDate=null;
         try {
-            Date parsedDate = sdf.parse(date); 
+            parsedDate = sdf.parse(date); 
             System.out.println("Date valide : " + parsedDate);
             // → Ici tu continues avec l'insertion dans la BDD
         } catch (ParseException e) {
             JOptionPane.showMessageDialog(null, "Format de date invalide. Utilisez yyyy-MM-dd.", "Erreur de format", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        
+        // Convertir java.util.Date en java.sql.Date pour l'utiliser dans la base de données
+        java.sql.Date sqlDate = new java.sql.Date(parsedDate.getTime());
         System.out.println(date);
              
-        // Etape 3 ; On récupère l'éléments sélectionner dans jboxcombo
-        String type_repas= Type_combobox.getPrototypeDisplayValue().toString();
-        System.out.println(type_repas);
         
-        // Etape 4 : Je récupère l'élément du jtextfield du nombre de personne et je vérifie si c'est bien un entier. Si cen'est pas le cas je retourne une erreur
-        String personne = Personne_field.getText().trim();
-        if (personne.isEmpty()) {
+        
+        // Etape 3 ; On récupère l'éléments sélectionner dans jboxcombo
+        int idTypeRepas = -1; // Valeur par défaut
+        Type_Repas_Item type_repas= (Type_Repas_Item) Type_combobox.getSelectedItem();
+        if (type_repas != null) {
+        idTypeRepas = type_repas.getId();  // Tu récupères directement l’ID ici
+        System.out.println("ID du type de repas sélectionné : " + idTypeRepas);
+        }
+        
+        
+        
+        // Etape 4 : Je récupère l'élément du jtextfield du nombre de personne et je vérifie si c'est bien un entier. Si ce n'est pas le cas je retourne une erreur
+        String personne1 = Personne_field.getText().trim();
+        if (personne1.isEmpty()) {
         JOptionPane.showMessageDialog(null, "Veuillez saisir le nombre de personne.", "Champ manquant", JOptionPane.WARNING_MESSAGE);
         return;
+        }
         
-        // Etape 5 : Je récupère les différentes recette sélectionner dans la jtable ou bine je récupère les recettes de jlist.
+        int personne = -1;
+        try {
+            personne = Integer.parseInt(personne1); // Convertit en entier
+            System.out.println("Nombre de personnes : " + personne);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Le nombre de personnes doit être un entier.", "Erreur de format", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        System.out.println(personne);
+        
+        
+        requete.associerRepas(sqlDate, idTypeRepas, personne);
+        
+        System.out.println(requete);
+
+        // Etape 5 : Je récupère les différentes recette sélectionner dans la jList.
         
         // Etape 6 : J'envoie tous ces éléments à la requête afin de l'éxecuter, cependant si un élément et manquant on renvoie un message d'erreur à l'utilisateuravec le champs manquants
-        }
     }//GEN-LAST:event_Enregister_buttonActionPerformed
 
-    private void Personne_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Personne_fieldActionPerformed
-        // TODO add your handling code here:
-        Personne_field.setText("");
-    }//GEN-LAST:event_Personne_fieldActionPerformed
-
-    private void Type_comboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Type_comboboxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Type_comboboxActionPerformed
-
     private void Table_RecetteAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Table_RecetteAncestorAdded
-        
+
         Table_Recette.removeAll();
         Table_Recette.setModel(recette_table);
         // Mettre à jour l'interface utilisateur
+        
+        Table_Recette.getModel().addTableModelListener(e -> {
+        DefaultListModel<String> recetteliste = (DefaultListModel<String>) Liste_recette_ajoute.getModel();
+        table.mettreAJourSelectionRecettes(Table_Recette, recetteliste);
+    });
+
         this.revalidate();
         this.repaint();
     }//GEN-LAST:event_Table_RecetteAncestorAdded
 
     private void Type_comboboxAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Type_comboboxAncestorAdded
         // TODO add your handling code here:
-        /*Type_combobox.removeAllItems();
-        typeRepasMap.clear();
-        
-        Requete_bdd sql = new Requete_bdd();
-        
-        ArrayList<ArrayList<Object>> listeTypeRecette = mainJFrame.getBDD().lister_Type_Repas();
-        
-
-        // Ajouter les nouvelles lignes au modèle
-        for (ArrayList<Object> ligne : listeTypeRecette) {
-            int id = ligne.get(0).int();
-            String nom = ligne.get(0).toString();
-
-              Type_combobox.addItem(nom);
-              typeRepasMap.put(nom, id);
-        }*/
+        Type_combobox.removeAllItems();
+        Type_combobox.setModel(repas_type);
     }//GEN-LAST:event_Type_comboboxAncestorAdded
 
+    private void Date_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Date_fieldActionPerformed
+        // TODO add your handling code here:
+        Date_field.setText("");
+    }//GEN-LAST:event_Date_fieldActionPerformed
 
+    private void Liste_recette_ajouteAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Liste_recette_ajouteAncestorAdded
+        // TODO add your handling code here:
+        DefaultListModel<String> recetteliste = new DefaultListModel();
+        Liste_recette_ajoute.setModel(recetteliste);
+        List<Integer> idsSelectionnes = table.mettreAJourSelectionRecettes(Table_Recette, recetteliste);
+    }//GEN-LAST:event_Liste_recette_ajouteAncestorAdded
+
+    private void Personne_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Personne_fieldActionPerformed
+        // TODO add your handling code here:
+        Personne_field.setText("");
+    }//GEN-LAST:event_Personne_fieldActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Date_field;
     private javax.swing.JButton Enregister_button;
-    private javax.swing.JList<entity.Recette_Item> Liste_recette_ajoute;
+    private javax.swing.JList<String> Liste_recette_ajoute;
     private javax.swing.JTextField Personne_field;
     private javax.swing.JTable Table_Recette;
-    private javax.swing.JComboBox<String> Type_combobox;
+    private javax.swing.JComboBox<Type_Repas_Item> Type_combobox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;

@@ -31,7 +31,7 @@ public class Liste_Recette extends javax.swing.JPanel {
 
         initComponents();
         
-        recetteList =liste.Lister_recette_liste();
+        recetteList = liste.Lister_recette_liste();
 
     }
 

@@ -82,12 +82,4 @@ public class Recette_Controller {
         return new DefaultTableModel(data, model);
     }
    
-    
-    
-    
-    
-    
-    
-    
-    
 }
