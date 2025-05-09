@@ -4,9 +4,11 @@ package page;
 import main.MainFrame;
 import bdd.BDD;
 import bdd.Requete_bdd;
+import controller.Connexion_Controller;
 import entity.Recette_Item;
 import controller.Recette_Controller;
 import controller.Repas_Controller;
+import controller.Repas_Recette_Controller;
 import entity.Repas_Recette_Item;
 import entity.Type_Repas_Item;
 
@@ -33,21 +35,31 @@ import java.util.List;
  */
 public class Ajout_Repas extends javax.swing.JPanel {
     private MainFrame mainJFrame;
-    private Repas_Controller table;
+    
+    //Requête base de donnée
+    private Requete_bdd requete; 
+    
+    //Contrôleur
+    private Repas_Recette_Controller repas_recette_contoller;
+    private Repas_Controller repas_controller;
+    
+    // Objet
     private DefaultTableModel recette_table;
     private DefaultComboBoxModel<Type_Repas_Item> repas_type;
     private DefaultListModel<String> recette_list = new DefaultListModel();
-    private Requete_bdd requete; 
+    private Connexion_Controller verif;
 
     
 
     public Ajout_Repas(MainFrame newJFrame) {
         mainJFrame = newJFrame;
-        table = new Repas_Controller(mainJFrame.getBDD());
+        repas_recette_contoller = new Repas_Recette_Controller(mainJFrame.getBDD());
+        repas_controller = new Repas_Controller(mainJFrame.getBDD());
+        verif = new Connexion_Controller(mainJFrame.getBDD());
         initComponents();
         
-        repas_type = table.ListerTypeRepas();
-        recette_table = table.ListerRecetteRepas();
+        repas_type = repas_controller.ListerTypeRepas();
+        recette_table = repas_recette_contoller.ListerRecetteRepas();
 
          
     }
@@ -313,9 +325,7 @@ public class Ajout_Repas extends javax.swing.JPanel {
         idTypeRepas = type_repas.getId();  // Tu récupères directement l’ID ici
         System.out.println("ID du type de repas sélectionné : " + idTypeRepas);
         }
-        
-        
-        
+
         // Etape 4 : Je récupère l'élément du jtextfield du nombre de personne et je vérifie si c'est bien un entier. Si ce n'est pas le cas je retourne une erreur
         String personne1 = Personne_field.getText().trim();
         if (personne1.isEmpty()) {
@@ -333,10 +343,48 @@ public class Ajout_Repas extends javax.swing.JPanel {
         }
         System.out.println(personne);
         
+        int userid= verif.getUserId();
         
+        System.out.println(userid);
+        
+        List <Integer> indexrecette = repas_recette_contoller.mettreAJourSelectionRecettes(Table_Recette, recette_list);
+        System.out.println(indexrecette);
+        
+        requete.lister_unRepas(userid, sqlDate, idTypeRepas);
+        System.out.println(requete.lister_unRepas(userid, sqlDate, idTypeRepas));
+
+        
+        
+
+        if (mainJFrame.isUserConnected){
+            requete.ajouterRepas(sqlDate, personne, userid, idTypeRepas);
+            //Pour chaque recette de ma liste je dois créer exécuter ma requete d'ajout 
+            //Pour cela je dois aussi récupérer l'id du repas créer précedemment
+            
+}
+            /*
+            for(int element : indexrecette){
+                requete.associerRepas(requete.lister_unRepas(userid, sqlDate, idTypeRepas), indexrecette);
+                
+                int id_repas =requete.
+            }
+            
+            requete.ajouterRepas(userid, idTypeRepas, personne);
+        }else{
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "Vous devez être connecté en tant qu'utilisateur pour pouvoir créer des repas", 
+                "Erreur de connexion", 
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+        
+            
+            
+            
         requete.associerRepas(sqlDate, idTypeRepas, personne);
+        requete.
         
         System.out.println(requete);
+        */
 
         // Etape 5 : Je récupère les différentes recette sélectionner dans la jList.
         
@@ -351,7 +399,7 @@ public class Ajout_Repas extends javax.swing.JPanel {
         
         Table_Recette.getModel().addTableModelListener(e -> {
         DefaultListModel<String> recetteliste = (DefaultListModel<String>) Liste_recette_ajoute.getModel();
-        table.mettreAJourSelectionRecettes(Table_Recette, recetteliste);
+        repas_recette_contoller.mettreAJourSelectionRecettes(Table_Recette, recetteliste);
     });
 
         this.revalidate();
@@ -373,7 +421,7 @@ public class Ajout_Repas extends javax.swing.JPanel {
         // TODO add your handling code here:
         DefaultListModel<String> recetteliste = new DefaultListModel();
         Liste_recette_ajoute.setModel(recetteliste);
-        List<Integer> idsSelectionnes = table.mettreAJourSelectionRecettes(Table_Recette, recetteliste);
+        List<Integer> idsSelectionnes = repas_recette_contoller.mettreAJourSelectionRecettes(Table_Recette, recetteliste);
     }//GEN-LAST:event_Liste_recette_ajouteAncestorAdded
 
     private void Personne_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Personne_fieldActionPerformed

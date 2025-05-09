@@ -4,8 +4,22 @@
  */
 package page;
 
-import bdd.BDD;
 import main.MainFrame;
+import bdd.BDD;
+import bdd.Requete_bdd;
+import entity.Recette_Item;
+import controller.Recette_Controller;
+import controller.Repas_Recette_Controller;
+import entity.Repas_Recette_Item;
+import entity.Type_Repas_Item;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -13,14 +27,22 @@ import main.MainFrame;
  */
 public class Modification_Repas extends javax.swing.JPanel {
     private MainFrame mainJFrame;
-    private BDD bdd;
+    private Repas_Recette_Controller table;
+    private DefaultTableModel recette_table;
+    private DefaultComboBoxModel<Type_Repas_Item> repas_type;
+    private DefaultListModel<String> recette_list = new DefaultListModel();
+    private Requete_bdd requete; 
     /**
      * Creates new form Modification_Repa
      */
     public Modification_Repas(MainFrame newJFrame) {
         mainJFrame = newJFrame;
-        bdd=new BDD();
+        table = new Repas_Recette_Controller(mainJFrame.getBDD());
+        
         initComponents();
+        
+        //repas_type = table.ListerTypeRepas();
+        recette_table = table.ListerRecetteRepas();
     }
 
     /**
@@ -38,16 +60,16 @@ public class Modification_Repas extends javax.swing.JPanel {
         Date_field = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        Type_combobox = new javax.swing.JComboBox<>();
         Personne_field = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        Liste_recette_ajoutés = new javax.swing.JList<>();
-        Enregister_button = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         Table_Recette = new javax.swing.JTable();
-        jLabel12 = new javax.swing.JLabel();
+        Type_combobox = new javax.swing.JComboBox<>();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        Liste_recette_ajoute = new javax.swing.JList<>();
+        Enregister_button = new javax.swing.JButton();
 
         jLabel2.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -75,13 +97,6 @@ public class Modification_Repas extends javax.swing.JPanel {
         jLabel5.setText("Type :");
         jLabel5.setToolTipText("");
 
-        Type_combobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Petit-Déjeuner", "Collation", "Déjéuner", "Diner" }));
-        Type_combobox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Type_comboboxActionPerformed(evt);
-            }
-        });
-
         Personne_field.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Personne_fieldActionPerformed(evt);
@@ -98,21 +113,10 @@ public class Modification_Repas extends javax.swing.JPanel {
         jLabel7.setText(" Recettes Ajoutés :");
         jLabel7.setToolTipText("");
 
-        Liste_recette_ajoutés.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        Liste_recette_ajoutés.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane4.setViewportView(Liste_recette_ajoutés);
-
-        Enregister_button.setBackground(new java.awt.Color(204, 204, 204));
-        Enregister_button.setText("Enregistrer");
-        Enregister_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Enregister_buttonActionPerformed(evt);
-            }
-        });
+        jLabel12.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 12)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText(" Recettes :");
+        jLabel12.setToolTipText("");
 
         Table_Recette.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -122,23 +126,66 @@ public class Modification_Repas extends javax.swing.JPanel {
                 {null, null, null}
             },
             new String [] {
-                "Checkbox", "Nom Recette", "Ingrédient (1 personnes)"
+                "Sélectionner", "Nom Recette", "Ingrédient (1 personnes)"
             }
         ) {
             Class[] types = new Class [] {
                 java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class
             };
+            boolean[] canEdit = new boolean [] {
+                true, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        Table_Recette.setColumnSelectionAllowed(true);
+        Table_Recette.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        Table_Recette.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                Table_RecetteAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
         });
         jScrollPane2.setViewportView(Table_Recette);
 
-        jLabel12.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 12)); // NOI18N
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText(" Recettes :");
-        jLabel12.setToolTipText("");
+        Type_combobox.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                Type_comboboxAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+
+        Liste_recette_ajoute.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        Liste_recette_ajoute.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                Liste_recette_ajouteAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jScrollPane4.setViewportView(Liste_recette_ajoute);
+
+        Enregister_button.setBackground(new java.awt.Color(204, 204, 204));
+        Enregister_button.setText("Enregistrer");
+        Enregister_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Enregister_buttonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -146,7 +193,7 @@ public class Modification_Repas extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(22, 22, 22)
@@ -160,24 +207,24 @@ public class Modification_Repas extends javax.swing.JPanel {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(74, 74, 74)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(269, 269, 269)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(Type_combobox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(76, 76, 76)
+                                .addGap(70, 70, 70)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(Personne_field, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(24, 24, 24))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 809, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(62, 62, 62)
-                        .addComponent(Enregister_button, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(Personne_field, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 809, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Enregister_button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(24, 24, 24))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(32, 32, 32)
@@ -199,17 +246,18 @@ public class Modification_Repas extends javax.swing.JPanel {
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Date_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Type_combobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Personne_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 9, Short.MAX_VALUE)
+                            .addComponent(Personne_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Type_combobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(Enregister_button, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(16, 16, 16))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Enregister_button, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26))))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(240, 240, 240)
@@ -230,7 +278,7 @@ public class Modification_Repas extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 650, Short.MAX_VALUE)
+            .addGap(0, 671, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -241,28 +289,109 @@ public class Modification_Repas extends javax.swing.JPanel {
 
     private void Date_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Date_fieldActionPerformed
         // TODO add your handling code here:
+        Date_field.setText("");
     }//GEN-LAST:event_Date_fieldActionPerformed
-
-    private void Type_comboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Type_comboboxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Type_comboboxActionPerformed
 
     private void Personne_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Personne_fieldActionPerformed
         // TODO add your handling code here:
+        Personne_field.setText("");
     }//GEN-LAST:event_Personne_fieldActionPerformed
+
+    private void Table_RecetteAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Table_RecetteAncestorAdded
+
+        Table_Recette.removeAll();
+        Table_Recette.setModel(recette_table);
+        // Mettre à jour l'interface utilisateur
+
+        Table_Recette.getModel().addTableModelListener(e -> {
+            DefaultListModel<String> recetteliste = (DefaultListModel<String>) Liste_recette_ajoute.getModel();
+            table.mettreAJourSelectionRecettes(Table_Recette, recetteliste);
+        });
+
+        this.revalidate();
+        this.repaint();
+    }//GEN-LAST:event_Table_RecetteAncestorAdded
+
+    private void Type_comboboxAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Type_comboboxAncestorAdded
+        // TODO add your handling code here:
+        Type_combobox.removeAllItems();
+        Type_combobox.setModel(repas_type);
+    }//GEN-LAST:event_Type_comboboxAncestorAdded
+
+    private void Liste_recette_ajouteAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Liste_recette_ajouteAncestorAdded
+        // TODO add your handling code here:
+        DefaultListModel<String> recetteliste = new DefaultListModel();
+        Liste_recette_ajoute.setModel(recetteliste);
+        List<Integer> idsSelectionnes = table.mettreAJourSelectionRecettes(Table_Recette, recetteliste);
+    }//GEN-LAST:event_Liste_recette_ajouteAncestorAdded
 
     private void Enregister_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Enregister_buttonActionPerformed
         // TODO add your handling code here:
+        // Etape 2 : On récupère le jtextfield de la date et on vérifie si une date est bien rentré. Si ce n'est pas le cas on retourne que le champ est mal remplie. Ainsi on n'effectue pas l'insertion dans la bdd
+        String date  = Date_field.getText().trim();
+        if (date.isEmpty()){ //si date est vide
+            JOptionPane.showMessageDialog(null, "Veuillez saisir une date.", "Champ manquant", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Création d'un parseur pour le format année/mois/jour
+        sdf.setLenient(false);// désactive le ùode lenient qui force le parseur à rejeter les dates impossibles
+        Date parsedDate=null;
+        try {
+            parsedDate = sdf.parse(date);
+            System.out.println("Date valide : " + parsedDate);
+            // → Ici tu continues avec l'insertion dans la BDD
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null, "Format de date invalide. Utilisez yyyy-MM-dd.", "Erreur de format", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Convertir java.util.Date en java.sql.Date pour l'utiliser dans la base de données
+        java.sql.Date sqlDate = new java.sql.Date(parsedDate.getTime());
+        System.out.println(date);
+
+        // Etape 3 ; On récupère l'éléments sélectionner dans jboxcombo
+        int idTypeRepas = -1; // Valeur par défaut
+        Type_Repas_Item type_repas= (Type_Repas_Item) Type_combobox.getSelectedItem();
+        if (type_repas != null) {
+            idTypeRepas = type_repas.getId();  // Tu récupères directement l’ID ici
+            System.out.println("ID du type de repas sélectionné : " + idTypeRepas);
+        }
+
+        // Etape 4 : Je récupère l'élément du jtextfield du nombre de personne et je vérifie si c'est bien un entier. Si ce n'est pas le cas je retourne une erreur
+        String personne1 = Personne_field.getText().trim();
+        if (personne1.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Veuillez saisir le nombre de personne.", "Champ manquant", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int personne = -1;
+        try {
+            personne = Integer.parseInt(personne1); // Convertit en entier
+            System.out.println("Nombre de personnes : " + personne);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Le nombre de personnes doit être un entier.", "Erreur de format", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        System.out.println(personne);
+
+        //requete.associerRepas(sqlDate, idTypeRepas, personne);
+
+        System.out.println(requete);
+
+        // Etape 5 : Je récupère les différentes recette sélectionner dans la jList.
+
+        // Etape 6 : J'envoie tous ces éléments à la requête afin de l'éxecuter, cependant si un élément et manquant on renvoie un message d'erreur à l'utilisateuravec le champs manquants
     }//GEN-LAST:event_Enregister_buttonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JTextField Date_field;
     public javax.swing.JButton Enregister_button;
-    public javax.swing.JList<String> Liste_recette_ajoutés;
+    public javax.swing.JList<String> Liste_recette_ajoute;
     public javax.swing.JTextField Personne_field;
     public javax.swing.JTable Table_Recette;
-    public javax.swing.JComboBox<String> Type_combobox;
+    public javax.swing.JComboBox<Type_Repas_Item> Type_combobox;
     public javax.swing.JLabel jLabel1;
     public javax.swing.JLabel jLabel12;
     public javax.swing.JLabel jLabel2;

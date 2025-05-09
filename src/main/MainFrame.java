@@ -32,7 +32,7 @@ public class MainFrame extends javax.swing.JFrame {
     static private Modification_Repas pageModification_Repas;
     static private Liste_Recette pageListeRecette;
     static private Requete_bdd bddRequest;
-    private boolean isUserConnected = false;  // Variable pour vérifier si l'utilisateur est connecté
+    public boolean isUserConnected = false;  // Variable pour vérifier si l'utilisateur est connecté
 
     
     /**
@@ -50,6 +50,7 @@ public class MainFrame extends javax.swing.JFrame {
     public void setUserConnected(boolean isConnected) {
         this.isUserConnected = isConnected;
     }
+
 
     public void SwithPanel(String panelName){
         if (!isUserConnected){

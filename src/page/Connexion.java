@@ -205,15 +205,14 @@ public class Connexion extends javax.swing.JPanel {
                     // Mettre à jour l'état de la connexion
                     mainJFrame.setUserConnected(true);
                     mainJFrame.SwithPanel("paged_Accueil");
-            } else {
+            }
+        }else {
             javax.swing.JOptionPane.showMessageDialog(this, 
                 "Identifiant ou mot de passe incorrect", 
                 "Erreur de connexion", 
                 javax.swing.JOptionPane.ERROR_MESSAGE);
+                Password_field.setText("");
             }
-        }
-            
-        
     }//GEN-LAST:event_Button_ConnexionActionPerformed
 
     private void Button_CréercompteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_CréercompteActionPerformed

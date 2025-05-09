@@ -30,11 +30,10 @@ public class Connexion_Controller {
     
     
     public boolean verifierConnexion(String identifiant, String mdp){
-        
-        // Créer une liste d'objets RecetteRepasItem
+       
         ArrayList<ArrayList<Object>> id = requete.connexion_Au_Service(identifiant, mdp);
         
-        
+        // Si aucun id n'est retourné,si il est vide, et inférieeur 
         if (id != null && !id.isEmpty() && id.get(0).size() > 0){
             
             this.userId = (Integer) id.get(0).get(0); 
