@@ -7,8 +7,10 @@ package page;
 import main.MainFrame;
 import bdd.BDD;
 import bdd.Requete_bdd;
+import controller.Connexion_Controller;
 import entity.Recette_Item;
 import controller.Recette_Controller;
+import controller.Repas_Controller;
 import controller.Repas_Recette_Controller;
 import entity.Repas_Recette_Item;
 import entity.Type_Repas_Item;
@@ -27,22 +29,30 @@ import java.util.List;
  */
 public class Modification_Repas extends javax.swing.JPanel {
     private MainFrame mainJFrame;
-    private Repas_Recette_Controller table;
+    
+    //Requête base de donnée
+    private Requete_bdd requete; 
+    
+    //Contrôleur
+    private Repas_Recette_Controller repas_recette_controller;
+    private Repas_Controller repas_controller;
+    
+    // Objet
     private DefaultTableModel recette_table;
     private DefaultComboBoxModel<Type_Repas_Item> repas_type;
     private DefaultListModel<String> recette_list = new DefaultListModel();
-    private Requete_bdd requete; 
-    /**
-     * Creates new form Modification_Repa
-     */
+    private Connexion_Controller verif;
+
     public Modification_Repas(MainFrame newJFrame) {
         mainJFrame = newJFrame;
-        table = new Repas_Recette_Controller(mainJFrame.getBDD());
-        
+        repas_recette_controller = new Repas_Recette_Controller(mainJFrame.getBDD());
+        repas_controller = new Repas_Controller(mainJFrame.getBDD());
+        verif = new Connexion_Controller(mainJFrame.getBDD());
         initComponents();
         
         //repas_type = table.ListerTypeRepas();
-        recette_table = table.ListerRecetteRepas();
+        repas_type = repas_controller.ListerTypeRepas();
+        recette_table = repas_recette_controller.ListerRecetteRepas();
     }
 
     /**
@@ -305,7 +315,7 @@ public class Modification_Repas extends javax.swing.JPanel {
 
         Table_Recette.getModel().addTableModelListener(e -> {
             DefaultListModel<String> recetteliste = (DefaultListModel<String>) Liste_recette_ajoute.getModel();
-            table.mettreAJourSelectionRecettes(Table_Recette, recetteliste);
+            repas_recette_controller.mettreAJourSelectionRecettes(Table_Recette, recetteliste);
         });
 
         this.revalidate();
@@ -322,49 +332,55 @@ public class Modification_Repas extends javax.swing.JPanel {
         // TODO add your handling code here:
         DefaultListModel<String> recetteliste = new DefaultListModel();
         Liste_recette_ajoute.setModel(recetteliste);
-        List<Integer> idsSelectionnes = table.mettreAJourSelectionRecettes(Table_Recette, recetteliste);
+        List<Integer> idsSelectionnes = repas_recette_controller.mettreAJourSelectionRecettes(Table_Recette, recetteliste);
     }//GEN-LAST:event_Liste_recette_ajouteAncestorAdded
 
     private void Enregister_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Enregister_buttonActionPerformed
         // TODO add your handling code here:
         // Etape 2 : On récupère le jtextfield de la date et on vérifie si une date est bien rentré. Si ce n'est pas le cas on retourne que le champ est mal remplie. Ainsi on n'effectue pas l'insertion dans la bdd
+        
+        
+        
+        
         String date  = Date_field.getText().trim();
-        if (date.isEmpty()){ //si date est vide
-            JOptionPane.showMessageDialog(null, "Veuillez saisir une date.", "Champ manquant", JOptionPane.WARNING_MESSAGE);
-            return;
+        if (date.isEmpty()){ //si date est vide 
+        JOptionPane.showMessageDialog(null, "Veuillez saisir une date.", "Champ manquant", JOptionPane.WARNING_MESSAGE);
+        return;
         }
-
+        
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Création d'un parseur pour le format année/mois/jour
         sdf.setLenient(false);// désactive le ùode lenient qui force le parseur à rejeter les dates impossibles
         Date parsedDate=null;
         try {
-            parsedDate = sdf.parse(date);
+            parsedDate = sdf.parse(date); 
             System.out.println("Date valide : " + parsedDate);
             // → Ici tu continues avec l'insertion dans la BDD
         } catch (ParseException e) {
             JOptionPane.showMessageDialog(null, "Format de date invalide. Utilisez yyyy-MM-dd.", "Erreur de format", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
+        
         // Convertir java.util.Date en java.sql.Date pour l'utiliser dans la base de données
         java.sql.Date sqlDate = new java.sql.Date(parsedDate.getTime());
         System.out.println(date);
-
+             
+        
+        
         // Etape 3 ; On récupère l'éléments sélectionner dans jboxcombo
         int idTypeRepas = -1; // Valeur par défaut
         Type_Repas_Item type_repas= (Type_Repas_Item) Type_combobox.getSelectedItem();
         if (type_repas != null) {
-            idTypeRepas = type_repas.getId();  // Tu récupères directement l’ID ici
-            System.out.println("ID du type de repas sélectionné : " + idTypeRepas);
+        idTypeRepas = type_repas.getId();  // Tu récupères directement l’ID ici
+        System.out.println("ID du type de repas sélectionné : " + idTypeRepas);
         }
 
         // Etape 4 : Je récupère l'élément du jtextfield du nombre de personne et je vérifie si c'est bien un entier. Si ce n'est pas le cas je retourne une erreur
         String personne1 = Personne_field.getText().trim();
         if (personne1.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Veuillez saisir le nombre de personne.", "Champ manquant", JOptionPane.WARNING_MESSAGE);
-            return;
+        JOptionPane.showMessageDialog(null, "Veuillez saisir le nombre de personne.", "Champ manquant", JOptionPane.WARNING_MESSAGE);
+        return;
         }
-
+        
         int personne = -1;
         try {
             personne = Integer.parseInt(personne1); // Convertit en entier
@@ -373,15 +389,29 @@ public class Modification_Repas extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Le nombre de personnes doit être un entier.", "Erreur de format", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        System.out.println(personne);
+        
+        // On récupère l'id de l'utilisteur
+        int id_utilisateur = mainJFrame.getId_Utilisateur(); 
 
-        //requete.associerRepas(sqlDate, idTypeRepas, personne);
+        // On récupère les éléments de notre liste de recette
+        List <Integer> indexrecette = repas_recette_controller.mettreAJourSelectionRecettes(Table_Recette, recette_list); 
 
-        System.out.println(requete);
-
-        // Etape 5 : Je récupère les différentes recette sélectionner dans la jList.
-
-        // Etape 6 : J'envoie tous ces éléments à la requête afin de l'éxecuter, cependant si un élément et manquant on renvoie un message d'erreur à l'utilisateuravec le champs manquants
+        // Si un utilisateur est connecté
+        if (mainJFrame.isUserConnected){
+            repas_controller.insererNouveauRepas(sqlDate, personne, id_utilisateur, idTypeRepas); // On ajoute le repas dans la table "repas"
+            int id_repas= repas_recette_controller.getIdRepas(id_utilisateur, sqlDate, idTypeRepas); // On récupère l'id du repas créer
+            
+            // Pour chaque recette on ajoute une ligne à la table repas_recette 
+            for(int element : indexrecette){ 
+                int id_recette = element; //On transforme l'élément en id 
+                repas_recette_controller.associerRepas_Recette(id_repas,id_recette); //On associe chaque recette au repas
+            }
+        }else{
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "Vous devez être connecté en tant qu'utilisateur pour pouvoir créer des repas", 
+                "Erreur de connexion", 
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_Enregister_buttonActionPerformed
 
 

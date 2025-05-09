@@ -78,6 +78,7 @@ public class Repas_Recette_Controller {
     }
     
     
+    
     public List<Repas_Recette_Item> RecupIdRecette(){
         ArrayList<ArrayList<Object>> listerecette= requete.listerToutIngredientRecette();
         List<Repas_Recette_Item> items = new ArrayList();
@@ -96,6 +97,7 @@ public class Repas_Recette_Controller {
         return items;
         
     }
+    
     
     
     public List<Integer> mettreAJourSelectionRecettes(JTable tableModel, DefaultListModel<String> listModel) {
@@ -129,12 +131,26 @@ public class Repas_Recette_Controller {
     }
     
     
-    
-    
-    
-    
-    
-    
+    public Integer getIdRepas(int id_utilisateur, Date date_repas, int id_type) {
+        ArrayList<ArrayList<Object>> resultat = requete.lister_unRepas(id_utilisateur, date_repas, id_type);
+
+        // Vérifie que le résultat n'est pas vide
+        if (resultat != null && !resultat.isEmpty() && !resultat.get(0).isEmpty()) {
+            return (Integer) resultat.get(0).get(0); // Récupère la première valeur : l'ID
+        }
+
+        // Si aucun repas ne correspond, retourne null ou -1 selon ce que tu préfères
+        return null;
+    }
+
+    public void associerRepas_Recette(int id_repas, int id_recette ) {
+        boolean success = requete.associerRepas(id_repas, id_recette);
+        if (success) {
+            System.out.println("Repas asoocier à la recette avec succès !");
+        } else {
+            System.out.println("Échec de l'association.");
+        }
+    }
     
 }
 

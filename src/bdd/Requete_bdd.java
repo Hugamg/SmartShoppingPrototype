@@ -2,13 +2,16 @@ package bdd;
 
 import java.sql.*;
 import java.util.ArrayList;
+import main.MainFrame;
 
 public class Requete_bdd extends BDD{
     // Requête utilisateur
     
     public Requete_bdd() {
-        
+       
     }
+    
+    //--------------------------------------------------------------------------------------------------------------
         //Méthode Utilisateur
     
         // Méthode d'insertion d'utilisateur
@@ -36,7 +39,7 @@ public class Requete_bdd extends BDD{
                 return executeQuery(requete,identifiant,mdp);
         }
         
-        
+    //--------------------------------------------------------------------------------------------------------------
         
         
     // Requête Recettes
@@ -53,9 +56,7 @@ public class Requete_bdd extends BDD{
             return executeUpdate(requete, recetteId);
         }
         
-        
-        
-        
+    //--------------------------------------------------------------------------------------------------------------
         
         
     //Requête Type_Repas
@@ -69,9 +70,10 @@ public class Requete_bdd extends BDD{
 
         
         
-        
+    //--------------------------------------------------------------------------------------------------------------
         
     // Requête Ingrédient
+        
         // Méthode d'affichage de tous les ingrédients d'une recette
         public ArrayList<ArrayList<Object>> listerIngredientRecette(int recetteId) {
             String requete = "SELECT i.nom, rc.quantite, c.nom " +
@@ -104,25 +106,14 @@ public class Requete_bdd extends BDD{
             return executeQuery(requete, repasid);
         }
 
-
+    
+    //--------------------------------------------------------------------------------------------------------------
 
 
     // Requête Repas 
-        // Méthode d'ajout de repas 
-        public boolean ajouterRepas(Date date_repas, int personne, int userid, int type) {
-            String requete = "INSERT INTO repas (date_repas, personne, userid, type) VALUES (?, ?, ?, ?)";
-            return executeUpdate(requete);
-        }
         
         
-        
-        
-        
-        
-        
-        
-        
-        //Méthode de listage de tous les repas
+        //Méthode pour lister tous les repas
         public ArrayList<ArrayList<Object>> listerRepas() {
             String requete = "SELECT id, date_repas, nom, type FROM repas";
             return executeQuery(requete);
@@ -133,8 +124,19 @@ public class Requete_bdd extends BDD{
             String requete = "SELECT id FROM repas WHERE id_utilisateur = ? AND date_repas = ? AND id_type = ?";
             return executeQuery(requete, id_utilisateur, date_repas, id_type);
         }
-    
+       
+        // Méthode d'affichage d'un date d'un repas
+        public ArrayList<ArrayList<Object>> lister_Date_Repas(int id_utilisateur, Date date_repas, int id_type) {
+            String requete = "SELECT id FROM repas WHERE id_utilisateur = ? AND date_repas = ? AND id_type = ?";
+            return executeQuery(requete, id_utilisateur, date_repas, id_type);
+        }
         
+        // Méthode d'ajout de repas 
+        public boolean ajouterRepas(Date date_repas, int personne, int id_utilisateur, int id_type) {
+            String requete = "INSERT INTO repas (date_repas, personne, id_utilisateur, id_type) VALUES (?, ?, ?, ?)";
+            return executeUpdate(requete, date_repas, personne, id_utilisateur, id_type);
+        }
+    
         // Méthode de supression de repas 
         public boolean supprimerRepas(int repasId) {
             String requete = "DELETE FROM Repas WHERE id_Repas = ?";
@@ -146,9 +148,11 @@ public class Requete_bdd extends BDD{
             String requete = "UPDATE Repas SET date = ?, nom = ?, type = ?, personne = ? WHERE id_Repas = ?";
             return executeUpdate(requete, date, nom, type, personne, repasId);
         }
+        
+        
 
-
-
+    //--------------------------------------------------------------------------------------------------------------
+        
         
 
     // Requête Ustensiles
@@ -161,16 +165,16 @@ public class Requete_bdd extends BDD{
         }
         
         
-        
+    //--------------------------------------------------------------------------------------------------------------
         
         
     // Requête Repas_recettes
         
         // Méthode d'ajout d'un repas 
-        public boolean associerRepas(int id_repas,int personne) {
+        public boolean associerRepas(int id_repas,int id_recette) {
             String requete = "INSERT INTO repas_recette(id_repas, id_recette) VALUES (?, ?);";
             
-            return executeUpdate(requete);
+            return executeUpdate(requete, id_repas, id_recette );
         }
 }
 

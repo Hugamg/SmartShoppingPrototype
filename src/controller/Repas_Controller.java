@@ -49,7 +49,7 @@ public class Repas_Controller {
     
     
     
-   public boolean ListerUnRepas(int id_utilisateur, java.sql.Date date_repas, int id_type){
+    public boolean ListerUnRepas(int id_utilisateur, java.sql.Date date_repas, int id_type){
        
         ArrayList<ArrayList<Object>> id = requete.lister_unRepas(id_utilisateur, date_repas, id_type);
         
@@ -68,5 +68,14 @@ public class Repas_Controller {
 
         return false;
         
+    }
+   
+    public void insererNouveauRepas(java.sql.Date date, int personne, int id_utilisateur, int id_type) {
+        boolean success = requete.ajouterRepas(date, personne, id_utilisateur, id_type);
+        if (success) {
+            System.out.println("Repas ajouté avec succès !");
+        } else {
+            System.out.println("Échec de l'ajout du repas.");
+        }
     }
 }

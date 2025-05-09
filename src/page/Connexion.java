@@ -18,7 +18,7 @@ public class Connexion extends javax.swing.JPanel {
     private MainFrame mainJFrame;
     private Requete_bdd requete;
     private Connexion_Controller verif;
-
+    public int id_utilisateur;
     /**
      * Creates new form Connexion
      */
@@ -193,16 +193,20 @@ public class Connexion extends javax.swing.JPanel {
         // Vérification de la connexion
         boolean Connected = verif.verifierConnexion(identifiant, mdp);
         
+        
         System.out.println("Résultat de la connexion : " + Connected);
 
         if (Connected) {
-            int userId = verif.getUserId();  // Récupérer l'ID de l'utilisateur connecté
-            if(userId != -1){
+            id_utilisateur = verif.getId_Utilisateur();  // Récupérer l'ID de l'utilisateur connecté
+            //mainJFrame.setUserId(userId);
+            System.out.println(id_utilisateur);
+            if(id_utilisateur != -1){
                 javax.swing.JOptionPane.showMessageDialog(this, 
                     "Connexion réussie !", 
                     "Succès", 
                     javax.swing.JOptionPane.INFORMATION_MESSAGE);
                     // Mettre à jour l'état de la connexion
+                    mainJFrame.setId_Utilisateur(id_utilisateur);
                     mainJFrame.setUserConnected(true);
                     mainJFrame.SwithPanel("paged_Accueil");
             }

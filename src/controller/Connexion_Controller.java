@@ -14,21 +14,15 @@ import java.util.ArrayList;
  */
 public class Connexion_Controller {
     private Requete_bdd requete;
-    int userId ;
+    int id_utilisateur;
     
     
     public Connexion_Controller(Requete_bdd requete2){
         this.requete= requete2;
-        this.userId= -1;
+        this.id_utilisateur= 0;
     }
     
-    // Méthode pour obtenir l'ID de l'utilisateur connecté
-    public int getUserId() {
-        return userId;
-    }
-    
-    
-    
+   
     public boolean verifierConnexion(String identifiant, String mdp){
        
         ArrayList<ArrayList<Object>> id = requete.connexion_Au_Service(identifiant, mdp);
@@ -36,7 +30,7 @@ public class Connexion_Controller {
         // Si aucun id n'est retourné,si il est vide, et inférieeur 
         if (id != null && !id.isEmpty() && id.get(0).size() > 0){
             
-            this.userId = (Integer) id.get(0).get(0); 
+            this.id_utilisateur = (Integer) id.get(0).get(0); 
             System.out.println("Résultat de executeQuery : " + id);
 
             
@@ -48,6 +42,11 @@ public class Connexion_Controller {
 
         return false;
         
+    }
+    
+    // Méthode pour obtenir l'ID de l'utilisateur connecté
+    public int getId_Utilisateur() {
+        return id_utilisateur;
     }
    
     

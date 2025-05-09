@@ -40,7 +40,7 @@ public class Ajout_Repas extends javax.swing.JPanel {
     private Requete_bdd requete; 
     
     //Contrôleur
-    private Repas_Recette_Controller repas_recette_contoller;
+    private Repas_Recette_Controller repas_recette_controller;
     private Repas_Controller repas_controller;
     
     // Objet
@@ -53,13 +53,13 @@ public class Ajout_Repas extends javax.swing.JPanel {
 
     public Ajout_Repas(MainFrame newJFrame) {
         mainJFrame = newJFrame;
-        repas_recette_contoller = new Repas_Recette_Controller(mainJFrame.getBDD());
+        repas_recette_controller = new Repas_Recette_Controller(mainJFrame.getBDD());
         repas_controller = new Repas_Controller(mainJFrame.getBDD());
         verif = new Connexion_Controller(mainJFrame.getBDD());
         initComponents();
         
         repas_type = repas_controller.ListerTypeRepas();
-        recette_table = repas_recette_contoller.ListerRecetteRepas();
+        recette_table = repas_recette_controller.ListerRecetteRepas();
 
          
     }
@@ -341,54 +341,29 @@ public class Ajout_Repas extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Le nombre de personnes doit être un entier.", "Erreur de format", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        System.out.println(personne);
         
-        int userid= verif.getUserId();
-        
-        System.out.println(userid);
-        
-        List <Integer> indexrecette = repas_recette_contoller.mettreAJourSelectionRecettes(Table_Recette, recette_list);
-        System.out.println(indexrecette);
-        
-        requete.lister_unRepas(userid, sqlDate, idTypeRepas);
-        System.out.println(requete.lister_unRepas(userid, sqlDate, idTypeRepas));
+        // On récupère l'id de l'utilisteur
+        int id_utilisateur = mainJFrame.getId_Utilisateur(); 
 
-        
-        
+        // On récupère les éléments de notre liste de recette
+        List <Integer> indexrecette = repas_recette_controller.mettreAJourSelectionRecettes(Table_Recette, recette_list); 
 
+        // Si un utilisateur est connecté
         if (mainJFrame.isUserConnected){
-            requete.ajouterRepas(sqlDate, personne, userid, idTypeRepas);
-            //Pour chaque recette de ma liste je dois créer exécuter ma requete d'ajout 
-            //Pour cela je dois aussi récupérer l'id du repas créer précedemment
+            repas_controller.insererNouveauRepas(sqlDate, personne, id_utilisateur, idTypeRepas); // On ajoute le repas dans la table "repas"
+            int id_repas= repas_recette_controller.getIdRepas(id_utilisateur, sqlDate, idTypeRepas); // On récupère l'id du repas créer
             
-}
-            /*
-            for(int element : indexrecette){
-                requete.associerRepas(requete.lister_unRepas(userid, sqlDate, idTypeRepas), indexrecette);
-                
-                int id_repas =requete.
+            // Pour chaque recette on ajoute une ligne à la table repas_recette 
+            for(int element : indexrecette){ 
+                int id_recette = element; //On transforme l'élément en id 
+                repas_recette_controller.associerRepas_Recette(id_repas,id_recette); //On associe chaque recette au repas
             }
-            
-            requete.ajouterRepas(userid, idTypeRepas, personne);
         }else{
             javax.swing.JOptionPane.showMessageDialog(this, 
                 "Vous devez être connecté en tant qu'utilisateur pour pouvoir créer des repas", 
                 "Erreur de connexion", 
                 javax.swing.JOptionPane.ERROR_MESSAGE);
         }
-        
-            
-            
-            
-        requete.associerRepas(sqlDate, idTypeRepas, personne);
-        requete.
-        
-        System.out.println(requete);
-        */
-
-        // Etape 5 : Je récupère les différentes recette sélectionner dans la jList.
-        
-        // Etape 6 : J'envoie tous ces éléments à la requête afin de l'éxecuter, cependant si un élément et manquant on renvoie un message d'erreur à l'utilisateuravec le champs manquants
     }//GEN-LAST:event_Enregister_buttonActionPerformed
 
     private void Table_RecetteAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Table_RecetteAncestorAdded
@@ -399,7 +374,7 @@ public class Ajout_Repas extends javax.swing.JPanel {
         
         Table_Recette.getModel().addTableModelListener(e -> {
         DefaultListModel<String> recetteliste = (DefaultListModel<String>) Liste_recette_ajoute.getModel();
-        repas_recette_contoller.mettreAJourSelectionRecettes(Table_Recette, recetteliste);
+        repas_recette_controller.mettreAJourSelectionRecettes(Table_Recette, recetteliste);
     });
 
         this.revalidate();
@@ -421,7 +396,7 @@ public class Ajout_Repas extends javax.swing.JPanel {
         // TODO add your handling code here:
         DefaultListModel<String> recetteliste = new DefaultListModel();
         Liste_recette_ajoute.setModel(recetteliste);
-        List<Integer> idsSelectionnes = repas_recette_contoller.mettreAJourSelectionRecettes(Table_Recette, recetteliste);
+        List<Integer> idsSelectionnes = repas_recette_controller.mettreAJourSelectionRecettes(Table_Recette, recetteliste);
     }//GEN-LAST:event_Liste_recette_ajouteAncestorAdded
 
     private void Personne_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Personne_fieldActionPerformed
