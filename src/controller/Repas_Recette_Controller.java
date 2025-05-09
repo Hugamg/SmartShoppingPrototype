@@ -34,6 +34,28 @@ public class Repas_Recette_Controller {
         this.requete= requete2;
     }
     
+    // Méthode pour obtenir les informations de toutes les recettes d'un utilisateur
+    public DefaultTableModel ListerRepas_Utilisateur(int id_utilisateur, String date_debut, String date_fin ) {
+        // Récupérer les ingrédients pour la recette avec l'ID fourni
+        ArrayList<ArrayList<Object>> liste_repas = requete.listerRepas(id_utilisateur, date_debut, date_fin);
+        // Noms des colonnes du tableau
+        String[] model = {"Date", "Type", "Personnes", "Recettes"};
+       
+        // Tableau de données pour les ingrédients
+        Object[][] data = new Object[liste_repas.size()][4];  // 3 colonnes : Nom, Quantité, Calorie
+
+        // Remplissage du tableau avec les données
+        for (int i = 0; i < liste_repas.size(); i++) {
+            ArrayList<Object> repas = liste_repas.get(i);
+            data[i][0] = repas.get(0);  // Date du repas 
+            data[i][1] = repas.get(1);  // Type de repas
+            data[i][2] = repas.get(2);  // Nombres de personnes
+            data[i][3] = repas.get(3);  // Recettes du repas 
+        }
+        
+        // Retourne le modèle de table avec les données et les noms de colonnes
+        return new DefaultTableModel(data, model);
+    }
     
 
     // Méthode pour obtenir le modèle de table pour les ingrédients d'une recette donnée

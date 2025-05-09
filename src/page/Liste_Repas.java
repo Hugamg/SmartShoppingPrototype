@@ -1,8 +1,16 @@
 package page;
 
 import bdd.BDD;
+import controller.Repas_Controller;
+import controller.Repas_Recette_Controller;
+import entity.Type_Repas_Item;
+import java.awt.event.ActionEvent;
+import java.text.SimpleDateFormat;
 import main.MainFrame;
 import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -17,16 +25,27 @@ import javax.swing.table.DefaultTableModel;
  * @author amagl
  */
 public class Liste_Repas extends javax.swing.JPanel {
-    
     private MainFrame mainJFrame;
-    private BDD bdd;
+    private Repas_Recette_Controller table;
+    private Repas_Controller repas_controller;
+    private DefaultComboBoxModel repas_date;
+ 
+    // Déclarer le modèle de la liste de recettes
+    private DefaultTableModel repasTable;
+    
+
 
     /** Creates new form Liste_Repas */
     public Liste_Repas(MainFrame newJFrame) {
-        mainJFrame = newJFrame;
-        bdd=new BDD();
+        mainJFrame = newJFrame; 
+        table = new Repas_Recette_Controller(mainJFrame.getBDD());
+        repas_controller = new Repas_Controller(mainJFrame.getBDD());
       
         initComponents();
+        
+        chargerListeRepas(); // <-- Rafraîchit directement la table au lancement
+  
+        
     }
 
     /** This method is called from within the constructor to
@@ -45,11 +64,11 @@ public class Liste_Repas extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         Filtre_Date2 = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        ListedesRepas_ListeRepas = new javax.swing.JTable();
         BoutonAjout_ListeRepas = new javax.swing.JButton();
         BoutonSupprimer_ListeRepas = new javax.swing.JButton();
         BoutonModif_ListeRepas = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Repas_recette = new javax.swing.JTable();
 
         jLabel1.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 10)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -62,6 +81,15 @@ public class Liste_Repas extends javax.swing.JPanel {
         jLabel2.setToolTipText("");
 
         Filtre_Date1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Filtre_Date1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                Filtre_Date1AncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
         Filtre_Date1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Filtre_Date1ActionPerformed(evt);
@@ -74,6 +102,15 @@ public class Liste_Repas extends javax.swing.JPanel {
         jLabel4.setToolTipText("");
 
         Filtre_Date2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Filtre_Date2.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                Filtre_Date2AncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
         Filtre_Date2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Filtre_Date2ActionPerformed(evt);
@@ -84,29 +121,6 @@ public class Liste_Repas extends javax.swing.JPanel {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Liste de repas");
         jLabel5.setToolTipText("");
-
-        ListedesRepas_ListeRepas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null}
-            },
-            new String [] {
-                "Date", "Type", "Personnes", "Recettes"
-            }
-        ));
-        ListedesRepas_ListeRepas.setColumnSelectionAllowed(true);
-        ListedesRepas_ListeRepas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        ListedesRepas_ListeRepas.setEnabled(false);
-        ListedesRepas_ListeRepas.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                ListedesRepas_ListeRepasAncestorAdded(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
-        jScrollPane3.setViewportView(ListedesRepas_ListeRepas);
-        ListedesRepas_ListeRepas.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         BoutonAjout_ListeRepas.setText("Ajouter un Repas");
         BoutonAjout_ListeRepas.addActionListener(new java.awt.event.ActionListener() {
@@ -128,6 +142,17 @@ public class Liste_Repas extends javax.swing.JPanel {
                 BoutonModif_ListeRepasActionPerformed(evt);
             }
         });
+
+        Repas_recette.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Date du repas", "Type de repas", "Personne(s)", "Recette(s)"
+            }
+        ));
+        jScrollPane1.setViewportView(Repas_recette);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -153,16 +178,18 @@ public class Liste_Repas extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Filtre_Date2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(464, 464, 464)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(368, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(464, 464, 464))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(20, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1094, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(36, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,22 +203,25 @@ public class Liste_Repas extends javax.swing.JPanel {
                     .addComponent(Filtre_Date2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 431, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(BoutonSupprimer_ListeRepas)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(BoutonAjout_ListeRepas)
                         .addComponent(BoutonModif_ListeRepas)))
                 .addGap(23, 23, 23))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(164, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(102, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 831, Short.MAX_VALUE)
+            .addGap(0, 1150, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -211,13 +241,13 @@ public class Liste_Repas extends javax.swing.JPanel {
 
     private void Filtre_Date1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Filtre_Date1ActionPerformed
         // TODO add your handling code here:
-    System.out.print("BOX2 ACTION PERFORMED\n");
+        chargerListeRepas();
+        
     }//GEN-LAST:event_Filtre_Date1ActionPerformed
 
     private void Filtre_Date2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Filtre_Date2ActionPerformed
         // TODO add your handling code here:
-          
-    System.out.print("BOX3 ACTION PERFORMED\n");
+        chargerListeRepas();
 
     }//GEN-LAST:event_Filtre_Date2ActionPerformed
 
@@ -232,11 +262,11 @@ public class Liste_Repas extends javax.swing.JPanel {
     private void BoutonSupprimer_ListeRepasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonSupprimer_ListeRepasActionPerformed
         // TODO add your handling code here:
         //définir en premier le modèle de la table 
-        /*DefaultTableModel model = (DefaultTableModel) ListedesRepas_ListeRepas.getModel();
+        DefaultTableModel model = (DefaultTableModel) Repas_recette.getModel();
         //supprimer les données existantes
 
         // Vérifier si une ligne est sélectionnée
-        int selectedRow = ListedesRepas_ListeRepas.getSelectedRow();
+        int selectedRow = Repas_recette.getSelectedRow();
         if (selectedRow != -1){//si une ligne est sélectionner 
 
             int repasId = (int)model.getValueAt(selectedRow, 1);
@@ -248,41 +278,59 @@ public class Liste_Repas extends javax.swing.JPanel {
                 model.removeRow(selectedRow);
                 JOptionPane.showMessageDialog(this, "Ligne supprimée avec succès !");
                 }else {
-            if(model.getRowCount()==0){
-                JOptionPane.showMessageDialog(this, "La table est vide");
-            }else{
-                //si la table n'est pas vide et qu'une ligne ou plusieurs lignes n'est pas sélectionner 
-                JOptionPane.showMessageDialog(this, "Veuillez sélectionner une ligne pour");
+                    if(model.getRowCount()==0){
+                        JOptionPane.showMessageDialog(this, "La table est vide");
+                    }else{
+                        //si la table n'est pas vide et qu'une ligne ou plusieurs lignes n'est pas sélectionner 
+                        JOptionPane.showMessageDialog(this, "Veuillez sélectionner une ligne pour");
+                        }
                 }
-            }
-        }*/
-    }//GEN-LAST:event_BoutonSupprimer_ListeRepasActionPerformed
-
-    private void ListedesRepas_ListeRepasAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_ListedesRepas_ListeRepasAncestorAdded
-        // TODO add your handling code here:
-        System.out.print("ANCESTOR ADDED\n");
-        
-        ArrayList<ArrayList<Object>> listeRepas;
-        listeRepas = mainJFrame.getBDD().listerRepas();
-        //System.out.print("Nombre de repas: "+listeRepas.size());
-        
-         for (ArrayList<Object> ligne : listeRepas) {
-            // Convertir la ligne en un tableau d'objets pour l'ajouter au modèle
-            Object[] rowData = ligne.toArray();
-
-            // Afficher les données dans la console (optionnel)
-            for (Object element : ligne) {
-                System.out.print(element + " , ");
-            }
-            System.out.println("");
         }
-    }//GEN-LAST:event_ListedesRepas_ListeRepasAncestorAdded
+    }//GEN-LAST:event_BoutonSupprimer_ListeRepasActionPerformed
 
     private void BoutonModif_ListeRepasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonModif_ListeRepasActionPerformed
         // TODO add your handling code here:
         mainJFrame.SwithPanel("pageModification_Repas");
     }//GEN-LAST:event_BoutonModif_ListeRepasActionPerformed
-                               
+
+    private void Filtre_Date1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Filtre_Date1AncestorAdded
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        int id_utilisateur = mainJFrame.getId_Utilisateur();
+        repas_date = repas_controller.ListerDateRepas(id_utilisateur);
+        
+        Filtre_Date1.removeAllItems();
+        Filtre_Date1.setModel(repas_date);
+        
+        // Sélectionne la date du jour si elle est dans le modèle
+        String dateAujourdhui = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
+        Filtre_Date1.setSelectedItem(dateAujourdhui);
+    }//GEN-LAST:event_Filtre_Date1AncestorAdded
+
+    private void Filtre_Date2AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Filtre_Date2AncestorAdded
+        // TODO add your handling code here:
+        int id_utilisateur = mainJFrame.getId_Utilisateur();
+        repas_date = repas_controller.ListerDateRepas(id_utilisateur);
+        
+        Filtre_Date2.removeAllItems();
+        Filtre_Date2.setModel(repas_date);
+        
+        // Sélectionne la date du jour si elle est dans le modèle
+        String dateAujourdhui = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
+        Filtre_Date2.setSelectedItem(dateAujourdhui);
+    }//GEN-LAST:event_Filtre_Date2AncestorAdded
+              
+    private void chargerListeRepas() {
+    String date1 = (String) Filtre_Date1.getSelectedItem();
+    String date2 = (String) Filtre_Date2.getSelectedItem();
+    int id_utilisateur = mainJFrame.getId_Utilisateur();
+
+    if (date1 != null && date2 != null) {
+        repasTable = table.ListerRepas_Utilisateur(id_utilisateur, date1, date2);
+        Repas_recette.setModel(repasTable);
+    }
+}
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BoutonAjout_ListeRepas;
@@ -290,13 +338,13 @@ public class Liste_Repas extends javax.swing.JPanel {
     private javax.swing.JButton BoutonSupprimer_ListeRepas;
     private javax.swing.JComboBox<String> Filtre_Date1;
     private javax.swing.JComboBox<String> Filtre_Date2;
-    private javax.swing.JTable ListedesRepas_ListeRepas;
+    private javax.swing.JTable Repas_recette;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
 }

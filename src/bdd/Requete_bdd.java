@@ -114,9 +114,17 @@ public class Requete_bdd extends BDD{
         
         
         //Méthode pour lister tous les repas
-        public ArrayList<ArrayList<Object>> listerRepas() {
-            String requete = "SELECT id, date_repas, nom, type FROM repas";
-            return executeQuery(requete);
+        public ArrayList<ArrayList<Object>> listerRepas(int id_utilisateur, String dateDebut, String datefin) {
+            String requete = "SELECT r.date_repas, t.nom, r.personne, GROUP_CONCAT(rec.nom SEPARATOR ', ') " +
+                    "FROM repas_recette AS r2 " +
+                    "INNER JOIN repas AS r ON r2.id_repas = r.id " +
+                    "INNER JOIN recette AS rec ON r2.id_recette = rec.id " +
+                    "INNER JOIN type_repas AS t ON r.id_type = t.id " +
+                    "WHERE r.id_utilisateur = ? AND r.date_repas BETWEEN ? AND ? " + 
+                    "GROUP BY r.date_repas, t.nom, r.personne;";
+                    
+            
+            return executeQuery(requete, id_utilisateur, dateDebut, datefin);
         }
 
         //Méthode d'affichage d'un repas spécifique 
@@ -126,9 +134,9 @@ public class Requete_bdd extends BDD{
         }
        
         // Méthode d'affichage d'un date d'un repas
-        public ArrayList<ArrayList<Object>> lister_Date_Repas(int id_utilisateur, Date date_repas, int id_type) {
-            String requete = "SELECT id FROM repas WHERE id_utilisateur = ? AND date_repas = ? AND id_type = ?";
-            return executeQuery(requete, id_utilisateur, date_repas, id_type);
+        public ArrayList<ArrayList<Object >> lister_Date_Repas(int id_utilisateur) {
+            String requete = "SELECT date_repas FROM repas WHERE id_utilisateur = ?;";
+            return executeQuery(requete, id_utilisateur);
         }
         
         // Méthode d'ajout de repas 

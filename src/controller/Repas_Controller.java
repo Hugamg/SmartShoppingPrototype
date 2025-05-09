@@ -47,8 +47,7 @@ public class Repas_Controller {
         return model;
     }
     
-    
-    
+  
     public boolean ListerUnRepas(int id_utilisateur, java.sql.Date date_repas, int id_type){
        
         ArrayList<ArrayList<Object>> id = requete.lister_unRepas(id_utilisateur, date_repas, id_type);
@@ -77,5 +76,19 @@ public class Repas_Controller {
         } else {
             System.out.println("Échec de l'ajout du repas.");
         }
+    }
+    
+    // Méthode pour lister les types de repas dans la JCombobox
+    public DefaultComboBoxModel ListerDateRepas(int id_utilisateur){
+        DefaultComboBoxModel model = new DefaultComboBoxModel<>();
+        // Récupération des résultats SQL (la requête est déjà dans ton modèle)
+        ArrayList<ArrayList<Object>> listeDateRepas = requete.lister_Date_Repas(id_utilisateur);
+
+        for (ArrayList<Object> ligne : listeDateRepas) {
+            String date = ligne.get(0).toString(); // Colonne nom
+
+            model.addElement(date);
+        }
+        return model;
     }
 }
