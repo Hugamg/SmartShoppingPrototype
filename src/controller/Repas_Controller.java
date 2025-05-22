@@ -26,10 +26,20 @@ public class Repas_Controller {
     private MainFrame mainJFrame;
     private Requete_bdd requete;
     private int id;
+    private int repasId;
     
     public Repas_Controller(Requete_bdd requete2){
         this.requete= requete2;
     }
+    
+    public int getId_Repas(){
+        return repasId;
+    }
+    
+    public void setId_Repas(int id) {
+    this.repasId = id;
+}
+    
     
     // Méthode pour lister les types de repas dans la JCombobox
     public DefaultComboBoxModel<Type_Repas_Item> ListerTypeRepas(){
@@ -38,7 +48,7 @@ public class Repas_Controller {
         ArrayList<ArrayList<Object>> listeTypeRepas = requete.lister_Type_Repas();
 
         for (ArrayList<Object> ligne : listeTypeRepas) {
-            int id = Integer.parseInt(ligne.get(0).toString());// Colonne ID
+            id = Integer.parseInt(ligne.get(0).toString());// Colonne ID
             String nom = ligne.get(1).toString(); // Colonne nom
 
             Type_Repas_Item item = new Type_Repas_Item(id, nom);
@@ -69,6 +79,7 @@ public class Repas_Controller {
         
     }
    
+    // Méthode d'insertion d'un nouveau Repas
     public void insererNouveauRepas(java.sql.Date date, int personne, int id_utilisateur, int id_type) {
         boolean success = requete.ajouterRepas(date, personne, id_utilisateur, id_type);
         if (success) {

@@ -290,6 +290,28 @@ public class Liste_Repas extends javax.swing.JPanel {
 
     private void BoutonModif_ListeRepasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonModif_ListeRepasActionPerformed
         // TODO add your handling code here:
+        
+        int selectedRow = Repas_recette.getSelectedRow();
+        
+        // Si la ligne sélectionné est inférieur (si aucune ligne n'est sélectionné alors) à 0
+        if(selectedRow == -1){
+            JOptionPane.showMessageDialog(this,"Veuillez choisir un repas à modifier");  // Alors on renvoie ce message à l'utilisateur
+        }
+        
+        // On créer une objet qui récupérera le numéro de la ligne sélectionner dans la collone 0 (ID)
+        Object object = Repas_recette.getModel().getValueAt(selectedRow, 0); // Colonne 0 = ID (caché)
+
+        // On vérifie si Object renvoie bien un type Integer
+        if(object instanceof Integer) {
+            // on transforme l'object en Integer
+            int idRepas = (Integer) object;
+            repas_controller.setId_Repas(idRepas);
+            // Appel vers la fenêtre de modification du repas
+            System.out.println(idRepas);
+        } else {
+            JOptionPane.showMessageDialog(this, "Erreur : l'ID du repas est invalide.");
+        }
+
         mainJFrame.SwithPanel("pageModification_Repas");
     }//GEN-LAST:event_BoutonModif_ListeRepasActionPerformed
 
@@ -328,6 +350,11 @@ public class Liste_Repas extends javax.swing.JPanel {
     if (date1 != null && date2 != null) {
         repasTable = table.ListerRepas_Utilisateur(id_utilisateur, date1, date2);
         Repas_recette.setModel(repasTable);
+        
+        // Cacher la colonne ID (colonne 0)
+        Repas_recette.getColumnModel().getColumn(0).setMinWidth(0);
+        Repas_recette.getColumnModel().getColumn(0).setMaxWidth(0);
+        Repas_recette.getColumnModel().getColumn(0).setWidth(0);
     }
 }
 

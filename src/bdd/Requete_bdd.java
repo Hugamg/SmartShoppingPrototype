@@ -1,3 +1,4 @@
+
 package bdd;
 
 import java.sql.*;
@@ -115,7 +116,7 @@ public class Requete_bdd extends BDD{
         
         //Méthode pour lister tous les repas
         public ArrayList<ArrayList<Object>> listerRepas(int id_utilisateur, String dateDebut, String datefin) {
-            String requete = "SELECT r.date_repas, t.nom, r.personne, GROUP_CONCAT(rec.nom SEPARATOR ', ') " +
+            String requete = "SELECT r.id, r.date_repas, t.nom, r.personne, GROUP_CONCAT(rec.nom SEPARATOR ', ') " +
                     "FROM repas_recette AS r2 " +
                     "INNER JOIN repas AS r ON r2.id_repas = r.id " +
                     "INNER JOIN recette AS rec ON r2.id_recette = rec.id " +

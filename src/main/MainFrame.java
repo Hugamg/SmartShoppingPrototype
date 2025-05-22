@@ -50,7 +50,8 @@ public class MainFrame extends javax.swing.JFrame {
     
     public void setId_Utilisateur(int id) {
     this.userId = id;
-}
+    
+    }
 
     public boolean isUserConnected() {
     return isUserConnected;
