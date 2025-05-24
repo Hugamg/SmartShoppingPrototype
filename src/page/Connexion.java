@@ -198,7 +198,6 @@ public class Connexion extends javax.swing.JPanel {
 
         if (Connected) {
             id_utilisateur = verif.getId_Utilisateur();  // Récupérer l'ID de l'utilisateur connecté
-            //mainJFrame.setUserId(userId);
             System.out.println(id_utilisateur);
             if(id_utilisateur != -1){
                 javax.swing.JOptionPane.showMessageDialog(this, 

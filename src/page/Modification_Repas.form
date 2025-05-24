@@ -164,7 +164,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="Date_field">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Date_fieldActionPerformed"/>
+            <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="Date_fieldAncestorAdded"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">

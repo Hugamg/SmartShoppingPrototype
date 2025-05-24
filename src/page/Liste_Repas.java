@@ -29,6 +29,7 @@ public class Liste_Repas extends javax.swing.JPanel {
     private Repas_Recette_Controller table;
     private Repas_Controller repas_controller;
     private DefaultComboBoxModel repas_date;
+    public int id_repas;
  
     // Déclarer le modèle de la liste de recettes
     private DefaultTableModel repasTable;
@@ -304,10 +305,10 @@ public class Liste_Repas extends javax.swing.JPanel {
         // On vérifie si Object renvoie bien un type Integer
         if(object instanceof Integer) {
             // on transforme l'object en Integer
-            int idRepas = (Integer) object;
-            repas_controller.setId_Repas(idRepas);
+            id_repas = (Integer) object;
+            repas_controller.setId_Repas(id_repas);
             // Appel vers la fenêtre de modification du repas
-            System.out.println(idRepas);
+            System.out.println(id_repas);
         } else {
             JOptionPane.showMessageDialog(this, "Erreur : l'ID du repas est invalide.");
         }

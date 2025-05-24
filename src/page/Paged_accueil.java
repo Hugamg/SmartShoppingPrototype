@@ -1,6 +1,10 @@
 package page;
 
 
+import controller.Repas_Controller;
+import controller.Repas_Recette_Controller;
+import java.text.SimpleDateFormat;
+import javax.swing.DefaultComboBoxModel;
 import main.MainFrame;
 
 /*
@@ -16,11 +20,22 @@ import main.MainFrame;
 public class Paged_accueil extends javax.swing.JPanel {
     private MainFrame mainJFrame;
     
+    // Contrôleur
+    
+    private Repas_Controller repas_controller;
+    private Repas_Recette_Controller repas_recette_controller;
+    
+    // Object
+    
+    private DefaultComboBoxModel repas_date;
+    
     /**
      * Creates new form Paged_accueil
      */
     public Paged_accueil(MainFrame newJFrame) {
         mainJFrame = newJFrame;
+        repas_recette_controller = new Repas_Recette_Controller(mainJFrame.getBDD());
+        repas_controller = new Repas_Controller(mainJFrame.getBDD());
         
         initComponents();
     }
@@ -39,9 +54,9 @@ public class Paged_accueil extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        Filtre_date1 = new javax.swing.JComboBox<>();
+        Filtre_Date1 = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        Filtre_date2 = new javax.swing.JComboBox<>();
+        Filtre_Date2 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
@@ -78,10 +93,19 @@ public class Paged_accueil extends javax.swing.JPanel {
         jLabel1.setText("à");
         jLabel1.setToolTipText("");
 
-        Filtre_date1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        Filtre_date1.addActionListener(new java.awt.event.ActionListener() {
+        Filtre_Date1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Filtre_Date1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                Filtre_Date1AncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        Filtre_Date1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Filtre_date1ActionPerformed(evt);
+                Filtre_Date1ActionPerformed(evt);
             }
         });
 
@@ -90,10 +114,19 @@ public class Paged_accueil extends javax.swing.JPanel {
         jLabel3.setText("Filtre date :");
         jLabel3.setToolTipText("");
 
-        Filtre_date2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        Filtre_date2.addActionListener(new java.awt.event.ActionListener() {
+        Filtre_Date2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Filtre_Date2.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                Filtre_Date2AncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        Filtre_Date2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Filtre_date2ActionPerformed(evt);
+                Filtre_Date2ActionPerformed(evt);
             }
         });
 
@@ -174,13 +207,13 @@ public class Paged_accueil extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Filtre_date1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(Filtre_Date1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Filtre_date2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(Filtre_Date2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(25, 25, 25)
                                 .addComponent(Box_Filtre_Ingredient, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -205,10 +238,10 @@ public class Paged_accueil extends javax.swing.JPanel {
                 .addComponent(jLabel5)
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Filtre_date1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Filtre_Date1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Filtre_date2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Filtre_Date2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -233,14 +266,14 @@ public class Paged_accueil extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Filtre_date1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Filtre_date1ActionPerformed
+    private void Filtre_Date1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Filtre_Date1ActionPerformed
         // TODO add your handling code here:
         System.out.print("BOX2 ACTION PERFORMED\n");
-    }//GEN-LAST:event_Filtre_date1ActionPerformed
+    }//GEN-LAST:event_Filtre_Date1ActionPerformed
 
-    private void Filtre_date2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Filtre_date2ActionPerformed
+    private void Filtre_Date2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Filtre_Date2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Filtre_date2ActionPerformed
+    }//GEN-LAST:event_Filtre_Date2ActionPerformed
 
     private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
         // TODO add your handling code here:
@@ -250,10 +283,37 @@ public class Paged_accueil extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_Box_Filtre_IngredientActionPerformed
 
+    private void Filtre_Date1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Filtre_Date1AncestorAdded
+        // TODO add your handling code here:
+       
+        int id_utilisateur = mainJFrame.getId_Utilisateur();
+        repas_date = repas_controller.ListerDateRepas(id_utilisateur);
+        
+        Filtre_Date1.removeAllItems();
+        Filtre_Date1.setModel(repas_date);
+        
+        // Sélectionne la date du jour si elle est dans le modèle
+        String dateAujourdhui = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
+        Filtre_Date1.setSelectedItem(dateAujourdhui);
+    }//GEN-LAST:event_Filtre_Date1AncestorAdded
+
+    private void Filtre_Date2AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Filtre_Date2AncestorAdded
+        // TODO add your handling code here:
+        int id_utilisateur = mainJFrame.getId_Utilisateur();
+        repas_date = repas_controller.ListerDateRepas(id_utilisateur);
+        
+        Filtre_Date2.removeAllItems();
+        Filtre_Date2.setModel(repas_date);
+        
+        // Sélectionne la date du jour si elle est dans le modèle
+        String dateAujourdhui = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
+        Filtre_Date2.setSelectedItem(dateAujourdhui);
+    }//GEN-LAST:event_Filtre_Date2AncestorAdded
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> Box_Filtre_Ingredient;
-    private javax.swing.JComboBox<String> Filtre_date1;
-    private javax.swing.JComboBox<String> Filtre_date2;
+    private javax.swing.JComboBox<String> Filtre_Date1;
+    private javax.swing.JComboBox<String> Filtre_Date2;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -12,7 +12,6 @@ import entity.Recette_Item;
 import controller.Recette_Controller;
 import controller.Repas_Controller;
 import controller.Repas_Recette_Controller;
-import entity.Repas_Recette_Item;
 import entity.Type_Repas_Item;
 
 import javax.swing.*;
@@ -43,6 +42,8 @@ public class Modification_Repas extends javax.swing.JPanel {
     private DefaultListModel<String> recette_list = new DefaultListModel();
     private Connexion_Controller verif;
 
+    int id_un_repas;
+
     public Modification_Repas(MainFrame newJFrame) {
         mainJFrame = newJFrame;
         repas_recette_controller = new Repas_Recette_Controller(mainJFrame.getBDD());
@@ -53,6 +54,7 @@ public class Modification_Repas extends javax.swing.JPanel {
         //repas_type = table.ListerTypeRepas();
         repas_type = repas_controller.ListerTypeRepas();
         recette_table = repas_recette_controller.ListerRecetteRepas();
+        id_un_repas = repas_controller.getId_Repas();
     }
 
     /**
@@ -91,9 +93,13 @@ public class Modification_Repas extends javax.swing.JPanel {
         jLabel1.setText("Date :");
         jLabel1.setToolTipText("");
 
-        Date_field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Date_fieldActionPerformed(evt);
+        Date_field.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                Date_fieldAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
 
@@ -297,11 +303,6 @@ public class Modification_Repas extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Date_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Date_fieldActionPerformed
-        // TODO add your handling code here:
-        Date_field.setText("");
-    }//GEN-LAST:event_Date_fieldActionPerformed
-
     private void Personne_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Personne_fieldActionPerformed
         // TODO add your handling code here:
         Personne_field.setText("");
@@ -326,6 +327,7 @@ public class Modification_Repas extends javax.swing.JPanel {
         // TODO add your handling code here:
         Type_combobox.removeAllItems();
         Type_combobox.setModel(repas_type);
+        
     }//GEN-LAST:event_Type_comboboxAncestorAdded
 
     private void Liste_recette_ajouteAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Liste_recette_ajouteAncestorAdded
@@ -338,9 +340,7 @@ public class Modification_Repas extends javax.swing.JPanel {
     private void Enregister_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Enregister_buttonActionPerformed
         // TODO add your handling code here:
         // Etape 2 : On récupère le jtextfield de la date et on vérifie si une date est bien rentré. Si ce n'est pas le cas on retourne que le champ est mal remplie. Ainsi on n'effectue pas l'insertion dans la bdd
-        
-        
-        
+   
         
         String date  = Date_field.getText().trim();
         if (date.isEmpty()){ //si date est vide 
@@ -413,6 +413,17 @@ public class Modification_Repas extends javax.swing.JPanel {
                 javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_Enregister_buttonActionPerformed
+
+    private void Date_fieldAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Date_fieldAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Date_fieldAncestorAdded
+
+    public void afficherDateRepas() {
+        System.out.println("Voici le repas sélectionné : " + id_un_repas);
+        String date = repas_controller.ListerDateUnRepas(id_un_repas); 
+        System.out.println("Voici la date du repas : " + date);
+        Date_field.setText(date);
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

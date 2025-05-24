@@ -62,15 +62,12 @@ public class Requete_bdd extends BDD{
         
     //Requête Type_Repas
         
-        // Méthode de listage de tout les type de repas 
+        // Méthode de listagayLie de tout les type de repas 
         public ArrayList<ArrayList<Object>> lister_Type_Repas() {
             String requete = "SELECT id, nom FROM type_repas";
             return executeQuery(requete);
         }
-
-
-        
-        
+   
     //--------------------------------------------------------------------------------------------------------------
         
     // Requête Ingrédient
@@ -135,9 +132,15 @@ public class Requete_bdd extends BDD{
         }
        
         // Méthode d'affichage d'un date d'un repas
-        public ArrayList<ArrayList<Object >> lister_Date_Repas(int id_utilisateur) {
+        public ArrayList<ArrayList<Object >> lister_Date_Repas_Utilisateur(int id_utilisateur) {
             String requete = "SELECT date_repas FROM repas WHERE id_utilisateur = ?;";
             return executeQuery(requete, id_utilisateur);
+        }
+        
+        // Méthode d'affichage d'un date d'un repas
+        public ArrayList<ArrayList<Object >> lister_Date_Repas_unRepas(int id_repas) {
+            String requete = "SELECT date_repas FROM repas WHERE id = ?;";
+            return executeQuery(requete, id_repas);
         }
         
         // Méthode d'ajout de repas 

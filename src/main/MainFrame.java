@@ -60,7 +60,7 @@ public class MainFrame extends javax.swing.JFrame {
     public void setUserConnected(boolean isConnected) {
         this.isUserConnected = isConnected;
     }
-
+    
 
     public void SwithPanel(String panelName){
         if (!isUserConnected){
@@ -98,7 +98,7 @@ public class MainFrame extends javax.swing.JFrame {
     
     
     
-    public Requete_bdd getBDD() { return this.bddRequest; }
+    public Requete_bdd getBDD() {return this.bddRequest; }
     
 
     /**
