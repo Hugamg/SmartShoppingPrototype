@@ -5,7 +5,6 @@
 package page;
 
 import bdd.*;
-import com.mysql.cj.xdevapi.Statement;
 import main.MainFrame;
 
 /**

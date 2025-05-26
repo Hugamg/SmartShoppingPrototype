@@ -26,19 +26,40 @@ public class BDD {
             //Chargement du driver JDBC
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
             
-            String url = "jdbc:mysql://127.0.0.1/smartshoppingprototype";
-            String username ="hugo";
-            String password ="123";
+            boolean dev = false; 
+            
+            if(dev){
+                String url = "jdbc:mysql://127.0.0.1/smartshoppingprototype";
+                String username ="hugo";
+                String password ="123";
 
-            // Vérification des identifiants
-            if (url== null|| username==null || password==null){
-                System.err.println("Les informations de connexion à la base de données sont manquantes. Vérifiez vos variables d'environnement.");
-                // System.err.println est principalement utilisé pour affichés les erreurs dans une console. Peut-être affiché en rouge 
-                return false;
+                // Vérification des identifiants
+                if (url== null|| username==null || password==null){
+                    System.err.println("Les informations de connexion à la base de données sont manquantes. Vérifiez vos variables d'environnement.");
+                    // System.err.println est principalement utilisé pour affichés les erreurs dans une console. Peut-être affiché en rouge 
+                    return false;
+                }
+                
+                connection = DriverManager.getConnection(url,username,password); //Connexion à la base 
+                return true; 
+            }else{
+                String url = "jdbc:mysql://172.16.3.201/smartshoppingprototype";
+                String username ="h.amaglio";
+                String password ="123+aze$";
+                
+                // Vérification des identifiants
+                if (url== null|| username==null || password==null){
+                    System.err.println("Les informations de connexion à la base de données sont manquantes. Vérifiez vos variables d'environnement.");
+                    // System.err.println est principalement utilisé pour affichés les erreurs dans une console. Peut-être affiché en rouge 
+                    return false;
+                }
+                
+   
+                 connection = DriverManager.getConnection(url,username,password); //Connexion à la base 
+                 return true; 
             }
 
-            connection = DriverManager.getConnection(url,username,password); //Connexion à la base 
-            return true; 
+           
             
             } catch (ClassNotFoundException e) {//s'éxécute si le driver n'est pas trouver notamment dans ce cas JDBC
                 System.err.println("Driver JDBC non trouvé : " + e.getMessage());
