@@ -69,8 +69,39 @@ public class Requete_bdd extends BDD{
         }
    
     //--------------------------------------------------------------------------------------------------------------
+         
+         //Requête Type_Ingredient
+        
+        // Méthode de listagayLie de tout les type de repas 
+        public ArrayList<ArrayList<Object>> lister_Type_Ingredient() {
+            String requete = "SELECT id, nom FROM type_ingredient";
+            return executeQuery(requete);
+        }
+   
+    //--------------------------------------------------------------------------------------------------------------
+        
+        
+        
         
     // Requête Ingrédient
+        
+        // Méthode d'affichage de tous les ingrédients d'une recette
+        public ArrayList<ArrayList<Object>> listerToutIngredient(int id_utilisateur, String dateDebut, String dateFin, int id_type) {
+            String requete = "SELECT i.id AS id_ingredient, i.nom AS nom_ingredient, ty.nom AS type_ingredient, "
+                                + "SUM(ri.quantite * r.personne) AS quantite_totale "
+                                + "FROM repas r "
+                                + "JOIN repas_recette rr ON rr.id_repas = r.id "
+                                + "JOIN recette rec ON rec.id = rr.id_recette "
+                                + "JOIN recette_ingredient ri ON ri.id_recette = rec.id "
+                                + "JOIN ingredient i ON i.id = ri.id_ingredient "
+                                + "JOIN type_ingredient ty ON i.id_type_ingredient = ty.id "
+                                + "WHERE r.id_utilisateur = ? "
+                                + "AND r.date_repas BETWEEN ? AND ? "
+                                + "AND ty.nom = ? "
+                                + "GROUP BY i.id, i.nom, ty.nom "
+                                + "ORDER BY i.nom"; 
+            return executeQuery(requete, id_utilisateur, dateDebut, dateFin, id_type);
+        }
         
         // Méthode d'affichage de tous les ingrédients d'une recette
         public ArrayList<ArrayList<Object>> listerIngredientRecette(int recetteId) {

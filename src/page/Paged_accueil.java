@@ -1,10 +1,15 @@
 package page;
 
 
+import controller.Paged_accueil_Controller;
 import controller.Repas_Controller;
 import controller.Repas_Recette_Controller;
+import entity.Type_Ingredient_Item;
+import entity.Type_Repas_Item;
 import java.text.SimpleDateFormat;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.table.DefaultTableModel;
 import main.MainFrame;
 
 /*
@@ -22,22 +27,33 @@ public class Paged_accueil extends javax.swing.JPanel {
     
     // Contrôleur
     
+    private Paged_accueil_Controller accueil_controller;
     private Repas_Controller repas_controller;
     private Repas_Recette_Controller repas_recette_controller;
     
     // Object
     
     private DefaultComboBoxModel repas_date;
+    private DefaultComboBoxModel<Type_Ingredient_Item> ingredient_type;
     
+    
+    // Déclarer le modèle de la liste d'ingrédients
+        private DefaultTableModel ingredientTable;
     /**
      * Creates new form Paged_accueil
      */
     public Paged_accueil(MainFrame newJFrame) {
         mainJFrame = newJFrame;
+        accueil_controller = new Paged_accueil_Controller(mainJFrame.getBDD());
         repas_recette_controller = new Repas_Recette_Controller(mainJFrame.getBDD());
         repas_controller = new Repas_Controller(mainJFrame.getBDD());
         
+        
+        
         initComponents();
+        
+        ingredient_type = accueil_controller.ListerTypeIngredient();
+        chargerIngredient(); // <-- Rafraîchit directement la table au lancement
     }
 
     /**
@@ -60,11 +76,11 @@ public class Paged_accueil extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        Box_Filtre_Ingredient = new javax.swing.JComboBox<>();
+        Type_combobox = new javax.swing.JComboBox<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        Table_ingredient_nec = new javax.swing.JTable();
 
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox4.addActionListener(new java.awt.event.ActionListener() {
@@ -148,19 +164,6 @@ public class Paged_accueil extends javax.swing.JPanel {
         jLabel7.setText("Liste de courses");
         jLabel7.setToolTipText("");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Nom Ingrédient", "Quantité"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable2);
-
         jLabel8.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 14)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Ingrédient en ma possession");
@@ -171,24 +174,69 @@ public class Paged_accueil extends javax.swing.JPanel {
         jLabel4.setText("Filtre type d'ingrédient :");
         jLabel4.setToolTipText("");
 
-        Box_Filtre_Ingredient.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        Box_Filtre_Ingredient.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Box_Filtre_IngredientActionPerformed(evt);
+        Type_combobox.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                Type_comboboxAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
+        Type_combobox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Type_comboboxActionPerformed(evt);
+            }
+        });
+
+        Table_ingredient_nec.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Sélectionner", "Nom Ingrédient", "Quantité(s)"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        Table_ingredient_nec.setColumnSelectionAllowed(true);
+        Table_ingredient_nec.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        Table_ingredient_nec.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        jScrollPane2.setViewportView(Table_ingredient_nec);
+        Table_ingredient_nec.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        if (Table_ingredient_nec.getColumnModel().getColumnCount() > 0) {
+            Table_ingredient_nec.getColumnModel().getColumn(1).setResizable(false);
+            Table_ingredient_nec.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -208,26 +256,19 @@ public class Paged_accueil extends javax.swing.JPanel {
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(Filtre_Date1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(Filtre_Date2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(25, 25, 25)
-                                .addComponent(Box_Filtre_Ingredient, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(360, Short.MAX_VALUE))
+                            .addComponent(Type_combobox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(485, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(440, Short.MAX_VALUE)
+                    .addContainerGap(565, Short.MAX_VALUE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(454, 454, 454)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(46, 46, 46)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(617, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,42 +287,39 @@ public class Paged_accueil extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jLabel8))
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Box_Filtre_Ingredient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Type_combobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(61, 61, 61)
                     .addComponent(jLabel6)
                     .addContainerGap(572, Short.MAX_VALUE)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(252, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(95, 95, 95)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void Filtre_Date1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Filtre_Date1ActionPerformed
         // TODO add your handling code here:
-        System.out.print("BOX2 ACTION PERFORMED\n");
+        chargerIngredient();
     }//GEN-LAST:event_Filtre_Date1ActionPerformed
 
     private void Filtre_Date2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Filtre_Date2ActionPerformed
         // TODO add your handling code here:
+        chargerIngredient();
     }//GEN-LAST:event_Filtre_Date2ActionPerformed
 
     private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox4ActionPerformed
-
-    private void Box_Filtre_IngredientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Box_Filtre_IngredientActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Box_Filtre_IngredientActionPerformed
 
     private void Filtre_Date1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Filtre_Date1AncestorAdded
         // TODO add your handling code here:
@@ -310,10 +348,52 @@ public class Paged_accueil extends javax.swing.JPanel {
         Filtre_Date2.setSelectedItem(dateAujourdhui);
     }//GEN-LAST:event_Filtre_Date2AncestorAdded
 
+    private void Type_comboboxAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Type_comboboxAncestorAdded
+        // TODO add your handling code here:
+        Type_combobox.removeAllItems();
+        Type_combobox.setModel(ingredient_type);
+    }//GEN-LAST:event_Type_comboboxAncestorAdded
+
+    private void Type_comboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Type_comboboxActionPerformed
+        // TODO add your handling code here:
+        chargerIngredient();
+    }//GEN-LAST:event_Type_comboboxActionPerformed
+
+    private void chargerIngredient() {
+ 
+        int id_utilisateur = mainJFrame.getId_Utilisateur();
+        
+        String date1 = (String) Filtre_Date1.getSelectedItem();
+        String date2 = (String) Filtre_Date2.getSelectedItem();
+        
+        // Etape 3 ; On récupère l'éléments sélectionner dans jboxcombo
+        int idTypeIngredient= -1; // Valeur par défaut
+        Type_Ingredient_Item type_ingredient= (Type_Ingredient_Item) Type_combobox.getSelectedItem();
+        if (type_ingredient != null) {
+        idTypeIngredient = type_ingredient.getId();  // Tu récupères directement l’ID ici
+        System.out.println("ID du type de repas sélectionné : " + idTypeIngredient);
+        }
+        
+        if(date1 != null && date2 !=null){
+        ingredientTable = accueil_controller.Lister_Tout_Ingredient(id_utilisateur, date1, date2, idTypeIngredient);
+        if (ingredientTable != null) {
+            Table_ingredient_nec.setModel(ingredientTable);
+        } else {
+            System.err.println("⚠️ Le modèle d’ingrédient est null !");
+        }
+
+        }
+ 
+        this.revalidate();
+        this.repaint();
+
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> Box_Filtre_Ingredient;
     private javax.swing.JComboBox<String> Filtre_Date1;
     private javax.swing.JComboBox<String> Filtre_Date2;
+    private javax.swing.JTable Table_ingredient_nec;
+    private javax.swing.JComboBox<Type_Ingredient_Item> Type_combobox;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -326,6 +406,5 @@ public class Paged_accueil extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }

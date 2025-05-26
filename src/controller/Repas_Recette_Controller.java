@@ -39,10 +39,9 @@ public class Repas_Recette_Controller {
         // Récupérer les ingrédients pour la recette avec l'ID fourni
         ArrayList<ArrayList<Object>> liste_repas = requete.listerRepas(id_utilisateur, date_debut, date_fin);
         // Noms des colonnes du tableau
-        String[] model = {"ID","Sélectionner", "Date", "Type", "Personnes", "Recettes"};
+        String[] model = {"ID", "Date", "Type", "Personnes", "Recettes"};
        
-        // Tableau de données pour les ingrédients
-        Object[][] data = new Object[liste_repas.size()][5];  // 3 colonnes : Nom, Quantité, Calorie
+        Object[][] data = new Object[liste_repas.size()][5]; 
 
         // Remplissage du tableau avec les données
         for (int i = 0; i < liste_repas.size(); i++) {
