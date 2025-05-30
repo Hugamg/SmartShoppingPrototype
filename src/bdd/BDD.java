@@ -26,7 +26,7 @@ public class BDD {
             //Chargement du driver JDBC
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
             
-            boolean dev = false; 
+            boolean dev = true; 
             
             if(dev){
                 String url = "jdbc:mysql://127.0.0.1/smartshoppingprototype";

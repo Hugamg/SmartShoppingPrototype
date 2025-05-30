@@ -6,10 +6,14 @@ package controller;
 
 import bdd.Requete_bdd;
 import entity.Ingredient_Item;
+import entity.Repas_Recette_Item;
 import entity.Type_Ingredient_Item;
 import entity.Type_Repas_Item;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import main.MainFrame;
 
@@ -21,6 +25,10 @@ public class Paged_accueil_Controller {
     private MainFrame mainJFrame;
     private Requete_bdd requete;
     private int id;
+    
+    ArrayList<Ingredient_Item> tousIngredients = new ArrayList<>();
+    ArrayList<Ingredient_Item> ingredientsRecuperes = new ArrayList<>();
+
     
     
     
@@ -92,5 +100,36 @@ public class Paged_accueil_Controller {
 
         };     
     }
+    
+    public ArrayList<Ingredient_Item> getTousLesIngredients(int id_utilisateur, String dateDebut, String dateFin, int id_type) {
+        // Appel de la méthode DAO pour récupérer les données brutes depuis la BDD
+        ArrayList<ArrayList<Object>> liste = requete.listerToutIngredient(id_utilisateur, dateDebut, dateFin, id_type);
+
+        // Liste finale d’objets métier à retourner
+        ArrayList<Ingredient_Item> result = new ArrayList<>();
+
+        // Parcours de chaque ligne des résultats
+        for (ArrayList<Object> ligne : liste) {
+                // Extraction des données de la ligne
+                int id = Integer.parseInt(ligne.get(0).toString());       // ID ingrédient
+                String nom = ligne.get(1).toString();                     // Nom ingrédient
+                String qte = ligne.get(2).toString();                     // Quantité
+
+                // Création de l’objet métier avec la case à cocher décochée par défaut (false)
+                Ingredient_Item item = new Ingredient_Item(id, nom, qte);
+                item.setSelected(false); // facultatif si déjà dans ton constructeur
+
+                // Ajout à la liste finale
+                result.add(item);
+
+        }
+
+        // Retour de la liste structurée
+        return result;
+    }
+
+
+  
+    
     
 }

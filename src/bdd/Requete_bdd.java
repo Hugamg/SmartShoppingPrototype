@@ -87,7 +87,7 @@ public class Requete_bdd extends BDD{
         
         // Méthode d'affichage de tous les ingrédients d'une recette
         public ArrayList<ArrayList<Object>> listerToutIngredient(int id_utilisateur, String dateDebut, String dateFin, int id_type) {
-            String requete = "SELECT i.id AS id_ingredient, i.nom AS nom_ingredient, ty.nom AS type_ingredient, "
+            String requete = "SELECT i.id AS id_ingredient, i.nom AS nom_ingredient, ty.id AS type_ingredient, "
                                 + "SUM(ri.quantite * r.personne) AS quantite_totale "
                                 + "FROM repas r "
                                 + "JOIN repas_recette rr ON rr.id_repas = r.id "
@@ -97,8 +97,8 @@ public class Requete_bdd extends BDD{
                                 + "JOIN type_ingredient ty ON i.id_type_ingredient = ty.id "
                                 + "WHERE r.id_utilisateur = ? "
                                 + "AND r.date_repas BETWEEN ? AND ? "
-                                + "AND ty.nom = ? "
-                                + "GROUP BY i.id, i.nom, ty.nom "
+                                + "AND ty.id = ? "
+                                + "GROUP BY i.id, i.nom, ty.id "
                                 + "ORDER BY i.nom"; 
             return executeQuery(requete, id_utilisateur, dateDebut, dateFin, id_type);
         }
@@ -113,6 +113,8 @@ public class Requete_bdd extends BDD{
                      "WHERE rc.id_recette = ?";
             return executeQuery(requete, recetteId);
         }
+        
+        
         
         // Méthode d'affichages de toutes les ingrédients d'une recette 
         public ArrayList<ArrayList<Object>> listerToutIngredientRecette() {
@@ -135,6 +137,11 @@ public class Requete_bdd extends BDD{
             return executeQuery(requete, repasid);
         }
 
+        //Méthode d'affichage d'un repas spécifique 
+        public ArrayList<ArrayList<Object>> Recuperer_Id_unIngredient(int id_utilisateur, Date date_repas, int id_type) {
+            String requete = "SELECT id FROM repas WHERE id_utilisateur = ? AND date_repas = ? AND id_type = ?";
+            return executeQuery(requete, id_utilisateur, date_repas, id_type);
+        }
     
     //--------------------------------------------------------------------------------------------------------------
 
