@@ -34,6 +34,8 @@ public class MainFrame extends javax.swing.JFrame {
     static private Requete_bdd bddRequest;
     public boolean isUserConnected = false;  // Variable pour vérifier si l'utilisateur est connecté
     private int userId;
+    
+    
 
     
     /**
@@ -43,6 +45,7 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
           
     }
+    
     
     public int getId_Utilisateur(){
         return userId;

@@ -42,7 +42,7 @@ public class Modification_Repas extends javax.swing.JPanel {
     private DefaultListModel<String> recette_list = new DefaultListModel();
     private Connexion_Controller verif;
 
-    int id_un_repas;
+    private int id_un_repas;
 
     public Modification_Repas(MainFrame newJFrame) {
         mainJFrame = newJFrame;
@@ -55,6 +55,9 @@ public class Modification_Repas extends javax.swing.JPanel {
         repas_type = repas_controller.ListerTypeRepas();
         recette_table = repas_recette_controller.ListerRecetteRepas();
         id_un_repas = repas_controller.getId_Repas();
+        
+        afficherDateRepas();
+        afficherTypeRepas();
     }
 
     /**
@@ -334,13 +337,13 @@ public class Modification_Repas extends javax.swing.JPanel {
         // TODO add your handling code here:
         DefaultListModel<String> recetteliste = new DefaultListModel();
         Liste_recette_ajoute.setModel(recetteliste);
-        List<Integer> idsSelectionnes = repas_recette_controller.mettreAJourSelectionRecettes(Table_Recette, recetteliste);
+        List<Integer> idSelectionnes = repas_recette_controller.mettreAJourSelectionRecettes(Table_Recette, recetteliste);
     }//GEN-LAST:event_Liste_recette_ajouteAncestorAdded
 
     private void Enregister_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Enregister_buttonActionPerformed
         // TODO add your handling code here:
         // Etape 2 : On récupère le jtextfield de la date et on vérifie si une date est bien rentré. Si ce n'est pas le cas on retourne que le champ est mal remplie. Ainsi on n'effectue pas l'insertion dans la bdd
-   
+
         
         String date  = Date_field.getText().trim();
         if (date.isEmpty()){ //si date est vide 
@@ -423,6 +426,11 @@ public class Modification_Repas extends javax.swing.JPanel {
         String date = repas_controller.ListerDateUnRepas(id_un_repas); 
         System.out.println("Voici la date du repas : " + date);
         Date_field.setText(date);
+    }
+    
+    public void afficherTypeRepas(){
+       String type = repas_controller.ListerPersonneUnRepas(id_un_repas);
+       Personne_field.setText(type);
     }
 
 

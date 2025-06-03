@@ -270,7 +270,7 @@ public class Liste_Repas extends javax.swing.JPanel {
         int selectedRow = Repas_recette.getSelectedRow();
         if (selectedRow != -1){//si une ligne est sélectionner 
 
-            int repasId = (int)model.getValueAt(selectedRow, 1);
+            int repasId = (int)model.getValueAt(selectedRow, 0);
             // Appeler la méthode suppressionRecette dans la BDD pour supprimer la recette
             boolean success = mainJFrame.getBDD().supprimerRepas(repasId);
 
@@ -305,7 +305,7 @@ public class Liste_Repas extends javax.swing.JPanel {
         // On vérifie si Object renvoie bien un type Integer
         if(object instanceof Integer) {
             // on transforme l'object en Integer
-            id_repas = (Integer) object;
+
             repas_controller.setId_Repas(id_repas);
             // Appel vers la fenêtre de modification du repas
             System.out.println(id_repas);

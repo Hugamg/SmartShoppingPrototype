@@ -28,20 +28,14 @@ public class Repas_Controller {
     private MainFrame mainJFrame;
     private Requete_bdd requete;
     private int id;
-    private static int repasId;
+    
+    
     
     public Repas_Controller(Requete_bdd requete2){
         this.requete= requete2;
-        this.repasId= 0;
     }
     
-    public int getId_Repas(){
-        return repasId;
-    }
     
-    public void setId_Repas(int id) {
-    this.repasId = id;
-}
     
     
     // Méthode pour lister les types de repas dans la JCombobox
@@ -122,7 +116,7 @@ public class Repas_Controller {
         return model;
     }
     
-    // Méthode pour lister les types de repas dans la JCombobox
+    // Méthode pour lister les types de repas dans la JTextField
     public String ListerDateUnRepas(int id_repas){
         JTextField model = new JTextField();
         // Récupération des résultats SQL 
@@ -142,6 +136,34 @@ public class Repas_Controller {
             }    
         }
         return "";
+    }
+    
+    // Méthode pour lister les types de repas dans la JTextField
+    public String ListerPersonneUnRepas(int id_repas){
+        JTextField model = new JTextField();
+        // Récupération des résultats SQL 
+        ArrayList<ArrayList<Object>> listePersonneRepas = requete.lister_Personne_unRepas(id_repas);
+        
+        if(!listePersonneRepas.isEmpty()){
+            Object personne = listePersonneRepas.get(0).get(0);
+            // On vérifie que l'on reçois une date 
+            if(personne != null ){
+                String nb_personne = personne.toString();
+                
+                return nb_personne; 
+            }
+        }
+        return "";
+    }
+    
+    
+
+    public int getId_Repas(){
+        return id;
+    }
+    
+    public void setId_Repas(int id) {
+    this.id = id;
     }
 
 }

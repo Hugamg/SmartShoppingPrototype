@@ -67,6 +67,7 @@ public class Requete_bdd extends BDD{
             String requete = "SELECT id, nom FROM type_repas";
             return executeQuery(requete);
         }
+        
    
     //--------------------------------------------------------------------------------------------------------------
          
@@ -178,6 +179,13 @@ public class Requete_bdd extends BDD{
         // Méthode d'affichage d'un date d'un repas
         public ArrayList<ArrayList<Object >> lister_Date_Repas_unRepas(int id_repas) {
             String requete = "SELECT date_repas FROM repas WHERE id = ?;";
+            return executeQuery(requete, id_repas);
+        }
+        
+        
+        // Méthode d'affichage d'un date d'un repas
+        public ArrayList<ArrayList<Object >> lister_Personne_unRepas(int id_repas) {
+            String requete = "SELECT personne FROM repas WHERE id = ?;";
             return executeQuery(requete, id_repas);
         }
         
