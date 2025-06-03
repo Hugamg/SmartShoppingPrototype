@@ -189,7 +189,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="Personne_field">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Personne_fieldActionPerformed"/>
+            <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="Personne_fieldAncestorAdded"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">

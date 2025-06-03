@@ -9,10 +9,10 @@ package entity;
  * @author amagl
  */
 public class Ingredient_Item {
-    public int id;
-    public String ingredientnom;
-    public String quantite;
-    public boolean isSelected;
+    private int id;
+    private String ingredientnom;
+    private String quantite;
+    private boolean isSelected;
     
     
     

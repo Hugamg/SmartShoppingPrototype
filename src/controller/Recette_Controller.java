@@ -17,7 +17,6 @@ import javax.swing.table.DefaultTableModel;
  * @author h.amaglio
  */
 public class Recette_Controller {
-    private MainFrame mainJFrame;
     private Requete_bdd requete;
    
     
@@ -26,7 +25,9 @@ public class Recette_Controller {
     }
     
     
-    public DefaultListModel <Recette_Item> Lister_recette_liste(){
+    // Méthode pour lister toutes les recettes existantes dans une liste
+    
+    public DefaultListModel <Recette_Item> Lister_Recette_Liste(){
         // Définir un nouveau modèle avec deux colonnes : "Nom" et "ID"
         DefaultListModel<Recette_Item> model = new DefaultListModel<>(); // Créer un nouveau modèle de liste
         model.setSize(0); // On vide le tableau avant d’ajouter les nouvelles lignes. Ici on indique que le modèle ne possède aucune ligne (0)
@@ -51,8 +52,11 @@ public class Recette_Controller {
         return model;    
     }
     
-    // Méthode pour récupérer un Recette_Item à partir de l'index
-    public Recette_Item getRecetteItemFromList(DefaultListModel<Recette_Item> model, int index) {
+    
+    
+    // Méthode pour récupérer un Recette_Item à partir d'un index
+    
+    public Recette_Item Get_Recette_Item_List(DefaultListModel<Recette_Item> model, int index) {
         if (index >= 0 && index < model.size()) {
             return model.getElementAt(index); // Retourner l'objet Recette_Item
         }
@@ -60,7 +64,8 @@ public class Recette_Controller {
     }
     
     // Méthode pour obtenir le modèle de table pour les ingrédients d'une recette donnée
-    public DefaultTableModel ListerIngredientsRecette(int recetteId) {
+    
+    public DefaultTableModel Lister_Ingredient_Recette(int recetteId) {
         // Récupérer les ingrédients pour la recette avec l'ID fourni
         ArrayList<ArrayList<Object>> ingredients = requete.listerIngredientRecette(recetteId);
 

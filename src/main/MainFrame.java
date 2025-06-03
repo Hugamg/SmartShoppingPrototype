@@ -2,7 +2,6 @@ package main;
 
 
 import page.Connexion;
-import page.Nouveau_mot_de_passe;
 import page.Creation_de_compte;
 import page.Paged_accueil;
 import page.Liste_Repas;
@@ -10,7 +9,6 @@ import page.Ajout_Repas;
 import page.Modification_Repas;
 import page.Liste_Recette;
 import bdd.Requete_bdd;
-import bdd.BDD;
 
 
 /*
@@ -24,7 +22,6 @@ import bdd.BDD;
  */
 public class MainFrame extends javax.swing.JFrame {
     static private Connexion pageConnexion;
-    static private Nouveau_mot_de_passe pageNouveaumot_de_passe;
     static private Creation_de_compte pageCreation_de_compte;
     static private Paged_accueil paged_Accueil;
     static private Liste_Repas pageListeRepas;
@@ -34,7 +31,7 @@ public class MainFrame extends javax.swing.JFrame {
     static private Requete_bdd bddRequest;
     public boolean isUserConnected = false;  // Variable pour vérifier si l'utilisateur est connecté
     private int userId;
-    
+    public int repas_id;
     
 
     
@@ -64,6 +61,14 @@ public class MainFrame extends javax.swing.JFrame {
         this.isUserConnected = isConnected;
     }
     
+     public int getId_Repas(){
+        return repas_id;
+    }
+    
+    public void setId_Repas(int id) {
+    this.repas_id = id;
+    }
+    
 
     public void SwithPanel(String panelName){
         if (!isUserConnected){
@@ -85,7 +90,6 @@ public class MainFrame extends javax.swing.JFrame {
         }else{
             switch (panelName){
                 case "pageConnexion" -> this.setContentPane(pageConnexion);
-                case "pageNouveaumot_de_passe" -> this.setContentPane(pageNouveaumot_de_passe);
                 case "paged_Accueil" -> this.setContentPane(paged_Accueil);
                 case "pageListeRepas" -> this.setContentPane(pageListeRepas);
                 case "pageAjout_Repas" -> this.setContentPane(pageAjout_Repas);
@@ -272,7 +276,6 @@ public class MainFrame extends javax.swing.JFrame {
                     System.out.print("Connexion NON EFFECTUEE\n");
                 
                 pageConnexion = new Connexion(newMainFrame);
-                pageNouveaumot_de_passe = new Nouveau_mot_de_passe(newMainFrame);
                 pageCreation_de_compte = new Creation_de_compte(newMainFrame, bddRequest);               
                 paged_Accueil = new Paged_accueil(newMainFrame);
                 pageListeRepas = new Liste_Repas(newMainFrame);
@@ -282,8 +285,7 @@ public class MainFrame extends javax.swing.JFrame {
                 
                 newMainFrame.setContentPane(pageConnexion);
                 newMainFrame.setVisible(true);
-                
-                
+ 
             }
         });
     }

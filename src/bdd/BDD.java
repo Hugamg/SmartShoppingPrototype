@@ -12,8 +12,6 @@ public class BDD {
     private Statement statement = null;
     private ResultSet resultSet = null;
     private final PreparedStatement insertSet= null;
-    private String username;
-    private String password;
 
  
 
@@ -149,10 +147,5 @@ public class BDD {
     return result;
 }
 
-    
-    public void setIdentifiants(String username,String password){
-        this.username= username;
-        this.password= password;
-    }
 
 }

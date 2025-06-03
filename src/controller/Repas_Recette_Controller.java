@@ -4,19 +4,13 @@
  */
 package controller;
 
-import main.MainFrame;
 import bdd.Requete_bdd;
-import entity.Recette_Item;
 import entity.Repas_Recette_Item;
-import entity.Type_Repas_Item;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -25,7 +19,6 @@ import javax.swing.table.DefaultTableModel;
  * @author amagl
  */
 public class Repas_Recette_Controller {
-    private MainFrame mainJFrame;
     private Requete_bdd requete;
 
 
@@ -34,39 +27,124 @@ public class Repas_Recette_Controller {
         this.requete= requete2;
     }
     
-    // Méthode pour obtenir les informations de toutes les repas d'un utilisateur
-    public DefaultTableModel ListerRepas_Utilisateur(int id_utilisateur, String date_debut, String date_fin ) {
-        // Récupérer les ingrédients pour la recette avec l'ID fourni
-        ArrayList<ArrayList<Object>> liste_repas = requete.listerRepas(id_utilisateur, date_debut, date_fin);
-        // Noms des colonnes du tableau
-        String[] model = {"ID", "Date", "Type", "Personnes", "Recettes"};
-       
-        Object[][] data = new Object[liste_repas.size()][5]; 
-
-        // Remplissage du tableau avec les données
-        for (int i = 0; i < liste_repas.size(); i++) {
-            ArrayList<Object> repas = liste_repas.get(i);
-            data[i][0] = repas.get(0);  // ID du repas 
-            data[i][1] = repas.get(0);  // Date du repas 
-            data[i][2] = repas.get(1);  // Type de repas
-            data[i][3] = repas.get(2);  // Nombres de personnes
-            data[i][4] = repas.get(3);  // Recettes du repas 
+   
+    
+    
+    // Méthode pour l'ajout de repas
+    
+    public void Associer_Repas_Recette(int id_repas, int id_recette ) {
+        boolean success = requete.associerRepas(id_repas, id_recette);
+        if (success) {
+            System.out.println("Repas asoocier à la recette avec succès !");
+        } else {
+            System.out.println("Échec de l'association.");
         }
-        
-        // Retourne le modèle de table avec les données et les noms de colonnes
+    }
+    
+    
+    //--------------------------------------------------------------------------------------------------------------------
+    
+    
+    
+    
+    
+    
+    // Méthode pour la modification de Repas
+    
+    // Méthode pour obtenir les ids des recettes sélectionnés pour un repas spécifique
+    
+    public ArrayList<Integer> lister_Id_Recette_Un_Repas(int idRepas) {
+        ArrayList<ArrayList<Object>> lignes = requete.lister_Recette_unRepas(idRepas);
+        ArrayList<Integer> les_id = new ArrayList<>();
+
+        for (ArrayList<Object> ligne : lignes) {
+            try {
+                int id = Integer.parseInt(ligne.get(0).toString());
+                les_id.add(id);
+            } catch (NumberFormatException e) {
+                System.err.println("ID recette non valide pour le repas " + idRepas + ": " + ligne.get(0));
+            }
+        }
+
+        return les_id;
+    }
+    
+    
+    // Méthode pour lister les recettes d'un repas avec les ingrédients associés
+    
+    public DefaultTableModel Lister_Recette_Repas_Avec_Selection(int idRepas) {
+        // Étape 1 : Récupérer toutes les recettes 
+        ArrayList<ArrayList<Object>> liste_recette = requete.listerToutIngredientRecette();
+
+        // Étape 2 : Récupérer les ID des recettes sélectionnées pour ce repas
+        ArrayList<Integer> idsRecettesSelectionnees = lister_Id_Recette_Un_Repas(idRepas);
+
+        // Étape 3 : Créer les colonnes
+        String[] model = {"Sélectionner", "Recette", "Ingrédients(1 personne)"};
+
+        ArrayList<Repas_Recette_Item> items = new ArrayList<>();
+
+        for (ArrayList<Object> ligne : liste_recette) {
+            try {
+                int id = Integer.parseInt(ligne.get(0).toString());
+                String nom = ligne.get(1).toString();
+                String ingredients = ligne.get(2).toString();
+
+                Repas_Recette_Item item = new Repas_Recette_Item(id, nom, ingredients);
+
+                // Coche si cette recette est liée au repas
+                if (idsRecettesSelectionnees.contains(id)) {
+                    item.setSelected(true);
+                }
+
+                items.add(item);
+            } catch (NumberFormatException e) {
+                System.err.println("Erreur ID recette non numérique : " + ligne.get(0));
+            }
+        }
+
+        // Étape 4 : Construire les données du tableau
+        Object[][] data = new Object[items.size()][3];
+        for (int i = 0; i < items.size(); i++) {
+            Repas_Recette_Item item = items.get(i);
+            data[i][0] = item.isSelected();         // Checkbox
+            data[i][1] = item.getRecetteNom();      // Nom recette
+            data[i][2] = item.getIngredient();      // Ingrédients groupés
+        }
+
         return new DefaultTableModel(data, model) {
-        // Empêche l'édition directe des cellules
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                return (columnIndex == 0) ? Boolean.class : String.class;
+            }
+
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false;
+                return column == 0; // seule la checkbox est éditable
             }
-        
         };
     }
     
+    public void Modifier_Repas_Recette(int id_repas, int id_recette ) {
+        boolean success = requete.associerRepas(id_repas, id_recette);
+        if (success) {
+            System.out.println("Repas asoocier à la recette avec succès !");
+        } else {
+            System.out.println("Échec de l'association.");
+        }
+    }
+    
+    
+    
+    
 
-    // Méthode pour obtenir le modèle de table pour les ingrédients d'une recette donnée
-    public DefaultTableModel ListerRecetteRepas() {
+    //--------------------------------------------------------------------------------------------------------------------
+    
+    // Méthode commune à l'ajout et la modification de repas
+    
+    // Méthode permettant de lister toutes les recettes existantes dans un tableau
+    
+    public DefaultTableModel Lister_Recette_Repas() {
         // Récupérer les ingrédients pour la recette avec l'ID fourni
         ArrayList<ArrayList<Object>> liste_recette = requete.listerToutIngredientRecette();
         // Noms des colonnes du tableau
@@ -87,7 +165,7 @@ public class Repas_Recette_Controller {
                 System.err.println("Erreur ID recette non numérique : " + ligne.get(0));
             }
         }
-        
+    
         // Création du tableau de données pour JTable
         Object[][] data = new Object[items.size()][3];
         for (int i = 0; i < items.size(); i++) {
@@ -106,9 +184,9 @@ public class Repas_Recette_Controller {
         };     
     }
     
+    // Méthode pour récupérer les ids des recettes sélectionnées dans un tableau pour les disposées dans une liste
     
-    
-    public List<Repas_Recette_Item> RecupIdRecette(){
+    public List<Repas_Recette_Item> Recup_Id_Recette(){
         ArrayList<ArrayList<Object>> listerecette= requete.listerToutIngredientRecette();
         List<Repas_Recette_Item> items = new ArrayList();
         
@@ -126,17 +204,18 @@ public class Repas_Recette_Controller {
         return items;
         
     }
+
+ 
+    //Méthode pour afficher les recettes sélectionnées d'un tableau dans une liste
     
-    
-    
-    public List<Integer> mettreAJourSelectionRecettes(JTable tableModel, DefaultListModel<String> listModel) {
+    public List<Integer> Maj_Selection_Recette(JTable tableModel, DefaultListModel<String> listModel) {
         // On vide la JList avant de la remplir à nouveau
         listModel.clear();
 
         // On créer une liste pour récupérer les id des recettes qui seront sélectionné.
         List<Integer> idRecettesSelectionnees = new ArrayList<>();
         
-        List<Repas_Recette_Item> toutesLesRecettes = RecupIdRecette(); // Récupère les objets complets (avec ID)
+        List<Repas_Recette_Item> toutesLesRecettes = Recup_Id_Recette(); // Récupère les objets complets (avec ID)
 
         // Parcours de chaque ligne de la JTable 'Table_Recette' présent dans mon event
         for (int i = 0; i < tableModel.getRowCount(); i++) {
@@ -160,7 +239,10 @@ public class Repas_Recette_Controller {
     }
     
     
-    public Integer getIdRepas(int id_utilisateur, Date date_repas, int id_type) {
+    
+    // Méthode pour récupérer l'id d'un repas en fonction d'un id d'utilisateur, d'une date de repas et d'un type de repas
+    
+    public Integer Get_Id_Repas(int id_utilisateur, Date date_repas, int id_type) {
         ArrayList<ArrayList<Object>> resultat = requete.lister_unRepas(id_utilisateur, date_repas, id_type);
 
         // Vérifie que le résultat n'est pas vide
@@ -172,14 +254,7 @@ public class Repas_Recette_Controller {
         return null;
     }
 
-    public void associerRepas_Recette(int id_repas, int id_recette ) {
-        boolean success = requete.associerRepas(id_repas, id_recette);
-        if (success) {
-            System.out.println("Repas asoocier à la recette avec succès !");
-        } else {
-            System.out.println("Échec de l'association.");
-        }
-    }
+    
     
 }
 

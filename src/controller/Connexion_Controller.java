@@ -5,7 +5,6 @@
 package controller;
 
 import bdd.Requete_bdd;
-import entity.Repas_Recette_Item;
 import java.util.ArrayList;
 
 /**
@@ -23,11 +22,12 @@ public class Connexion_Controller {
     }
     
    
-    public boolean verifierConnexion(String identifiant, String mdp){
+    // Méthode de vérification de connexion avec un identifiant entré et un mot de passe
+    public boolean Verifier_Connexion(String identifiant, String mdp){
        
         ArrayList<ArrayList<Object>> id = requete.connexion_Au_Service(identifiant, mdp);
         
-        // Si aucun id n'est retourné,si il est vide, et inférieeur 
+        // Si aucun id n'est retourné,si il est vide ou inférieur 
         if (id != null && !id.isEmpty() && id.get(0).size() > 0){
             
             this.id_utilisateur = (Integer) id.get(0).get(0); 
@@ -45,10 +45,8 @@ public class Connexion_Controller {
     }
     
     // Méthode pour obtenir l'ID de l'utilisateur connecté
-    public int getId_Utilisateur() {
+    public int Get_Id_Utilisateur() {
         return id_utilisateur;
     }
-   
-    
 
 }
