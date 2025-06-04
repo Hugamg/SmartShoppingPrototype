@@ -54,7 +54,7 @@ public class Repas_Recette_Controller {
     // Méthode pour obtenir les ids des recettes sélectionnés pour un repas spécifique
     
     public ArrayList<Integer> lister_Id_Recette_Un_Repas(int idRepas) {
-        ArrayList<ArrayList<Object>> lignes = requete.lister_Recette_unRepas(idRepas);
+        ArrayList<ArrayList<Object>> lignes = requete.listerRecetteUnRepas(idRepas);
         ArrayList<Integer> les_id = new ArrayList<>();
 
         for (ArrayList<Object> ligne : lignes) {
@@ -243,7 +243,7 @@ public class Repas_Recette_Controller {
     // Méthode pour récupérer l'id d'un repas en fonction d'un id d'utilisateur, d'une date de repas et d'un type de repas
     
     public Integer Get_Id_Repas(int id_utilisateur, Date date_repas, int id_type) {
-        ArrayList<ArrayList<Object>> resultat = requete.lister_unRepas(id_utilisateur, date_repas, id_type);
+        ArrayList<ArrayList<Object>> resultat = requete.listerUnRepas(id_utilisateur, date_repas, id_type);
 
         // Vérifie que le résultat n'est pas vide
         if (resultat != null && !resultat.isEmpty() && !resultat.get(0).isEmpty()) {

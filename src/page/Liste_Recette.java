@@ -55,9 +55,6 @@ public class Liste_Recette extends javax.swing.JPanel {
         Tableau_Recette = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         Liste_Recette = new javax.swing.JList<>();
-        Ajouter_Recette = new javax.swing.JButton();
-        Modifier_Recette = new javax.swing.JButton();
-        Supprimer_Recette = new javax.swing.JButton();
 
         jLabel2.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -89,12 +86,12 @@ public class Liste_Recette extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(Tableau_Recette);
 
-        Liste_Recette.setModel(new javax.swing.AbstractListModel<Recette_Item>() {
+        Liste_Recette.setModel(new javax.swing.AbstractListModel<entity.Recette_Item>() {
             @Override
 
             public int getSize() { return recetteList.size(); }
 
-            public Recette_Item getElementAt(int i) { return recetteList.get(i); }
+            public entity.Recette_Item getElementAt(int i) { return recetteList.get(i); }
         });
         Liste_Recette.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
@@ -112,17 +109,6 @@ public class Liste_Recette extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(Liste_Recette);
 
-        Ajouter_Recette.setText("Ajouter une Recette");
-
-        Modifier_Recette.setText("Modifier une Recette");
-
-        Supprimer_Recette.setText("Supprimer une Recette");
-        Supprimer_Recette.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Supprimer_RecetteActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -138,31 +124,19 @@ public class Liste_Recette extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(20, 20, 20)
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(86, 86, 86))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(Ajouter_Recette)
-                                .addGap(72, 72, 72)))
+                                .addContainerGap()
+                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(84, 84, 84)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(Field_LaRecette, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 763, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(Modifier_Recette)
-                                .addGap(227, 227, 227)
-                                .addComponent(Supprimer_Recette)
-                                .addGap(83, 83, 83)))))
-                .addContainerGap(33, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 763, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,15 +151,10 @@ public class Liste_Recette extends javax.swing.JPanel {
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Field_LaRecette, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
-                .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Ajouter_Recette, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Modifier_Recette, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Supprimer_Recette, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -206,7 +175,7 @@ public class Liste_Recette extends javax.swing.JPanel {
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 1, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -241,39 +210,10 @@ public class Liste_Recette extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_Liste_RecetteMouseClicked
 
-    private void Supprimer_RecetteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Supprimer_RecetteActionPerformed
-        // TODO add your handling code here:
-    /*int selectedRow = Liste_Recette.getAnchorSelectionIndex(); // Récupère l'index de la ligne sélectionnée
-        if (selectedRow != -1) { // Vérifie qu'une ligne est bien sélectionnée
-             
-            
-            DefaultListModel model = (DefaultListModel) Liste_Recette.getModel();
-            
-            int recetteId= (int)model.getElementAt(selectedRow);
-            boolean success = mainJFrame.getBDD().suppressionRecette(recetteId);
-            
-            if(success){
-                //Ont supprime la ligne sélectionnée
-                model.removeElementAt(selectedRow);
-                JOptionPane.showMessageDialog(this, "Ligne supprimée avec succès !");
-                }else {
-            if(model.getSize()==0){
-                JOptionPane.showMessageDialog(this, "La table est vide");
-            }else{
-                //si la table n'est pas vide et qu'une ligne ou plusieurs lignes n'est pas sélectionner 
-                JOptionPane.showMessageDialog(this, "Veuillez sélectionner une ligne pour");
-                }
-            }
-        }*/
-    }//GEN-LAST:event_Supprimer_RecetteActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton Ajouter_Recette;
     public javax.swing.JFormattedTextField Field_LaRecette;
-    public javax.swing.JList<Recette_Item> Liste_Recette;
-    public javax.swing.JButton Modifier_Recette;
-    public javax.swing.JButton Supprimer_Recette;
+    public javax.swing.JList<entity.Recette_Item> Liste_Recette;
     public javax.swing.JTable Tableau_Recette;
     public javax.swing.JLabel jLabel12;
     public javax.swing.JLabel jLabel2;

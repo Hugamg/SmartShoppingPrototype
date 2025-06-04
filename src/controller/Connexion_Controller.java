@@ -25,7 +25,7 @@ public class Connexion_Controller {
     // Méthode de vérification de connexion avec un identifiant entré et un mot de passe
     public boolean Verifier_Connexion(String identifiant, String mdp){
        
-        ArrayList<ArrayList<Object>> id = requete.connexion_Au_Service(identifiant, mdp);
+        ArrayList<ArrayList<Object>> id = requete.connexionAuService(identifiant, mdp);
         
         // Si aucun id n'est retourné,si il est vide ou inférieur 
         if (id != null && !id.isEmpty() && id.get(0).size() > 0){

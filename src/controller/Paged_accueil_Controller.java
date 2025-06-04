@@ -30,7 +30,7 @@ public class Paged_accueil_Controller {
     public DefaultComboBoxModel<Type_Ingredient_Item> Lister_Type_Ingredient(){
         DefaultComboBoxModel<Type_Ingredient_Item> model = new DefaultComboBoxModel<>();
         // Récupération des résultats SQL (la requête est déjà dans ton modèle)
-        ArrayList<ArrayList<Object>> listeTypeRepas = requete.lister_Type_Ingredient();
+        ArrayList<ArrayList<Object>> listeTypeRepas = requete.listerTypeIngredient();
 
         for (ArrayList<Object> ligne : listeTypeRepas) { // Pour chaque ligne de "listeTypeRepas"
             id = Integer.parseInt(ligne.get(0).toString());// Colonne ID

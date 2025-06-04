@@ -124,8 +124,6 @@ public class MainFrame extends javax.swing.JFrame {
         Page_Liste_Repas = new javax.swing.JMenuItem();
         Page_Ajout_Repas = new javax.swing.JMenuItem();
         Page_Liste_Recette = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        Page_Modif_mdp = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -167,18 +165,6 @@ public class MainFrame extends javax.swing.JFrame {
         });
         Accueil.add(Page_Liste_Recette);
 
-        jMenu1.setText("Compte");
-
-        Page_Modif_mdp.setText("Modification_mot de passe");
-        Page_Modif_mdp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Page_Modif_mdpActionPerformed(evt);
-            }
-        });
-        jMenu1.add(Page_Modif_mdp);
-
-        Accueil.add(jMenu1);
-
         jMenuBar1.add(Accueil);
 
         setJMenuBar(jMenuBar1);
@@ -204,14 +190,6 @@ public class MainFrame extends javax.swing.JFrame {
         this.revalidate();
         this.repaint();
     }//GEN-LAST:event_Menu_AccueilActionPerformed
-
-    private void Page_Modif_mdpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Page_Modif_mdpActionPerformed
-        // TODO add your handling code here:
-        SwithPanel("pageNouveaumot_de_passe");
-        // Mettre à jour l'interface utilisateur
-        this.revalidate();
-        this.repaint();
-    }//GEN-LAST:event_Page_Modif_mdpActionPerformed
 
     private void Page_Liste_RepasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Page_Liste_RepasActionPerformed
         // TODO add your handling code here:
@@ -297,8 +275,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem Page_Ajout_Repas;
     private javax.swing.JMenuItem Page_Liste_Recette;
     private javax.swing.JMenuItem Page_Liste_Repas;
-    private javax.swing.JMenuItem Page_Modif_mdp;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
 }

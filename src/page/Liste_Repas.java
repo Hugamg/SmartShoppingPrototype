@@ -149,6 +149,8 @@ public class Liste_Repas extends javax.swing.JPanel {
                 "Date du repas", "Type de repas", "Personne(s)", "Recette(s)"
             }
         ));
+        Repas_recette.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        Repas_recette.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         Repas_recette.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Repas_recetteMouseClicked(evt);
@@ -161,13 +163,9 @@ public class Liste_Repas extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(153, 153, 153)
+                .addGap(79, 79, 79)
                 .addComponent(BoutonAjout_ListeRepas, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BoutonModif_ListeRepas, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(125, 125, 125)
-                .addComponent(BoutonSupprimer_ListeRepas, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(134, 134, 134))
+                .addGap(134, 867, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -181,8 +179,13 @@ public class Liste_Repas extends javax.swing.JPanel {
                         .addComponent(Filtre_Date2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(464, 464, 464)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(368, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(BoutonModif_ListeRepas, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(BoutonSupprimer_ListeRepas, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(78, 78, 78))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -190,8 +193,8 @@ public class Liste_Repas extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                     .addContainerGap(20, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1094, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(36, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1058, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(72, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,16 +210,16 @@ public class Liste_Repas extends javax.swing.JPanel {
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 431, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BoutonSupprimer_ListeRepas)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(BoutonAjout_ListeRepas)
-                        .addComponent(BoutonModif_ListeRepas)))
+                        .addComponent(BoutonSupprimer_ListeRepas)
+                        .addComponent(BoutonModif_ListeRepas))
+                    .addComponent(BoutonAjout_ListeRepas))
                 .addGap(23, 23, 23))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                     .addContainerGap(164, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(102, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(89, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -263,31 +266,43 @@ public class Liste_Repas extends javax.swing.JPanel {
 
     private void BoutonSupprimer_ListeRepasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonSupprimer_ListeRepasActionPerformed
         // TODO add your handling code here:
-        //définir en premier le modèle de la table 
-        DefaultTableModel model = (DefaultTableModel) Repas_recette.getModel();
-        //supprimer les données existantes
+        //Définir en premier le modèle de la table 
 
-        // Vérifier si une ligne est sélectionnée
-        int selectedRow = Repas_recette.getSelectedRow();
-        if (selectedRow != -1){//si une ligne est sélectionner 
-
-            int repasId = (int)model.getValueAt(selectedRow, 0);
-            // Appeler la méthode suppressionRecette dans la BDD pour supprimer la recette
-            boolean success = mainJFrame.getBDD().supprimerRepas(repasId);
-
-            if(success){
-                //Ont supprime la ligne sélectionnée
-                model.removeRow(selectedRow);
-                JOptionPane.showMessageDialog(this, "Ligne supprimée avec succès !");
+        int id = mainJFrame.getId_Repas();
+        
+        
+        if(id <= 0){
+                javax.swing.JOptionPane.showMessageDialog(this, 
+                "Veuillez sélectionné un repas pour le supprimer", 
+                "Erreur choix de repas", 
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+        }else{
+            // Demander une confirmation à l'utilisateur
+            int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Êtes-vous sûr de vouloir supprimer cette ligne ?",
+                "Confirmation de suppression",
+                JOptionPane.YES_NO_OPTION
+            );
+            
+            if (confirm == JOptionPane.YES_OPTION) {
+                // Appeler la méthode suppressionRepas dans la BDD pour supprimer la recette
+                boolean success = mainJFrame.getBDD().supprimerRepas(id);
+                
+                if (success) {
+                    JOptionPane.showMessageDialog(this, "Ligne supprimée avec succès !");
+                    
+                    
+                    // Mettre à jour l'interface utilisateur
+                    this.revalidate();
+                    this.repaint();
                 }else {
-                    if(model.getRowCount()==0){
-                        JOptionPane.showMessageDialog(this, "La table est vide");
-                    }else{
-                        //si la table n'est pas vide et qu'une ligne ou plusieurs lignes n'est pas sélectionner 
-                        JOptionPane.showMessageDialog(this, "Veuillez sélectionner une ligne pour");
-                        }
+                    JOptionPane.showMessageDialog(this, "La suppression a échoué dans la base de données.");
                 }
+            }
         }
+        
+        
     }//GEN-LAST:event_BoutonSupprimer_ListeRepasActionPerformed
 
     private void BoutonModif_ListeRepasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonModif_ListeRepasActionPerformed
@@ -298,7 +313,7 @@ public class Liste_Repas extends javax.swing.JPanel {
             if(id <= 0){
                 javax.swing.JOptionPane.showMessageDialog(this, 
                 "Veuillez sélectionné un repas", 
-                "Erreur chois de repas", 
+                "Erreur choix de repas", 
                 javax.swing.JOptionPane.ERROR_MESSAGE);
             }else{
             // Appel vers la fenêtre de modification du repas

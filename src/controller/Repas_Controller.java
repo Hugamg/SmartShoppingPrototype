@@ -64,7 +64,7 @@ public class Repas_Controller {
     public DefaultComboBoxModel<Type_Repas_Item> Lister_Type_Repas(){
         DefaultComboBoxModel<Type_Repas_Item> model = new DefaultComboBoxModel<>();
         // Récupération des résultats SQL (la requête est déjà dans ton modèle)
-        ArrayList<ArrayList<Object>> listeTypeRepas = requete.lister_Type_Repas();
+        ArrayList<ArrayList<Object>> listeTypeRepas = requete.listerTypeRepas();
 
         for (ArrayList<Object> ligne : listeTypeRepas) {
             id = Integer.parseInt(ligne.get(0).toString());// Colonne ID
@@ -81,7 +81,7 @@ public class Repas_Controller {
     // Méthode pour obtenir un type de repas pour un repas spécifique dans la JCombobox
     
     public Type_Repas_Item Lister_Un_Type_Repas(int id_repas){
-        ArrayList<ArrayList<Object>> resultats = requete.lister_Type_unRepas(id_repas);
+        ArrayList<ArrayList<Object>> resultats = requete.listerTypeUnRepas(id_repas);
         if (!resultats.isEmpty()) {
             ArrayList<Object> ligne = resultats.get(0);
             int id = Integer.parseInt(ligne.get(0).toString());
@@ -140,7 +140,7 @@ public class Repas_Controller {
     public DefaultComboBoxModel Lister_Date_Repas(int id_utilisateur){
         DefaultComboBoxModel model = new DefaultComboBoxModel<>();
         // Récupération des résultats SQL
-        ArrayList<ArrayList<Object>> listeDateRepas = requete.lister_Date_Repas_Utilisateur(id_utilisateur);
+        ArrayList<ArrayList<Object>> listeDateRepas = requete.listerDateRepasUtilisateur(id_utilisateur);
 
         for (ArrayList<Object> ligne : listeDateRepas) {
             String date = ligne.get(0).toString(); // Colonne nom
@@ -155,7 +155,7 @@ public class Repas_Controller {
     public String Lister_Date_Un_Repas(int id_repas){
         JTextField model = new JTextField();
         // Récupération des résultats SQL 
-        ArrayList<ArrayList<Object>> listeDateRepas = requete.lister_Date_Repas_unRepas(id_repas);
+        ArrayList<ArrayList<Object>> listeDateRepas = requete.listerDateRepasUnRepas(id_repas);
         
         if(!listeDateRepas.isEmpty()){
             Object date = listeDateRepas.get(0).get(0);
@@ -178,7 +178,7 @@ public class Repas_Controller {
     public String Lister_Personne_Un_Repas(int id_repas){
         JTextField model = new JTextField();
         // Récupération des résultats SQL 
-        ArrayList<ArrayList<Object>> listePersonneRepas = requete.lister_Personne_unRepas(id_repas);
+        ArrayList<ArrayList<Object>> listePersonneRepas = requete.listerPersonneUnRepas(id_repas);
         
         if(!listePersonneRepas.isEmpty()){
             Object personne = listePersonneRepas.get(0).get(0);
